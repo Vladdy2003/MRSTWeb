@@ -164,3 +164,203 @@ h2 {
 .service-card:hover {
     transform: scale(1.05);
 }
+
+.hidden {
+    display: none;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.filters-btn {
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    font: inherit;
+    padding: 0px 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+    .filters-btn:hover {
+        opacity: 0.9;
+        cursor: pointer;
+        background-color: rgb(20, 20, 20);
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 5px;
+        transform: scale(1.02);
+    }
+
+.filters {
+    padding: 10px 15px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+    width: 250px;
+    min-width: 20%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.date {
+    width: 120px;
+    max-width: 60%;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: rgb(240, 240, 240);
+    transition: all 0.3s ease-in-out;
+    margin-left: 5px;
+}
+
+    .date:focus {
+        opacity: 0.9;
+        color: #fff;
+        background-color: rgb(20, 20, 20);
+        transform: scale(1.05);
+        border: 2px solid black;
+    }
+
+    .date:hover {
+        background-color: rgb(20, 20, 20);
+        color: #fff;
+        opacity: 0.9;
+        cursor: pointer;
+        border: 2px solid black;
+    }
+
+.price {
+    display: flex;
+    align-items: center;
+    margin-left: 5px
+}
+
+#price-min {
+    margin-right: 3px
+}
+
+#price-max {
+    margin-left: 3px;
+}
+
+.price-size {
+    width: 60px;
+    max-width: 25%;
+    background: rgb(240, 240, 240);
+    border: 2px solid #ccc;
+    border-radius: 3px;
+}
+
+    .price-size:focus {
+        background: rgb(20, 20, 20);
+        opacity: 0.9;
+        color: #fff;
+        border: 2px solid black;
+        cursor: pointer;
+        transform: scale(1.05);
+    }
+
+    .price-size:hover {
+        background: rgb(20, 20, 20);
+        opacity: 0.9;
+        color: #fff;
+        border: 2px solid black;
+        cursor: pointer;
+    }
+
+.reset-btn {
+    margin: 10px 0px;
+}
+
+    .reset-btn:hover {
+        margin: 10px 0px;
+    }
+
+aside h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 20px 3px 3px 3px
+}
+
+.custom {
+    margin: 25px;
+    min-width: 28%;
+}
+
+.col-edit {
+    margin-left: 45px;
+    padding-top: 25px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 20px;
+    border-radius: 15px;
+    max-height: 350px
+}
+
+    .card:hover {
+        cursor: pointer;
+        transform: scale(1.03) translateY(-10px);
+        transition: all .2s ease-in-out;
+    }
+
+.card_image {
+    min-height: 180px;
+    margin-bottom: 15px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.card h4 {
+    text-align: center;
+    color: rgb(20, 20, 20);
+    font-size: 20px
+}
+
+.card p {
+    padding: 0px 25px;
+    font-size: 15px;
+}
+
+.card a {
+    background-color: rgb(20, 20, 20);
+    color: #fff;
+    padding: 5px 15px;
+    display: block;
+    text-align: center;
+    margin: 5px auto;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+    .card a:hover {
+        background-color: #ccc;
+        color: rgb(20, 20, 20);
+        border: 1px solid black;
+    }
+
+.artist-1 {
+    background-image: url(/img/themotans.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.custom-2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 30px;
+    padding-left: 30px;
+}
+
+.pages {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 50px;
+    text-align: center;
+    min-width: 100%;
+}
