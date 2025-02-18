@@ -1,0 +1,166 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Josefin Sans", serif;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    background: #fff;
+}
+
+.nav-logo img {
+    width: 12rem;
+}
+
+.button-nav-a {
+    margin-left: 5px;
+    margin-right: 5px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    display: inline-block;
+    transform: skew(21deg);
+    text-align: center;
+}
+
+.button-nav {
+    background: #fff;
+    border: none;
+    padding: 10px 20px;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 600;
+    width: 120px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transform: skew(-21deg);
+}
+
+.button-nav::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 100%;
+    left: 0;
+    background: rgb(20, 20, 20);
+    opacity: 0;
+    z-index: -1;
+    transition: all 0.5s;
+}
+
+.button-nav:hover {
+    color: #ffffff;
+}
+
+.button-nav:hover::before {
+    left: 0;
+    right: 0;
+    opacity: 1;
+}
+
+hr {
+    width: 100%;
+    margin-top: 0px;
+}
+.img-presentation {
+    border-radius: 75px 217px 75px 217px;
+    opacity: 0.80;
+    width: 100%;
+    left: 70px;
+    top: 173px;
+    box-shadow: 0px 15px 22.4px 13px rgba(0, 0, 0, 0.25);
+    object-fit: cover;
+}
+
+/* Stilizare text */
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 1.8rem;
+    color: #333;
+}
+
+/* Search Box */
+.search-container {
+    margin-top: 50px;
+}
+
+.search-box {
+    display: flex;
+    background: white;
+    border-radius: 50px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.search-box input {
+    flex-grow: 1;
+    border: none;
+    padding: 15px;
+    font-size: 1rem;
+    outline: none;
+}
+
+.search-box .button {
+    background: #4a6f52;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.search-box button:hover {
+    background: #3a5a40;
+}
+
+.servicii-populare {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.servicii-populare {
+    background-color: #f8f3fc;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.service-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    padding-bottom: 10px;
+}
+
+.service-card img {
+    width: 100%;
+    border-bottom: 2px solid #ddd;
+}
+
+.service-card p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.service-card:hover {
+    transform: scale(1.05);
+}
