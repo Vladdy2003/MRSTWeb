@@ -176,6 +176,7 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\services.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Services\Index.cshtml" />
   </ItemGroup>
