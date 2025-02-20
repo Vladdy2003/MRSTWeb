@@ -185,15 +185,15 @@ ul {
     transition: all 0.3s ease-in-out;
 }
 
-    .filters-btn:hover {
-        opacity: 0.9;
-        cursor: pointer;
-        background-color: rgb(20, 20, 20);
-        color: #fff;
-        padding: 5px 10px;
-        border-radius: 5px;
-        transform: scale(1.02);
-    }
+.filters-btn:hover {
+    opacity: 0.9;
+    cursor: pointer;
+    background-color: rgb(20, 20, 20);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transform: scale(1.02);
+}
 
 .filters {
     padding: 10px 15px;
@@ -215,21 +215,21 @@ ul {
     margin-left: 5px;
 }
 
-    .date:focus {
-        opacity: 0.9;
-        color: #fff;
-        background-color: rgb(20, 20, 20);
-        transform: scale(1.05);
-        border: 2px solid black;
-    }
+.date:focus {
+    opacity: 0.9;
+    color: #fff;
+    background-color: rgb(20, 20, 20);
+    transform: scale(1.05);
+    border: 2px solid black;
+}
 
-    .date:hover {
-        background-color: rgb(20, 20, 20);
-        color: #fff;
-        opacity: 0.9;
-        cursor: pointer;
-        border: 2px solid black;
-    }
+.date:hover {
+    background-color: rgb(20, 20, 20);
+    color: #fff;
+    opacity: 0.9;
+    cursor: pointer;
+    border: 2px solid black;
+}
 
 .price {
     display: flex;
@@ -253,30 +253,30 @@ ul {
     border-radius: 3px;
 }
 
-    .price-size:focus {
-        background: rgb(20, 20, 20);
-        opacity: 0.9;
-        color: #fff;
-        border: 2px solid black;
-        cursor: pointer;
-        transform: scale(1.05);
-    }
+.price-size:focus {
+    background: rgb(20, 20, 20);
+    opacity: 0.9;
+    color: #fff;
+    border: 2px solid black;
+    cursor: pointer;
+    transform: scale(1.05);
+}
 
-    .price-size:hover {
-        background: rgb(20, 20, 20);
-        opacity: 0.9;
-        color: #fff;
-        border: 2px solid black;
-        cursor: pointer;
-    }
+.price-size:hover {
+    background: rgb(20, 20, 20);
+    opacity: 0.9;
+    color: #fff;
+    border: 2px solid black;
+    cursor: pointer;
+}
 
 .reset-btn {
     margin: 10px 0px;
 }
 
-    .reset-btn:hover {
-        margin: 10px 0px;
-    }
+.reset-btn:hover {
+    margin: 10px 0px;
+}
 
 aside h3 {
     font-size: 20px;
@@ -302,11 +302,11 @@ aside h3 {
     max-height: 350px
 }
 
-    .card:hover {
-        cursor: pointer;
-        transform: scale(1.03) translateY(-10px);
-        transition: all .2s ease-in-out;
-    }
+.card:hover {
+    cursor: pointer;
+    transform: scale(1.03) translateY(-10px);
+    transition: all .2s ease-in-out;
+}
 
 .card_image {
     min-height: 180px;
@@ -337,11 +337,11 @@ aside h3 {
     border-radius: 10px;
 }
 
-    .card a:hover {
-        background-color: #ccc;
-        color: rgb(20, 20, 20);
-        border: 1px solid black;
-    }
+.card a:hover {
+    background-color: #ccc;
+    color: rgb(20, 20, 20);
+    border: 1px solid black;
+}
 
 .artist-1 {
     background-image: url(/img/themotans.jpg);
