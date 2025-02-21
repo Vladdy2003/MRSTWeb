@@ -177,6 +177,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\services.js" />
+    <None Include="Views\Shared\_Header.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Views\Services\Index.cshtml" />
   </ItemGroup>

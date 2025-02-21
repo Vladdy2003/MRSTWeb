@@ -7,45 +7,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eveniment.md</title>
 
-    <link rel="stylesheet" href="~/Content/Styles/style.css">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/Styles/style.css">
     @Styles.Render("~/bundles/bootstrap/css")
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="row">
-            <div class="col-lg-12">
-                <header class="d-flex justify-content-between align-items-center">
-                    <div class="nav-logo">
-                        <img src="~/Resources/Home/logo.png" alt="logo_eveniment.md">
-                    </div>
-                    <nav>
-                        <a href="@Url.Action("Index", "Home")" class="button-nav-a">
-                            <p class="button-nav">Acasă</p>
-                        </a>
-                        <a href="@Url.Action("Index", "Services")" class="button-nav-a">
-                            <p class="button-nav">Servicii</p>
-                        </a>
-                        <a href="#" class="button-nav-a">
-                            <p class="button-nav">Logare</p>
-                        </a>
-                    </nav>
-                </header>
-                <hr>
-            </div>
+    <!-- Header -->
+    <div class="header-wrapper">
+        <div class="container">
+            @Html.Partial("_Header")
         </div>
     </div>
+    
+    <!-- Body -->
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
-
+    
+    <!-- Footer -->
+    <div class="footer-wrapper">
+        <div class="container">
+            <footer class="row py-4">
+                @Html.Partial("_Footer")
+            </footer>
+        </div>
+    </div>
+    
     @Scripts.Render("~/bundles/bootstrap/js")
     @Scripts.Render("~/bundles/services")
 </body>
