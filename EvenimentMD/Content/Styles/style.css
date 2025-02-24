@@ -5,7 +5,7 @@
     font-family: "Josefin Sans", serif;
 }
 
-body{
+body {
     background-color: #ebf5ee;
 }
 
@@ -21,7 +21,7 @@ body{
 }
 
 .header-wrapper header {
-    color: #283044;/* Culoarea textului */
+    color: #283044; /* Culoarea textului */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -40,7 +40,7 @@ footer {
     color: #283044; /* Culoarea textului */
 }
 
-.footer-logo img{
+.footer-logo img {
     width: 15rem;
 }
 
@@ -96,22 +96,22 @@ footer {
     opacity: 1;
 }
 
-hr {
-    width: 100%;
-    margin-top: 0px;
-}
-
-.img-presentation {
+.img-presentation img {
     border-radius: 75px 217px 75px 217px;
     opacity: 0.80;
     width: 100%;
+    height: 100%;
     left: 70px;
     top: 173px;
     box-shadow: 5px 5px 22.4px 5px rgba(0, 0, 0, 0.25);
-    object-fit: cover;
+    overflow: hidden;
 }
 
-/* Stilizare text */
+.img-presentation-cover {
+    object-fit: cover;
+    
+}
+
 h1 {
     font-size: 2.5rem;
     font-weight: bold;
@@ -122,7 +122,6 @@ h2 {
     color: #333;
 }
 
-/* Search Box */
 .search-container {
     margin-top: 50px;
 }
@@ -185,6 +184,7 @@ h2 {
 
 .service-card img {
     width: 100%;
+    height: 250px;
     border-bottom: 2px solid #ddd;
 }
 
@@ -196,6 +196,68 @@ h2 {
 
 .service-card:hover {
     transform: scale(1.05);
+}
+
+.prestatori-recomandati {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #f8f3fc;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.prestator-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s ease-in-out;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.prestator-card img {
+    object-fit: cover;
+    width: 100%;
+    height: 250px;
+    border-bottom: 2px solid #ddd;
+}
+
+.prestatori-detalii {
+    text-align: left; /* Adăugat */
+    padding: 10px; /* Adăugat pentru spațiere */
+}
+
+.prestator-card p {
+    font-size: 1rem;
+    margin-top: 5px;
+}
+
+.detail-button {
+    padding: 10px 40px;
+    margin-bottom: 5px;
+    border: 0;
+    border-radius: 100px;
+    background-color: #78a1bb;
+    color: #283044;
+    border: 1px solid #283044;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+}
+  
+.detail-button:hover {
+    background-color: #78a1bb;
+    box-shadow: 0 0 20px #6fc5ff50;
+    transform: scale(1.1);
+}
+  
+.detail-button:active {
+    background-color: #78a1bb;
+    transition: all 0.25s;
+    -webkit-transition: all 0.25s;
+    box-shadow: none;
+    transform: scale(0.98);
 }
 
 .hidden {
