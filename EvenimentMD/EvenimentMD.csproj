@@ -177,6 +177,8 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\services.js" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\LogIn\LogInIndex.cshtml" />
     <None Include="Views\Shared\_Header.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Views\Services\Index.cshtml" />
@@ -185,6 +187,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LogInController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
