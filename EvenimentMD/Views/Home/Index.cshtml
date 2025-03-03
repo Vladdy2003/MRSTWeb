@@ -1,30 +1,33 @@
 ﻿<body>
     <div class="container">
-        <!-- Rând cu imagine și text -->
-        <div class="row align-items-center">
-            <div class="col-lg-6">
+        <div class="row d-flex align-items-center">
+            <div class="col-md-6">
                 <div class="img-presentation">
                     <img src="~/Resources/Home/event.png" alt="poză_eveniment" class="img-presentation-cover">
                 </div>
             </div>
+
             <div class="col-lg-6">
-                <h1 class="fw-bold">Servicii pentru orice eveniment</h1>
-                <h2>SIMPLU, RAPID, SIGUR!</h2>
-            </div>
-        </div>
-        <!-- Rând cu search (sub imagine și text) -->
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="search-container">
-                    <div class="search-box">
-                        <input type="text" placeholder="Fotograf, DJ, Catering...">
-                        <button class="button">Căutare</button>
+                <div class="row">
+                    <div class="home_text_pres">
+                        <h1 class="fw-bold">Servicii pentru orice eveniment</h1>
+                        <h2>SIMPLU, RAPID, SIGUR!</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="InputContainer">
+                        <input placeholder="Search" id="input" class="input" name="text" type="text">
+                        <label class="labelforsearch" for="input">
+                            <svg class="searchIcon" viewBox="0 0 512 512">
+                                <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"></path>
+                            </svg>
+                        </label>
                     </div>
                 </div>
             </div>
         </div>
 
-        <section class="servicii-populare">
+        <section class="popular-services">
             <div class="container">
                 <h2 class="title">SERVICII POPULARE</h2>
                 <div class="row">
@@ -50,14 +53,14 @@
             </div>
         </section>
 
-        <section class="prestatori-recomandati">
+        <section class="recomanded-providers">
             <div class="container">
                 <h2 class="title">PRESTATORI RECOMANDAȚI</h2>
                     <div class="row">
                         <div class="col-lg-3">
-                            <div class="prestator-card">
+                            <div class="provider-card">
                                 <img src="~/Resources/Home/photograph.jpg" alt="Prestator 1">
-                                <div class="prestatori-detalii">
+                                <div class="provider-details">
                                     <h3>Nume Prestator 1</h3>
                                     <p>Categoria: Fotograf</p>
                                     <p>Rating: ⭐ 4.9/5</p>
@@ -66,9 +69,9 @@
                             </div>
                         </div>
                         <div class="col-lg-3">
-                            <div class="prestator-card">
+                            <div class="provider-card">
                                 <img src="~/Resources/Home/music.jpeg" alt="Prestator 2">
-                                <div class="prestatori-detalii">
+                                <div class="provider-details">
                                     <h3>Nume Prestator 2</h3>
                                     <p>Categoria: DJ</p>
                                     <p>Rating: ⭐ 4.9/5</p>
@@ -77,9 +80,9 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="prestator-card">
+                            <div class="provider-card">
                                 <img src="~/Resources/Home/decor.jpeg" alt="Prestator 3">
-                                <div class="prestatori-detalii">
+                                <div class="provider-details">
                                     <h3>Nume Prestator 3</h3>
                                     <p>Categoria: Catering</p>
                                     <p>Rating: ⭐ 4.9/5</p>
@@ -88,9 +91,9 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="prestator-card">
+                            <div class="provider-card">
                                 <img src="~/Resources/Home/decor.jpeg" alt="Prestator 3">
-                                <div class="prestatori-detalii">
+                                <div class="provider-details">
                                     <h3>Nume Prestator 4</h3>
                                     <p>Categoria: Catering</p>
                                     <p>Rating: ⭐ 4.9/5</p>
