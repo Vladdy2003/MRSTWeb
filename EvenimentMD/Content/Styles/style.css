@@ -5,8 +5,16 @@
     font-family: "Josefin Sans", serif;
 }
 
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 .body-container{
+    flex: 1;
     margin-top: 50px;
+    align-items: center;
 }
 
 .header-wrapper {
@@ -28,7 +36,7 @@
 }
 
 .header-wrapper header {
-    color: #283044; /* Culoarea textului */
+    color: #283044; 
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -46,6 +54,8 @@
     position: relative;
     left: 0;
     right: 0;
+    bottom: 0;
+    margin-top: auto;
 }
 
 footer {
@@ -346,7 +356,6 @@ ul {
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
     width: 250px;
     min-width: 20%;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 .date {
@@ -445,7 +454,8 @@ aside h3 {
     background-color: #fff;
     border-radius: 20px;
     border-radius: 15px;
-    max-height: 350px
+    max-height: 350px;
+    
 }
 
 .card:hover {
@@ -512,25 +522,41 @@ aside h3 {
 }
 
 .login_form {
-    margin-bottom: 50px;
     display: flex;
+    margin-bottom: 50px;
     flex-direction: column;
     gap: 10px;
     background-color: #ffffff;
     padding: 30px;
     width: 450px;
     border-radius: 20px;
+    position: relative;
+    border: 2px solid #283044;
 }
-  
+
+.login_form h2 {
+    margin: 0;
+    padding: 0 10px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #283044;
+    text-align: center;
+    background-color: #ffffff;
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .form button {
     align-self: flex-end;
 }
-  
+
 .flex-column > label {
     color: #151717;
     font-weight: 600;
 }
-  
+
 .inputForm {
     border: 1.5px solid #ecedec;
     border-radius: 10px;
@@ -540,23 +566,23 @@ aside h3 {
     padding-left: 10px;
     transition: 0.2s ease-in-out;
 }
-  
-  .input {
+
+.input {
     margin-left: 10px;
     border-radius: 10px;
     border: none;
     width: 85%;
     height: 100%;
 }
-  
+
 .input:focus {
     outline: none;
 }
-  
+
 .inputForm:focus-within {
-    border: 1.5px solid #2d79f3;
+    border: 1.5px solid #db3056;
 }
-  
+
 .flex-row {
     display: flex;
     flex-direction: row;
@@ -564,13 +590,13 @@ aside h3 {
     gap: 10px;
     justify-content: space-between;
 }
-  
+
 .flex-row > div > label {
     font-size: 14px;
     color: black;
     font-weight: 400;
-  }
-  
+}
+
 .span {
     font-size: 14px;
     margin-left: 5px;
@@ -578,10 +604,10 @@ aside h3 {
     font-weight: 500;
     cursor: pointer;
 }
-  
+
 .button-submit {
     margin: 20px 0 10px 0;
-    background-color: #151717;
+    background-color: #db3056;
     border: none;
     color: white;
     font-size: 15px;
@@ -591,18 +617,18 @@ aside h3 {
     width: 100%;
     cursor: pointer;
 }
-  
+
 .button-submit:hover {
-    background-color: #252727;
+    background-color: #e9496c;
 }
-  
+
 .p {
     text-align: center;
     color: black;
     font-size: 14px;
     margin: 5px 0;
 }
-  
+
 .btn {
     margin-top: 10px;
     width: 100%;
@@ -618,8 +644,30 @@ aside h3 {
     cursor: pointer;
     transition: 0.2s ease-in-out;
 }
-  
+
 .btn:hover {
     border: 1px solid #2d79f3;
-    ;
+}
+
+.or-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.line {
+    flex: 1;
+    height: 1px;
+    background-color: #ccc;
+    margin: 0 10px;
+    opacity: 0.7;
+}
+
+.or-text {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+    margin: 0;
+    padding: 0 10px;
 }

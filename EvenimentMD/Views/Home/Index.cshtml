@@ -7,7 +7,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-6">
+            <div class="col-6">
                 <div class="row">
                     <div class="home_text_pres">
                         <h1 class="fw-bold">Servicii pentru orice eveniment</h1>
@@ -31,19 +31,19 @@
             <div class="container">
                 <h2 class="title">SERVICII POPULARE</h2>
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-4">
                         <div class="service-card">
                             <img src="~/Resources/Home/photograph.jpg" alt="Fotografi & Videografi">
                             <p>Fotografi & Videografi</p>
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-4">
                         <div class="service-card">
                             <img src="~/Resources/Home/music.jpeg" alt="Muzică & DJ">
                             <p>Muzică & DJ</p>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-4">
                         <div class="service-card">
                             <img src="~/Resources/Home/decor.jpeg" alt="Decor">
                             <p>Decor</p>
@@ -57,50 +57,21 @@
             <div class="container">
                 <h2 class="title">PRESTATORI RECOMANDAȚI</h2>
                     <div class="row">
-                        <div class="col-lg-3">
-                            <div class="provider-card">
-                                <img src="~/Resources/Home/photograph.jpg" alt="Prestator 1">
-                                <div class="provider-details">
-                                    <h3>Nume Prestator 1</h3>
-                                    <p>Categoria: Fotograf</p>
-                                    <p>Rating: ⭐ 4.9/5</p>
+                        @{
+                            for (int i = 0; i < 4; i++){
+                                <div class="col-3">
+                                    <div class="provider-card">
+                                        <img src="~/Resources/Home/decor.jpeg" alt="Prestator 3">
+                                        <div class="provider-details">
+                                            <h3>Nume Prestator @(i + 1)</h3>
+                                            <p>Categoria: Catering</p>
+                                            <p>Rating: ⭐ 4.9/5</p>
+                                        </div>
+                                        <button class="detail-button">Detalii</button>
+                                    </div>
                                 </div>
-                                <button class="detail-button">Detalii</button>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="provider-card">
-                                <img src="~/Resources/Home/music.jpeg" alt="Prestator 2">
-                                <div class="provider-details">
-                                    <h3>Nume Prestator 2</h3>
-                                    <p>Categoria: DJ</p>
-                                    <p>Rating: ⭐ 4.9/5</p>
-                                </div>
-                                <button class="detail-button">Detalii</button>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="provider-card">
-                                <img src="~/Resources/Home/decor.jpeg" alt="Prestator 3">
-                                <div class="provider-details">
-                                    <h3>Nume Prestator 3</h3>
-                                    <p>Categoria: Catering</p>
-                                    <p>Rating: ⭐ 4.9/5</p>
-                                </div>
-                                <button class="detail-button">Detalii</button>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="provider-card">
-                                <img src="~/Resources/Home/decor.jpeg" alt="Prestator 3">
-                                <div class="provider-details">
-                                    <h3>Nume Prestator 4</h3>
-                                    <p>Categoria: Catering</p>
-                                    <p>Rating: ⭐ 4.9/5</p>
-                                </div>
-                                <button class="detail-button">Detalii</button>
-                            </div>
-                        </div>
+                            }
+                        }
                     </div>
                 </div>
             </div>

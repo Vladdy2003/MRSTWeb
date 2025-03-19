@@ -178,7 +178,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\services.js" />
     <Content Include="Views\Shared\_Footer.cshtml" />
-    <Content Include="Views\LogIn\LogInIndex.cshtml" />
+    <Content Include="Views\Auth\AuthIndex.cshtml" />
     <None Include="Views\Shared\_Header.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Views\Services\Index.cshtml" />
@@ -187,11 +187,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LogInController.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\SingUp\UserDataSignUp.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.8.1.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -249,8 +250,17 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
     <Folder Include="obj\Debug\TempPE\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EvenimentMD.BusinessLogic\EvenimentMD.BusinessLogic.csproj">
+      <Project>{84eb9400-d291-4823-b548-b2a6c317cbf2}</Project>
+      <Name>EvenimentMD.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EvenimentMD.Domain\EvenimentMD.Domain.csproj">
+      <Project>{3378a0bd-8689-47c6-b09c-c5fb570cdf10}</Project>
+      <Name>EvenimentMD.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

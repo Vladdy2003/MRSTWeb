@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35806.99 d17.13
+VisualStudioVersion = 17.13.35806.99
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvenimentMD", "EvenimentMD\EvenimentMD.csproj", "{FC2793F3-C98D-42AC-9876-ABCDCB12AB97}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvenimentMD.Web", "EvenimentMD\EvenimentMD.Web.csproj", "{FC2793F3-C98D-42AC-9876-ABCDCB12AB97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvenimentMD.BusinessLogic", "EvenimentMD.BusinessLogic\EvenimentMD.BusinessLogic.csproj", "{84EB9400-D291-4823-B548-B2A6C317CBF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvenimentMD.Domain", "EvenimentMD.Domain\EvenimentMD.Domain.csproj", "{3378A0BD-8689-47C6-B09C-C5FB570CDF10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvenimentMD.Helper", "EvenimentMD.Helper\EvenimentMD.Helper.csproj", "{989DB14C-6804-464B-A816-A9802F4087A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{FC2793F3-C98D-42AC-9876-ABCDCB12AB97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC2793F3-C98D-42AC-9876-ABCDCB12AB97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC2793F3-C98D-42AC-9876-ABCDCB12AB97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84EB9400-D291-4823-B548-B2A6C317CBF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84EB9400-D291-4823-B548-B2A6C317CBF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84EB9400-D291-4823-B548-B2A6C317CBF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84EB9400-D291-4823-B548-B2A6C317CBF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3378A0BD-8689-47C6-B09C-C5FB570CDF10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3378A0BD-8689-47C6-B09C-C5FB570CDF10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3378A0BD-8689-47C6-B09C-C5FB570CDF10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3378A0BD-8689-47C6-B09C-C5FB570CDF10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{989DB14C-6804-464B-A816-A9802F4087A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{989DB14C-6804-464B-A816-A9802F4087A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{989DB14C-6804-464B-A816-A9802F4087A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{989DB14C-6804-464B-A816-A9802F4087A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

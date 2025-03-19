@@ -16,7 +16,7 @@ namespace EvenimentMD.App_Start
             //Bootstrap JS
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include("~/Scripts/bootstrap.js", "~/Scripts/respond.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/services").Include("~/Scripts/services.js"));
+            bundles.Add(new ScriptBundle("~/bundles/services").Include("~/Scripts/services.js", "~/Scripts/login.js"));
         }
     }
 }
