@@ -170,6 +170,7 @@
     <Content Include="Resources\Home\logo.png" />
     <Content Include="Resources\Home\music.jpeg" />
     <Content Include="Resources\Home\photograph.jpg" />
+    <Content Include="Resources\Services\themotans.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -188,10 +189,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\LogInController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\LogIn\UserDataLogIn.cs" />
     <Compile Include="Models\SingUp\UserDataSignUp.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.8.1.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -251,6 +254,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="Views\LogIn\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EvenimentMD.BusinessLogic\EvenimentMD.BusinessLogic.csproj">

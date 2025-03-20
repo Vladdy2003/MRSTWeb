@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EvenimentMD.Domain.Model;
+using EvenimentMD.Domain.Models;
 
 namespace EvenimentMD.BusinessLogic.Core
 {
@@ -14,5 +15,9 @@ namespace EvenimentMD.BusinessLogic.Core
             return "token-key";
         }
 
+        public string UserLogInLogicAction(UserLogInData data)
+        {
+            return "token-key";
+        }
     }
 }
