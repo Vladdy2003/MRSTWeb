@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,6 +9,7 @@ using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
 using EvenimentMD.App_Start;
+using EvenimentMD.BusinessLogic.DatabaseContext;
 
 namespace EvenimentMD
 {
@@ -20,6 +22,8 @@ namespace EvenimentMD
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             BundleConfig.RegistrationBundles(BundleTable.Bundles);
+
+            Database.SetInitializer(new CreateDatabaseIfNotExists<UserContext>());
         }
     }
 }

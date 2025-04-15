@@ -1,7 +1,10 @@
-﻿<div class="row justify-content-center align-items-center">
+﻿@model EvenimentMD.Web.Models.SingUp.UserDataSignUp
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
+
+<div class="row justify-content-center align-items-center">
     <div class="container d-flex justify-content-center">
-        <form class="login_form">
-            <h2 id="formTitle">Autentificare</h2> <!-- Adăugat titlu -->
+        <form class="login_form" id="loginForm">
+            <h2 id="formTitle">Autentificare</h2>
             <div class="flex-column">
                 <label>Email </label>
             </div>
@@ -37,47 +40,284 @@
             </div>
             <button class="button-submit">Log In</button>
             <p class="p">Nu aveți cont?<span class="span" id="registerLink">Înregistrați-vă!</span></p>
-            <div class="or-container">
-                <div class="line"></div>
-                <p class="or-text">Sau</p>
-                <div class="line"></div>
-            </div>
+            @Html.Partial("_SocialAuthPartial")
+        </form>
+
+        <form class="login_form" id="registerForm" method="post" action="@Url.Action("SignUp", "Auth")" style="display: none;">
+            @Html.AntiForgeryToken()
+            <h2 id="formTitle">Înregistrare</h2>
             <div class="flex-row">
-                <button class="btn google">
-                    <svg version="1.1" width="20" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-                        <path style="fill:#FBBB00;" d="M113.47,309.408L95.648,375.94l-65.139,1.378C11.042,341.211,0,299.9,0,256
-                            c0-42.451,10.324-82.483,28.624-117.732h0.014l57.992,10.632l25.404,57.644c-5.317,15.501-8.215,32.141-8.215,49.456
-                            C103.821,274.792,107.225,292.797,113.47,309.408z"></path>
-                        <path style="fill:#518EF8;" d="M507.527,208.176C510.467,223.662,512,239.655,512,256c0,18.328-1.927,36.206-5.598,53.451
-                            c-12.462,58.683-45.025,109.925-90.134,146.187l-0.014-0.014l-73.044-3.727l-10.338-64.535
-                            c29.932-17.554,53.324-45.025,65.646-77.911h-136.89V208.176h138.887L507.527,208.176L507.527,208.176z"></path>
-                        <path style="fill:#28B446;" d="M416.253,455.624l0.014,0.014C372.396,490.901,316.666,512,256,512
-                            c-97.491,0-182.252-54.491-225.491-134.681l82.961-67.91c21.619,57.698,77.278,98.771,142.53,98.771
-                            c28.047,0,54.323-7.582,76.87-20.818L416.253,455.624z"></path>
-                        <path style="fill:#F14336;" d="M419.404,58.936l-82.933,67.896c-23.335-14.586-50.919-23.012-80.471-23.012
-                            c-66.729,0-123.429,42.957-143.965,102.724l-83.397-68.276h-0.014C71.23,56.123,157.06,0,256,0
-                            C318.115,0,375.068,22.126,419.404,58.936z"></path>
-                    </svg>
-                    Google
-                </button>
-                <button class="btn apple">
-                    <svg version="1.1" height="20" width="20" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 22.773 22.773" style="enable-background:new 0 0 22.773 22.773;" xml:space="preserve">
-                        <g>
-                            <g>
-                                <path d="M15.769,0c0.053,0,0.106,0,0.162,0c0.13,1.606-0.483,2.806-1.228,3.675c-0.731,0.863-1.732,1.7-3.351,1.573
-                                    c-0.108-1.583,0.506-2.694,1.25-3.561C13.292,0.879,14.557,0.16,15.769,0z"></path>
-                                <path d="M20.67,16.716c0,0.016,0,0.03,0,0.045c-0.455,1.378-1.104,2.559-1.896,3.655c-0.723,0.995-1.609,2.334-3.191,2.334
-                                    c-1.367,0-2.275-0.879-3.676-0.903c-1.482-0.024-2.297,0.735-3.652,0.926c-0.155,0-0.31,0-0.462,0
-                                    c-0.995-0.144-1.798-0.932-2.383-1.642c-1.725-2.098-3.058-4.808-3.306-8.276c0-0.34,0-0.679,0-1.019
-                                    c0.105-2.482,1.311-4.5,2.914-5.478c0.846-0.52,2.009-0.963,3.304-0.765c0.555,0.086,1.122,0.276,1.619,0.464
-                                    c0.471,0.181,1.06,0.502,1.618,0.485c0.378-0.011,0.754-0.208,1.135-0.347c1.116-0.403,2.21-0.865,3.652-0.648
-                                    c1.733,0.262,2.963,1.032,3.723,2.22c-1.466,0.933-2.625,2.339-2.427,4.74C17.818,14.688,19.086,15.964,20.67,16.716z"></path>
-                            </g>
-                        </g>
-                    </svg>
-                    Apple
-                </button>
+                <div class="flex-column">
+                    <label class="form-label">Nume</label>
+                    <div class="inputForm">
+                        <input type="text" class="input" name="firstName" placeholder="Introdu Numele">
+                    </div>
+                </div>
+
+                <div class="flex-column">
+                    <label class="form-label">Prenume</label>
+                    <div class="inputForm">
+                        <input type="text" class="input" name="lastName" placeholder="Introdu Prenumele">
+                    </div>
+                </div>
             </div>
+            <div class="flex-column">
+                <label>Email</label>
+                <div class="inputForm">
+                    <input type="text" class="input" name="email" placeholder="Introdu Email-ul">
+                </div>
+            </div>
+            <div class="flex-column">
+                <label>Număr de telefon</label>
+                <div class="inputForm">
+                    <input type="tel" id="phone" class="input" name="phoneNumber" placeholder="Introdu Numărul de telefon">
+                </div>
+            </div>
+            <div class="flex-column">
+                <label>Parola</label>
+                <div class="inputForm">
+                    <input type="password" class="input" name="password" placeholder="Introdu Parola">
+                </div>
+            </div>
+            <div class="flex-column">
+                <label>Confirmare Parola</label>
+                <div class="inputForm">
+                    <input type="password" class="input" placeholder="Confirmă Parola">
+                </div>
+            </div>
+            <div class="flex-column">
+                <label>Rol</label>
+                <div class="inputForm">
+                    <select class="input" name="userRole">
+                        <option value="100">Prestator de servicii</option>
+                        <option value="200">Organizator de evenimente</option>
+                    </select>
+                </div>
+            </div>
+            <button class="button-submit">Înregistrare</button>
+            <p class="p">Ai deja un cont?<span class="span" id="loginLink">Autentifică-te!</span></p>
+            @Html.Partial("_SocialAuthPartial")
         </form>
     </div>
+
+    <!-- Alertă de succes -->
+    <div id="successAlert" class="alert-container success" style="display: none;">
+        <div class="alert-container-icon bg-success d-flex align-items-center justify-content-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" class="bi bi-check-lg" viewBox="0 0 16 16">
+                <path d="M13.485 1.89a.5.5 0 0 1 .675.738l-8 8.5a.5.5 0 0 1-.722.003l-4-4.5a.5.5 0 1 1 .744-.668L6 10.007l7.485-8.117z" />
+            </svg>
+        </div>
+        <p id="successMessage">Înregistrarea a fost cu succes!</p>
+        <button class="alert-button bg-success" onclick="hideAlert('successAlert')">OK</button>
+    </div>
+
+    <!-- Containerul pentru alertă de eroare -->
+    <div id="errorAlert" class="alert-container error" style="display: none;">
+        <div class="alert-container-icon bg-danger d-flex align-items-center justify-content-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" class="bi bi-x-lg" viewBox="0 0 16 16">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+            </svg>
+        </div>
+        <h2 id="errorTitle">Înregistrarea a eșuat</h2>
+        <p id="errorMessage">Vă rugăm să încercați din nou.</p>
+        <button class="alert-button bg-danger" onclick="hideAlert('errorAlert')">OK</button>
+    </div>
+
+
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<script>
+    $(function () {
+
+        // Validare formular de înregistrare
+        $("#registerForm").validate({
+            rules: {
+                firstName: {
+                    required: true,
+                    minlength: 3
+                },
+                lastName: {
+                    required: true,
+                    minlength: 3
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                phoneNumber: {
+                    required: true,
+                    digits: true,
+                    minlength: 7
+                },
+                password: {
+                    required: true,
+                    minlength: 6
+                },
+                confirmPassword: {
+                    required: true,
+                    equalTo: "input[name='password']"
+                },
+                userRole: {
+                    required: true
+                }
+            },
+            errorPlacement: function (error, element) {
+                $(element)
+                    .closest(".inputForm")
+                    .append(error);
+            },
+            errorElement: "span",
+            errorClass: "text-danger"
+        });
+    });
+</script>
+
+<script>
+    // Variabilă globală pentru stocarea datelor formularului
+    var formData = {};
+
+    // Funcție pentru a salva datele formularului
+    function saveFormData() {
+        formData = {
+            firstName: document.querySelector('input[name="firstName"]').value,
+            lastName: document.querySelector('input[name="lastName"]').value,
+            email: document.querySelector('input[name="email"]').value,
+            phoneNumber: document.querySelector('input[name="phoneNumber"]').value,
+            password: document.querySelector('input[name="password"]').value,
+            userRole: document.querySelector('select[name="userRole"]').value
+        };
+    }
+
+    // Funcție pentru a restaura datele formularului
+    function restoreFormData() {
+        if (formData.firstName) document.querySelector('input[name="firstName"]').value = formData.firstName;
+        if (formData.lastName) document.querySelector('input[name="lastName"]').value = formData.lastName;
+        if (formData.email) document.querySelector('input[name="email"]').value = formData.email;
+        if (formData.phoneNumber) document.querySelector('input[name="phoneNumber"]').value = formData.phoneNumber;
+        if (formData.password) document.querySelector('input[name="password"]').value = formData.password;
+        if (formData.userRole) document.querySelector('select[name="userRole"]').value = formData.userRole;
+    }
+
+    // Funcție pentru a marca câmpul cu eroare
+    function markFieldWithError(fieldName) {
+        var field = document.querySelector(`input[name="${fieldName}"]`);
+        if (field) {
+            field.classList.add('input-error');
+            // Focus pe câmpul cu eroare
+            setTimeout(function() {
+                field.focus();
+            }, 100);
+        }
+    }
+
+    function hideAlert(alertId) {
+        var alert = document.getElementById(alertId);
+        alert.classList.remove('show');
+        alert.style.display = 'none';
+
+        // Arată formularul înapoi
+        if (alertId === 'successAlert') {
+            // Dacă e succes, arată formularul de login
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registerForm').style.display = 'none';
+        } else {
+            // Dacă e eroare, arată înapoi formularul de înregistrare
+            document.getElementById('registerForm').style.display = 'block';
+            // Restaurează datele formularului
+            restoreFormData();
+        }
+
+        // Elimină overlay-ul
+        var overlay = document.getElementById('overlay');
+        if (overlay) {
+            document.body.removeChild(overlay);
+        }
+    }
+
+    function showOverlay() {
+        // Verifică dacă overlay-ul există deja
+        if (!document.getElementById('overlay')) {
+            var overlay = document.createElement('div');
+            overlay.className = 'overlay';
+            overlay.id = 'overlay';
+            document.body.appendChild(overlay);
+        }
+    }
+
+    // Interceptează trimiterea formularului pentru a salva datele
+    document.getElementById('registerForm').addEventListener('submit', function() {
+        saveFormData();
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Inițializează evenimentele pentru comutarea între formulare
+        document.getElementById('registerLink').addEventListener('click', function() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+        });
+
+        document.getElementById('loginLink').addEventListener('click', function() {
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+        });
+
+        // Verifică dacă există mesaje
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <text>
+            showOverlay();
+            var successAlert = document.getElementById('successAlert');
+            var successMessage = document.getElementById('successMessage');
+            successMessage.innerHTML = '@Html.Raw(TempData["SuccessMessage"])';
+
+            // Ascunde formularele
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'none';
+
+            successAlert.style.display = 'block';
+            successAlert.classList.add('show');
+            </text>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <text>
+            // Salvează datele formularului dacă există model
+            @if (Model != null)
+            {
+                <text>
+                formData = {
+                    firstName: '@Model.firstName',
+                    lastName: '@Model.lastName',
+                    email: '@Model.email',
+                    phoneNumber: '@Model.phoneNumber',
+                    password: '@Model.password',
+                    userRole: '@Model.userRole'
+                };
+                </text>
+            }
+
+            showOverlay();
+            var errorAlert = document.getElementById('errorAlert');
+            var errorTitle = document.getElementById('errorTitle');
+            var errorMessage = document.getElementById('errorMessage');
+
+            // Setează titlul standard
+            errorTitle.textContent = 'Înregistrarea a eșuat';
+
+            // Setează mesajul specific
+            errorMessage.innerHTML = '@Html.Raw(TempData["ErrorMessage"])';
+
+            // Ascunde formularele
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'none';
+
+            errorAlert.style.display = 'block';
+            errorAlert.classList.add('show');
+
+            </text>
+        }
+    });
+</script>

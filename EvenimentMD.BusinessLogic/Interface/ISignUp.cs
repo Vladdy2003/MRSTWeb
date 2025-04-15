@@ -10,5 +10,7 @@ namespace EvenimentMD.BusinessLogic.Interface
     public interface ISignUp
     {
         string SignUpLogic(UserSignUpData data);
+        bool EmailExists(string email);
+        bool PhoneNumberExists(string phoneNumber);
     }
 }
