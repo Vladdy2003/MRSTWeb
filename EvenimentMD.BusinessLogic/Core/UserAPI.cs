@@ -6,6 +6,7 @@ using EvenimentMD.Domain.Model;
 using EvenimentMD.Domain.Enums;
 using EvenimentMD.BusinessLogic.DatabaseContext;
 using EvenimentMD.Domain.Models.User;
+using EvenimentMD.Domain.Models;
 
 namespace EvenimentMD.BusinessLogic.Core
 {
@@ -129,6 +130,10 @@ namespace EvenimentMD.BusinessLogic.Core
 
                 return builder.ToString();
             }
+        }
+        public string UserLogInLogicAction(UserLogInData data)
+        {
+            return "token-key";
         }
     }
 }

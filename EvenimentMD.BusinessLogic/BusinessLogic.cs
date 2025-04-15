@@ -14,5 +14,10 @@ namespace EvenimentMD.BusinessLogic
         {
             return new SignUpBL();
         }
+
+        public ILogIn GetLoginBL()
+        {
+            return new LogInBL();
+        }
     }
 }
