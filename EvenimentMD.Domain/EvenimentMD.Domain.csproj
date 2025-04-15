@@ -53,9 +53,8 @@
   <ItemGroup>
     <Compile Include="Enums\URole.cs" />
     <Compile Include="Models\User\UDbTable.cs" />
-    <Compile Include="Models\User\UserSingUpData.cs" />
-    <Compile Include="Models\UserLogInData.cs" />
-    <Compile Include="Models\UserSingUpData.cs" />
+    <Compile Include="Models\User\UserSignUpData.cs" />
+    <Compile Include="Models\User\UserLogInData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

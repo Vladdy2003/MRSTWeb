@@ -199,14 +199,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Controllers\LogInController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\LogIn\UserDataLogIn.cs" />
-    <Compile Include="Models\SingUp\UserDataSignUp.cs" />
+    <Compile Include="Models\Authentication\UserDataLogIn.cs" />
+    <Compile Include="Models\Authentication\UserDataSignUp.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.8.1.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -265,7 +264,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="obj\Debug\TempPE\" />
-    <Folder Include="Views\LogIn\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EvenimentMD.BusinessLogic\EvenimentMD.BusinessLogic.csproj">

@@ -56,9 +56,9 @@
     <Compile Include="BLStruct\SignUpBL.cs" />
     <Compile Include="BusinessLogic.cs" />
     <Compile Include="Core\UserAPI.cs" />
-    <Compile Include="Interface\ILogIn.cs" />
+    <Compile Include="Interface\Auth\ILogIn.cs" />
     <Compile Include="DatabaseContext\UserContext.cs" />
-    <Compile Include="Interface\ISignUp.cs" />
+    <Compile Include="Interface\Auth\ISignUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
