@@ -1,0 +1,213 @@
+﻿@{
+    ViewBag.Title = "Profil";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="profile-container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0">Setări Profil</h1>
+    </div>
+
+    <div class="profile-card">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                AI
+                <label class="avatar-upload-btn">
+                    <input type="file" hidden accept="image/*">
+                    <i class="align-middle" data-feather="camera"></i>
+                </label>
+            </div>
+            <div class="profile-info">
+                <h3>Andrei Ionescu</h3>
+                <p>Prestator de servicii • Membru din ianuarie 2023</p>
+            </div>
+        </div>
+
+        <div class="profile-tabs">
+            <div class="profile-tab active" data-tab="personal">Informații Personale</div>
+            <div class="profile-tab" data-tab="security">Securitate</div>
+            <div class="profile-tab" data-tab="notifications">Notificări</div>
+            <div class="profile-tab" data-tab="sessions">Sesiuni Active</div>
+        </div>
+
+        <div class="tab-content">
+            <!-- Personal Information Tab -->
+            <div class="tab-pane active" id="personal">
+                <form>
+                    <div class="section-title">Informații de Bază</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Nume</label>
+                                <input type="text" class="form-control" value="Andrei" placeholder="Introduceți numele">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Prenume</label>
+                                <input type="text" class="form-control" value="Ionescu" placeholder="Introduceți prenumele">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" value="andrei.ionescu@example.com" placeholder="Introduceți email-ul">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Telefon</label>
+                                <input type="tel" class="form-control" value="+373 69 123 456" placeholder="Introduceți numărul de telefon">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Salvează Modificările</button>
+                </form>
+            </div>
+
+            <!-- Security Tab -->
+            <div class="tab-pane" id="security" style="display: none;">
+                <form>
+                    <div class="section-title">Schimbă Parola</div>
+                    <div class="form-group">
+                        <label class="form-label">Parola Curentă</label>
+                        <input type="password" class="form-control" placeholder="Introduceți parola curentă">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Parola Nouă</label>
+                        <input type="password" class="form-control" placeholder="Introduceți parola nouă">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Confirmă Parola Nouă</label>
+                        <input type="password" class="form-control" placeholder="Confirmați parola nouă">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Schimbă Parola</button>
+                </form>
+
+                <div class="section-title mt-5">Autentificare în Doi Pași</div>
+                <div class="notification-item">
+                    <div>
+                        <div class="notification-label">Autentificare în Doi Pași</div>
+                        <div class="notification-description">Adaugă un nivel suplimentar de securitate contului tău</div>
+                    </div>
+                    <label class="custom-switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="danger-zone">
+                    <h4>Zonă Periculoasă</h4>
+                    <p>Odată ce ștergeți contul, nu există cale de întoarcere. Vă rugăm să fiți sigur.</p>
+                    <button class="btn btn-danger">Șterge Contul</button>
+                </div>
+            </div>
+
+            <!-- Notifications Tab -->
+            <div class="tab-pane" id="notifications" style="display: none;">
+                <div class="section-title">Notificări Email</div>
+                <div class="notification-item">
+                    <div>
+                        <div class="notification-label">Rezervări Noi</div>
+                        <div class="notification-description">Primește email când ai o rezervare nouă</div>
+                    </div>
+                    <label class="custom-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="notification-item">
+                    <div>
+                        <div class="notification-label">Mesaje Noi</div>
+                        <div class="notification-description">Primește email când ai mesaje noi</div>
+                    </div>
+                    <label class="custom-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="notification-item">
+                    <div>
+                        <div class="notification-label">Recenzii Noi</div>
+                        <div class="notification-description">Primește email când clientul lasă o recenzie</div>
+                    </div>
+                    <label class="custom-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="section-title mt-5">Notificări Push</div>
+                <div class="notification-item">
+                    <div>
+                        <div class="notification-label">Notificări Desktop</div>
+                        <div class="notification-description">Primește notificări în browser</div>
+                    </div>
+                    <label class="custom-switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="section-title mt-5">Notificări SMS</div>
+                <div class="notification-item">
+                    <div>
+                        <div class="notification-label">Rezervări Urgente</div>
+                        <div class="notification-description">Primește SMS pentru rezervări last-minute</div>
+                    </div>
+                    <label class="custom-switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <button class="btn btn-primary mt-4">Salvează Preferințele</button>
+            </div>
+
+            <!-- Active Sessions Tab -->
+            <div class="tab-pane" id="sessions" style="display: none;">
+                <div class="section-title">Sesiuni Active</div>
+                <div class="session-item">
+                    <div>
+                        <div class="session-device">Windows PC <span class="current-badge">Curent</span></div>
+                        <div class="session-info">Chrome • Chișinău, Moldova • 185.xx.xxx.xxx</div>
+                    </div>
+                    <div class="session-info">Activ acum</div>
+                </div>
+                <div class="session-item">
+                    <div>
+                        <div class="session-device">iPhone 13</div>
+                        <div class="session-info">Safari • Chișinău, Moldova • 95.xx.xxx.xxx</div>
+                    </div>
+                    <div class="session-info">Acum 2 ore</div>
+                </div>
+                <div class="session-item">
+                    <div>
+                        <div class="session-device">MacBook Pro</div>
+                        <div class="session-info">Chrome • București, România • 89.xx.xxx.xxx</div>
+                    </div>
+                    <div class="session-info">Acum 5 zile</div>
+                </div>
+                <button class="btn btn-outline-danger mt-4">Deconectează Toate Dispozitivele</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Toast -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11; display: none">
+    <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                Modificările au fost salvate cu succes!
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/Dahboard/Profile.js"></script>

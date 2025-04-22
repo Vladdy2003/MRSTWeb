@@ -1,0 +1,53 @@
+﻿<nav id="sidebar" class="sidebar js-sidebar">
+    <div class="sidebar-content js-simplebar">
+        <a class="sidebar-brand" href="index.html">
+            <span class="sidebar-brand-text">Prestator de servicii</span>
+        </a>
+        <ul class="sidebar-nav">
+            <li class="sidebar-item active">
+                <a class="sidebar-link" href="@Url.Action("Index", "Provider")">
+                    <i class="align-middle" data-feather="pie-chart"></i>
+                    <span class="sidebar-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="@Url.Action("BusinessProfile", "Provider")">
+                    <i class="align-middle" data-feather="briefcase"></i>
+                    <span class="sidebar-text">Profilul de business</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="@Url.Action("Agenda", "Provider")">
+                    <i class="align-middle" data-feather="calendar"></i>
+                    <span class="sidebar-text">Agenda</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="@Url.Action("Messages", "Provider")">
+                    <i class="align-middle" data-feather="message-square"></i>
+                    <span class="sidebar-text">Mesaje</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="@Url.Action("UserProfile", "Provider")">
+                    <i class="align-middle" data-feather="user"></i>
+                    <span class="sidebar-text">Profil</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-cta">
+            <div class="sidebar-cta-content">
+                <strong class="d-inline-block mb-2">Upgrade to Pro</strong>
+                <div class="mb-3 text-sm cta-text">
+                    Are you looking for more components? Check out our premium version.
+                </div>
+                <div class="d-grid">
+                    <a href="upgrade-to-pro.html" class="btn btn-primary">Upgrade to Pro</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="sidebar-toggle">
+        <i data-feather="chevrons-left" class="toggle-icon"></i>
+    </button>
+</nav>

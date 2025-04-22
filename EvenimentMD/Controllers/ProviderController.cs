@@ -13,5 +13,45 @@ namespace EvenimentMD.Controllers
         {
             return View();
         }
+
+        public ActionResult BusinessProfile()
+        {
+            return View();
+        }
+
+        public ActionResult BusinessProfileGallery()
+        {
+            return View();
+        }
+
+        public ActionResult BusinessProfileReview()
+        {
+            return View();
+        }
+
+        public ActionResult BusinessProfileServices()
+        {
+            return View();
+        }
+
+        public ActionResult BusinessProfileMembers()
+        {
+            return View();
+        }
+
+        public ActionResult Agenda()
+        {
+            return View();
+        }
+
+        public ActionResult Messages()
+        {
+            return View();
+        }
+
+        public ActionResult UserProfile()
+        {
+            return View();
+        }
     }
 }

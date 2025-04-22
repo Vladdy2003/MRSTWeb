@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "Prestator de servicii";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+<div class="container-fluid p-0">
+    @Html.Partial("_BusinessProfileMenu")
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title mb-0">Servicii</h5>
+                        <h6 class="card-subtitle text-muted">Adăugați sau eliminați servicii.</h6>
+                    </div>
+                    <button class="btn btn-primary" onclick="showServiceForm()">
+                        <i class="bi bi-plus-lg me-1"></i>Adaugă serviciu
+                    </button>
+                </div>
+                <div class="card-body">
+                    <!-- Form for adding new service -->
+                    <div id="serviceForm" class="d-none mb-4">
+                        <div class="row">
+                            <div class="col-12 col-md-6 mb-3">
+                                <label for="serviceName" class="form-label">Denumirea serviciului *</label>
+                                <input type="text" class="form-control" id="serviceName" placeholder="Ex: Fotografie de nuntă" required>
+                            </div>
+                            <div class="col-12 col-md-6 mb-3">
+                                <label for="servicePrice" class="form-label">Preț *</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="servicePrice" placeholder="Ex: 5000" required>
+                                    <select class="form-select" id="serviceCurrency" style="max-width: 100px;">
+                                        <option value="MDL">MDL</option>
+                                        <option value="EUR">EUR</option>
+                                        <option value="USD">USD</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label for="serviceDescription" class="form-label">Descriere</label>
+                                <textarea class="form-control" id="serviceDescription" name="companyDescription" rows="4" placeholder="Descrieți serviciul prestat de dvs."></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mb-3 text-end">
+                                <button class="btn btn-secondary me-2" onclick="hideServiceForm()">Anulează</button>
+                                <button class="btn btn-success" onclick="addService()">Salvează</button>
+                            </div>
+                        </div>
+                        <hr class="mb-4">
+                    </div>
+
+                    <!-- Service list -->
+                    <div id="serviceList" class="row">
+                        <!-- Services will be displayed here -->
+                    </div>
+
+                    <!-- Empty state -->
+                    <div id="emptyState" class="text-center py-5">
+                        <i class="bi bi-box-seam" style="font-size: 3rem; color: #6c757d;"></i>
+                        <p class="mt-3 text-muted">Nu există servicii adăugate momentan.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.tiny.cloud/1/4hm9lw86hm0oc9sm1wvhae96imrcyh28ie7qzox5ya1mp52l/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="~/Scripts/Dahboard/BusinessProfileServices.js"></script>

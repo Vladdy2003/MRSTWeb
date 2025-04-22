@@ -1,0 +1,34 @@
+﻿
+<div class="business-profile-menu">
+    <div class="row mb-2 mt-2 align-items-center">
+        <div class="col-md-4">
+            <h3 class="mb-0 px-4">Profilul de business</h3>
+        </div>
+        <div class="col-md-8">
+            <nav class="nav nav-pills flex-md-row justify-content-md-end">
+                <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "BusinessProfile" ? "active" : "")" href="@Url.Action("BusinessProfile", "Provider")">
+                    <i class="align-middle" data-feather="briefcase"></i> <span class="menu-text">Informații generale</span>
+                </a>
+                <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "BusinessProfileGallery" ? "active" : "")" href="@Url.Action("BusinessProfileGallery", "Provider")">
+                    <i class="align-middle" data-feather="image"></i> <span class="menu-text">Galerie</span>
+                </a>
+                <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "BusinessProfileServices" ? "active" : "")" href="@Url.Action("BusinessProfileServices", "Provider")">
+                    <i class="align-middle" data-feather="message-square"></i> <span class="menu-text">Servicii</span>
+                </a>
+                <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "BusinessProfileReview" ? "active" : "")" href="@Url.Action("BusinessProfileReview", "Provider")">
+                    <i class="align-middle" data-feather="star"></i> <span class="menu-text">Recenzii</span>
+                </a>
+                <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "BusinessProfileMembers" ? "active" : "")" href="@Url.Action("BusinessProfileMembers", "Provider")">
+                    <i class="align-middle" data-feather="users"></i> <span class="menu-text">Membri</span>
+                </a>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Initialize feather icons
+    document.addEventListener("DOMContentLoaded", function () {
+        feather.replace();
+    });
+</script>

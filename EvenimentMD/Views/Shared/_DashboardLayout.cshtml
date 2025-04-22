@@ -1,0 +1,69 @@
+﻿@using System.Web.Optimization
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="EventmentMD - Event Management System">
+        <meta name="author" content="EventmentMD">
+
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link rel="shortcut icon" href="~/Content/img/icons/icon-48x48.png" />
+
+        <title>@ViewBag.Title - EventmentMD</title>
+
+        <link href="~/Content/css/app.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        @Styles.Render("~/bundles/dashboard_style")
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <!-- Sidebar -->
+            @Html.Partial("_DashboardSidebar")
+
+            <div class="main">
+                <!-- Nabvbar -->
+                @Html.Partial("_DashboardHeader")
+
+                <main class="content">
+                    @RenderBody()
+                </main>
+
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row text-muted">
+                            <div class="col-6 text-start">
+                                <p class="mb-0">
+                                    <a class="text-muted" href="" target="_blank"><strong>EvenimentMD </strong></a>&copy;
+                                </p>
+                            </div>
+                            <div class="col-6 text-end">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+        <script src="~/Scripts/Dahboard/dashboard.js"></script>
+
+    </body>
+</html>

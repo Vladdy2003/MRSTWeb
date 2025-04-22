@@ -31,6 +31,8 @@ namespace EvenimentMD.Controllers
             return View();
         }
 
+
+        //SignUp
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult SignUp(UserDataSignUp signUp)
@@ -97,6 +99,9 @@ namespace EvenimentMD.Controllers
             // If something went wrong go back to SignUp page
             return View("AuthIndex", signUp);
         }
+
+
+        //LogIn
 
         [HttpPost]
         [ValidateAntiForgeryToken]

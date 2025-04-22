@@ -1,0 +1,103 @@
+﻿@using System.Web.Optimization
+
+@{
+    ViewBag.Title = "Prestator de servicii";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="container-fluid p-0">
+
+    @Html.Partial("_BusinessProfileMenu")
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Informații despre prestarea serviciilor</h5>
+                    <h6 class="card-subtitle text-muted">Editați informațiile generale despre prestarea serviciilor oferite de dvs.</h6>
+                </div>
+                <div class="card-body">
+                    <form id="businessProfileForm">
+                        <div class="row mb-4">
+                            <div class="col-12 col-md-3 text-center mb-4 mb-md-0">
+                                <div class="img-border position-relative d-inline-block w-100">
+                                    <label for="companyLogo" class="d-block cursor-pointer">
+                                        <div class="image-placeholder d-flex flex-column align-items-center justify-content-center mx-auto" style="width: 100%; max-width: 200px; height: 200px; background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px;">
+                                            <i class="bi bi-image" style="font-size: 3rem; color: #6c757d;"></i>
+                                            <span class="mt-2 text-muted">Încarcă Logo</span>
+                                        </div>
+                                        <img src="~/Resources/Home/default.png" alt="Logo companie" class="img-fluid rounded mb-2 d-none mx-auto" id="companyLogoPreview" style="width: 100%; max-width: 200px; height: auto; max-height: 200px; object-fit: cover;">
+                                    </label>
+                                    <input type="file" id="companyLogo" name="companyLogo" class="d-none" accept="image/*" onchange="previewImage(this)">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <div class="row mb-3">
+                                    <div class="col-12 col-md-6 mb-3 mb-md-0">
+                                        <label for="companyName" class="form-label">Nume prestator *</label>
+                                        <input type="text" class="form-control" id="companyName" name="companyName" placeholder="Ex. PhotoEvents" required>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label for="companyEmail" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="companyEmail" name="companyEmail" placeholder="exemplu@domeniu.com">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-12 col-md-6 mb-3 mb-md-0">
+                                        <label for="companyPhone" class="form-label">Telefon de contact</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">+373</span>
+                                            <input type="text" class="form-control" id="companyPhone" name="companyPhone" placeholder="68123456">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label for="companyWebsite" class="form-label">Site web</label>
+                                        <input type="url" class="form-control" id="companyWebsite" name="companyWebsite" placeholder="https://exemplu.com">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="companyDescription" class="form-label">Descriere</label>
+                            <textarea class="form-control" id="companyDescription" name="companyDescription" rows="4" placeholder="Descrieți despre serviciile prestate de dvs."></textarea>
+                            <small class="text-muted">Descrieți serviciile oferite, avantajele și orice informație relevantă pentru clienți.</small>
+                        </div>
+
+                        <h5 class="mb-3">Rețele de socializare</h5>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="facebook" class="form-label">Facebook</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i data-feather="facebook"></i></span>
+                                    <input type="text" class="form-control" id="facebook" name="facebook" placeholder=@Html.Raw("\"https://facebook.com/@username\"")>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="instagram" class="form-label">Instagram</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i data-feather="instagram"></i></span>
+                                    <input type="text" class="form-control" id="instagram" name="instagram" placeholder=@Html.Raw("\"https://instagram.com/@username\"")>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="tiktok" class="form-label">TikTok</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i data-feather="video"></i></span>
+                                    <input type="text" class="form-control" id="tiktok" name="tiktok" placeholder=@Html.Raw("\"https://tiktok.com/@username\"")>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary">Salvează</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.tiny.cloud/1/4hm9lw86hm0oc9sm1wvhae96imrcyh28ie7qzox5ya1mp52l/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="~/Scripts/Dahboard/BusinessProfile.js"></script>

@@ -1,0 +1,225 @@
+﻿@{
+    ViewBag.Title = "Echipa";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<style>
+    
+</style>
+
+@Html.Partial("_BusinessProfileMenu")
+
+<div class="container-fluid p-0">
+    <div class="team-card">
+        <div class="team-header">
+            <h1 class="h3">Membri</h1>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMemberModal">
+                <i class="align-middle me-2" data-feather="user-plus"></i>Adaugă Membru
+            </button>
+        </div>
+        <div class="search-filter">
+            <div class="search-input">
+                <input type="text" class="form-control" placeholder="Caută membri...">
+            </div>
+        </div>
+        <!-- Team Member 1 -->
+        <div class="team-member">
+            <div class="member-avatar">MP</div>
+            <div class="member-info">
+                <div class="member-name">Maria Popescu</div>
+                <div class="member-details">
+                    <i class="align-middle me-1" data-feather="mail"></i>maria.popescu@example.com •
+                    <i class="align-middle me-1 ms-2" data-feather="phone"></i>+373 69 123 456
+                </div>
+            </div>
+            <div class="member-actions">
+                <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editMemberModal">
+                    <i class="align-middle" data-feather="edit-2"></i>
+                </button>
+                <button class="btn btn-outline-danger btn-sm">
+                    <i class="align-middle" data-feather="trash-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Team Member 2 -->
+        <div class="team-member">
+            <div class="member-avatar" style="background: #1cbb8c;">AI</div>
+            <div class="member-info">
+                <div class="member-name">Andrei Ionescu</div>
+                <div class="member-details">
+                    <i class="align-middle me-1" data-feather="mail"></i>andrei.ionescu@example.com •
+                    <i class="align-middle me-1 ms-2" data-feather="phone"></i>+373 69 234 567
+                </div>
+            </div>
+            <div class="member-actions">
+                <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editMemberModal">
+                    <i class="align-middle" data-feather="edit-2"></i>
+                </button>
+                <button class="btn btn-outline-danger btn-sm">
+                    <i class="align-middle" data-feather="trash-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Team Member 3 (Pending) -->
+        <div class="team-member">
+            <div class="member-avatar" style="background: #fcb92c;">EC</div>
+            <div class="member-info">
+                <div class="member-name">Elena Constantin <span class="badge bg-warning text-dark ms-2">Invitație pendintă</span></div>
+                <div class="member-details">
+                    <i class="align-middle me-1" data-feather="mail"></i>elena.constantin@example.com •
+                    <i class="align-middle me-1 ms-2" data-feather="phone"></i>+373 69 345 678
+                </div>
+            </div>
+            <div class="member-actions">
+                <button class="btn btn-outline-primary btn-sm">
+                    <i class="align-middle me-1" data-feather="refresh-cw"></i>Retrimite
+                </button>
+                <button class="btn btn-outline-danger btn-sm">
+                    <i class="align-middle" data-feather="x"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Empty State (shown when no members) -->
+        <div class="empty-state" style="display: none;">
+            <i data-feather="users"></i>
+            <h4>Nu există membri în echipă</h4>
+            <p>Adaugă primul membru al echipei pentru a începe</p>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMemberModal">
+                <i class="align-middle me-2" data-feather="user-plus"></i>Adaugă Membru
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Add Member Modal -->
+<div class="modal fade" id="addMemberModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Adaugă Membru în Echipă</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addMemberForm">
+                    <div class="mb-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="firstName" placeholder="Prenume" required>
+                            <label for="firstName">Prenume</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="lastName" placeholder="Nume" required>
+                            <label for="lastName">Nume</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-floating">
+                            <input type="email" class="form-control" id="email" placeholder="Email" required>
+                            <label for="email">Email</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-floating">
+                            <input type="tel" class="form-control" id="phone" placeholder="Telefon" required>
+                            <label for="phone">Telefon</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="sendInvite" checked>
+                            <label class="form-check-label" for="sendInvite">
+                                Trimite invitație pe email
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anulează</button>
+                <button type="submit" form="addMemberForm" class="btn btn-primary">Adaugă Membru</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Member Modal -->
+<div class="modal fade" id="editMemberModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editează Membru</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editMemberForm">
+                    <div class="mb-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="editFirstName" placeholder="Prenume" required>
+                            <label for="editFirstName">Prenume</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="editLastName" placeholder="Nume" required>
+                            <label for="editLastName">Nume</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-floating">
+                            <input type="email" class="form-control" id="editEmail" placeholder="Email" required>
+                            <label for="editEmail">Email</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-floating">
+                            <input type="tel" class="form-control" id="editPhone" placeholder="Telefon" required>
+                            <label for="editPhone">Telefon</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anulează</button>
+                <button type="submit" form="editMemberForm" class="btn btn-primary">Salvează Modificările</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmare Ștergere</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Ești sigur că vrei să ștergi acest membru din echipă?</p>
+                <p class="text-danger">Această acțiune este ireversibilă!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anulează</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Șterge</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Toast -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert">
+        <div class="d-flex">
+            <div class="toast-body">
+                Operațiunea a fost efectuată cu succes!
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/Dahboard/BusinessProfileMembers.js"></script>

@@ -1,0 +1,260 @@
+﻿@{
+    ViewBag.Title = "Prestator de servicii";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="container-fluid p-0">
+    @Html.Partial("_BusinessProfileMenu")
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+    </div>
+
+    <!-- Statistici -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-lg-6">
+            <div class="card stats-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h5 class="card-title mb-1">Total Recenzii</h5>
+                            <h2 class="mt-1 mb-3">124</h2>
+                        </div>
+                        <div class="col-auto">
+                            <div class="stat">
+                                <i class="align-middle" data-feather="message-square"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+            <div class="card stats-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h5 class="card-title mb-1">Rating Mediu</h5>
+                            <h2 class="mt-1 mb-3">4.8 <small class="text-warning">★</small></h2>
+                        </div>
+                        <div class="col-auto">
+                            <div class="stat">
+                                <i class="align-middle" data-feather="star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+            <div class="card stats-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h5 class="card-title mb-1">Rata de Răspuns</h5>
+                            <h2 class="mt-1 mb-3">98%</h2>
+                        </div>
+                        <div class="col-auto">
+                            <div class="stat">
+                                <i class="align-middle" data-feather="check-circle"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+            <div class="card stats-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h5 class="card-title mb-1">Așteptare Răspuns</h5>
+                            <h2 class="mt-1 mb-3">3</h2>
+                        </div>
+                        <div class="col-auto">
+                            <div class="stat">
+                                <i class="align-middle" data-feather="clock"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filtru rapid -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <div class="d-flex flex-wrap gap-2">
+                    <span class="badge bg-primary filter-badge">Toate</span>
+                    <span class="badge bg-light text-dark filter-badge">Pozitive</span>
+                    <span class="badge bg-light text-dark filter-badge">Negative</span>
+                    <span class="badge bg-light text-dark filter-badge">Cu răspuns</span>
+                    <span class="badge bg-light text-dark filter-badge">Fără răspuns</span>
+                    <span class="badge bg-light text-dark filter-badge">Ultima săptămână</span>
+                    <span class="badge bg-light text-dark filter-badge">Ultima lună</span>
+                </div>
+
+                <div class="dropdown mt-2 mt-md-0">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown">
+                        <i class="align-middle" data-feather="filter"></i> Filtrare
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#">Toate recenziile</a></li>
+                        <li><a class="dropdown-item" href="#">5 stele</a></li>
+                        <li><a class="dropdown-item" href="#">4 stele</a></li>
+                        <li><a class="dropdown-item" href="#">3 stele</a></li>
+                        <li><a class="dropdown-item" href="#">2 stele</a></li>
+                        <li><a class="dropdown-item" href="#">1 stea</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Cu răspuns</a></li>
+                        <li><a class="dropdown-item" href="#">Fără răspuns</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Lista de recenzii -->
+    <div class="card">
+        <div class="card-body">
+            <!-- Review 1 -->
+            <div class="review-card card mb-3">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="reviewer-avatar rounded-circle bg-primary me-3">AI</div>
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h5 class="mb-1">Ana Ionescu</h5>
+                                    <div class="rating-stars mb-2">
+                                        ★★★★★
+                                    </div>
+                                </div>
+                                <small class="text-muted">Acum 2 zile</small>
+                            </div>
+                            <p class="mb-2">Servicii excelente! Am rămas foarte mulțumită de profesionalismul echipei. Totul a fost organizat perfect și la timp. Recomand cu încredere!</p>
+                            <div class="d-flex gap-2 mb-3">
+                                <span class="badge bg-light text-dark">Nuntă</span>
+                                <span class="badge bg-light text-dark">Organizare evenimente</span>
+                            </div>
+
+                            <!-- Răspunsul prestatorului -->
+                            <div class="bg-light p-3 rounded mb-3">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <strong>Răspunsul tău</strong>
+                                    <small class="text-muted">Acum 1 zi</small>
+                                </div>
+                                <p class="mb-0">Mulțumim pentru feedback-ul pozitiv! Ne bucurăm că ați fost mulțumită de serviciile noastre. Așteptăm cu drag să colaborăm din nou!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 2 (fără răspuns) -->
+            <div class="review-card card mb-3">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="reviewer-avatar rounded-circle bg-success me-3">MP</div>
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h5 class="mb-1">Mihai Popescu</h5>
+                                    <div class="rating-stars mb-2">
+                                        ★★★★☆
+                                    </div>
+                                </div>
+                                <small class="text-muted">Acum 5 zile</small>
+                            </div>
+                            <p class="mb-2">Servicii bune în general, dar ar putea îmbunătăți timpul de răspuns la întrebări. Calitatea evenimentului a fost totuși foarte bună.</p>
+                            <div class="d-flex gap-2 mb-3">
+                                <span class="badge bg-light text-dark">Corporate</span>
+                            </div>
+
+                            <!-- Formular pentru răspuns -->
+                            <div class="response-form p-3">
+                                <h6 class="mb-2">Răspunde la recenzie</h6>
+                                <textarea class="form-control mb-2" rows="3" placeholder="Scrie răspunsul tău aici..."></textarea>
+                                <button class="btn btn-primary btn-sm">Trimite răspuns</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="review-card card mb-3">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="reviewer-avatar rounded-circle bg-warning me-3">EC</div>
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h5 class="mb-1">Elena Constantin</h5>
+                                    <div class="rating-stars mb-2">
+                                        ★★★★★
+                                    </div>
+                                </div>
+                                <small class="text-muted">Acum 1 săptămână</small>
+                            </div>
+                            <p class="mb-2">Perfect! Echipa a fost extrem de profesionistă și atentă la detalii. Muzica a fost exact ceea ce ne-am dorit și toți invitații au fost încântați.</p>
+                            <div class="d-flex gap-2 mb-3">
+                                <span class="badge bg-light text-dark">Nuntă</span>
+                                <span class="badge bg-light text-dark">Muzică</span>
+                            </div>
+
+                            <!-- Răspunsul prestatorului -->
+                            <div class="bg-light p-3 rounded mb-3">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <strong>Răspunsul tău</strong>
+                                    <small class="text-muted">Acum 6 zile</small>
+                                </div>
+                                <p class="mb-0">Vă mulțumim pentru aprecieri! A fost o plăcere să facem parte din ziua voastră specială. Vă dorim multă fericire!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 4 (negativ, fără răspuns) -->
+            <div class="review-card card mb-3">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="reviewer-avatar rounded-circle bg-danger me-3">RD</div>
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h5 class="mb-1">Radu Dumitrescu</h5>
+                                    <div class="rating-stars mb-2">
+                                        ★★☆☆☆
+                                    </div>
+                                </div>
+                                <small class="text-muted">Acum 2 săptămâni</small>
+                            </div>
+                            <p class="mb-2">Dezamăgitor. Au întârziat cu montarea echipamentelor și nu au respectat toate cerințele discutate inițial.</p>
+                            <div class="d-flex gap-2 mb-3">
+                                <span class="badge bg-light text-dark">Petrecere privată</span>
+                            </div>
+
+                            <!-- Formular pentru răspuns urgent -->
+                            <div class="response-form p-3 border border-danger">
+                                <div class="d-flex align-items-center mb-2">
+                                    <h6 class="mb-0 text-danger">Răspunde urgent la această recenzie negativă</h6>
+                                    <span class="ms-auto badge bg-danger">Important</span>
+                                </div>
+                                <textarea class="form-control mb-2" rows="3" placeholder="Adresează problemele menționate de client..."></textarea>
+                                <button class="btn btn-danger btn-sm">Trimite răspuns</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/Dahboard/BusinessPrfileReviews.js"></script>

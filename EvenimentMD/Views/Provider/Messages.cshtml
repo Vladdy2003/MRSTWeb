@@ -1,0 +1,209 @@
+﻿@{
+    ViewBag.Title = "Mesaje";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="container-fluid p-0">
+    <div class="messages-container">
+        <!-- Conversations List -->
+        <div class="conversations-list">
+            <div class="conversations-header">
+                <div class="d-flex align-items-center gap-2">
+                    <input type="text" class="search-conversations" placeholder="Caută conversații...">
+                </div>
+            </div>
+
+            <div class="conversations-tabs">
+                <div class="conversation-tab active">Toate</div>
+                <div class="conversation-tab">Necitite</div>
+                <div class="conversation-tab">Arhivate</div>
+            </div>
+
+            <div class="conversations-body">
+                <!-- Conversation Item 1 -->
+                <div class="conversation-item active unread">
+                    <div class="conversation-avatar">
+                        AI
+                        <span class="online-indicator"></span>
+                    </div>
+                    <div class="conversation-details">
+                        <div class="conversation-header-info">
+                            <span class="conversation-name">Ana Ionescu</span>
+                            <span class="conversation-time">16:45</span>
+                        </div>
+                        <div class="conversation-preview">
+                            Bună ziua! Aș dori să discut despre pachetul pentru nuntă...
+                            <span class="unread-badge">2</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conversation Item 2 -->
+                <div class="conversation-item">
+                    <div class="conversation-avatar" style="background: #1cbb8c">
+                        MP
+                    </div>
+                    <div class="conversation-details">
+                        <div class="conversation-header-info">
+                            <span class="conversation-name">Mihai Popescu</span>
+                            <span class="conversation-time">Ieri</span>
+                        </div>
+                        <div class="conversation-preview">
+                            Mulțumesc pentru ofertă! O să vă contactez...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conversation Item 3 -->
+                <div class="conversation-item">
+                    <div class="conversation-avatar" style="background: #fcb92c">
+                        EC
+                        <span class="online-indicator"></span>
+                    </div>
+                    <div class="conversation-details">
+                        <div class="conversation-header-info">
+                            <span class="conversation-name">Elena Constantin</span>
+                            <span class="conversation-time">Lun</span>
+                        </div>
+                        <div class="conversation-preview">
+                            Perfect, atunci rămâne stabilit pentru 15 mai
+                        </div>
+                    </div>
+                </div>
+
+                <!-- More conversations... -->
+                <div class="conversation-item">
+                    <div class="conversation-avatar" style="background: #dc3545">
+                        RD
+                    </div>
+                    <div class="conversation-details">
+                        <div class="conversation-header-info">
+                            <span class="conversation-name">Radu Dumitrescu</span>
+                            <span class="conversation-time">Mar</span>
+                        </div>
+                        <div class="conversation-preview">
+                            Am câteva întrebări despre serviciile dvs...
+                        </div>
+                    </div>
+                </div>
+
+                <div class="conversation-item">
+                    <div class="conversation-avatar" style="background: #17a2b8">
+                        LM
+                    </div>
+                    <div class="conversation-details">
+                        <div class="conversation-header-info">
+                            <span class="conversation-name">Laura Marinescu</span>
+                            <span class="conversation-time">Mie</span>
+                        </div>
+                        <div class="conversation-preview">
+                            Vă mulțumesc pentru răspuns!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Area -->
+        <div class="chat-area">
+            <div class="chat-header">
+                <div class="chat-header-left">
+                    <button class="btn btn-link back-button">
+                        <i class="align-middle" data-feather="arrow-left"></i>
+                    </button>
+                    <div class="chat-header-avatar">AI</div>
+                    <div class="chat-header-info">
+                        <h4>Ana Ionescu</h4>
+                        <span class="status">Online</span>
+                    </div>
+                </div>
+                <div class="chat-header-actions">
+                    <button class="btn btn-light">
+                        <i class="align-middle" data-feather="more-vertical"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="messages-area">
+                <!-- Message received -->
+                <div class="message received">
+                    <div class="message-content">
+                        <p class="message-text">Bună ziua! Aș dori să discut despre pachetul pentru nuntă pe care îl oferiți.</p>
+                        <div class="message-time">16:42</div>
+                    </div>
+                </div>
+
+                <!-- Message sent -->
+                <div class="message sent">
+                    <div class="message-content">
+                        <p class="message-text">Bună ziua! Desigur, cu plăcere vă pot oferi toate detaliile. Pentru ce dată doriți să rezervați?</p>
+                        <div class="message-time">16:43</div>
+                    </div>
+                </div>
+
+                <!-- Message received -->
+                <div class="message received">
+                    <div class="message-content">
+                        <p class="message-text">Nunta este planificată pentru 15 august 2025. Vom fi aproximativ 150 de invitați.</p>
+                        <div class="message-time">16:45</div>
+                    </div>
+                </div>
+
+                <!-- Message received -->
+                <div class="message received">
+                    <div class="message-content">
+                        <p class="message-text">Aveți disponibilitate pentru această dată?</p>
+                        <div class="message-time">16:45</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="message-input-area">
+                <div class="message-input-container">
+                    <button class="btn btn-light">
+                        <i class="align-middle" data-feather="paperclip"></i>
+                    </button>
+                    <textarea class="message-input" placeholder="Scrie un mesaj..." rows="1"></textarea>
+                    <button class="send-button">
+                        <i class="align-middle" data-feather="send"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty Chat (hidden by default) -->
+        <div class="empty-chat" style="display: none;">
+            <i data-feather="message-circle"></i>
+            <h4>Selectați o conversație</h4>
+            <p>Alegeți o conversație din listă pentru a începe să comunicați</p>
+        </div>
+    </div>
+</div>
+
+<!-- New Message Modal -->
+<div class="modal fade" id="newMessageModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Mesaj nou</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Către</label>
+                    <input type="text" class="form-control" placeholder="Caută contact...">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Mesaj</label>
+                    <textarea class="form-control" rows="4" placeholder="Scrie mesajul tău..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anulare</button>
+                <button type="button" class="btn btn-primary">Trimite</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/Dahboard/Messages.js"></script>

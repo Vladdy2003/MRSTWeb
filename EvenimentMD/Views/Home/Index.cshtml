@@ -1,20 +1,20 @@
 ﻿<body>
     <div class="container">
-        <div class="row d-flex align-items-center">
-            <div class="col-md-6">
+        <div class="row d-flex align-items-center hero-section">
+            <!-- Image column - will disappear completely below 992px -->
+            <div class="col-lg-6 d-none d-lg-block">
                 <div class="img-presentation">
                     <img src="~/Resources/Home/event.png" alt="poză_eveniment" class="img-presentation-cover">
                 </div>
             </div>
 
-            <div class="col-6">
-                <div class="row">
-                    <div class="home_text_pres">
-                        <h1 class="fw-bold">Servicii pentru orice eveniment</h1>
-                        <h2>SIMPLU, RAPID, SIGUR!</h2>
-                    </div>
+            <!-- Text and search column - will take full width below 992px -->
+            <div class="col-lg-6 col-md-12">
+                <div class="home_text_pres">
+                    <h1 class="fw-bold">Servicii pentru orice eveniment</h1>
+                    <h2>SIMPLU, RAPID, SIGUR!</h2>
                 </div>
-                <div class="row">
+                <div class="search-container">
                     <div class="InputContainer">
                         <input placeholder="Search" id="input" class="input" name="text" type="text">
                         <label class="labelforsearch" for="input">
@@ -31,24 +31,20 @@
             <div class="container">
                 <h2 class="title">SERVICII POPULARE</h2>
                 <div class="row">
-                    <div class="col-4">
-                        <div class="service-card">
-                            <img src="~/Resources/Home/photograph.jpg" alt="Fotografi & Videografi">
-                            <p>Fotografi & Videografi</p>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="service-card">
-                            <img src="~/Resources/Home/music.jpeg" alt="Muzică & DJ">
-                            <p>Muzică & DJ</p>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="service-card">
-                            <img src="~/Resources/Home/decor.jpeg" alt="Decor">
-                            <p>Decor</p>
-                        </div>
-                    </div>
+                    @{
+                        for (int i = 0; i < 3; i++){
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="service-card">
+                                    <div class="card-image">
+                                        <img src="~/Resources/Home/decor.jpeg" alt="Serviciu">
+                                    </div>
+                                    <div class="card-category">
+                                        <h5>Nume categorie</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }             
                 </div>
             </div>
         </section>
@@ -56,54 +52,32 @@
         <section class="recomanded-providers">
             <div class="container">
                 <h2 class="title">PRESTATORI RECOMANDAȚI</h2>
-                    <div class="row">
-                        @{
-                            for (int i = 0; i < 4; i++){
-                                <div class="col-3">
-                                    <div class="provider-card">
-                                        <img src="~/Resources/Home/decor.jpeg" alt="Prestator 3">
-                                        <div class="provider-details">
-                                            <h3>Nume Prestator @(i + 1)</h3>
-                                            <p>Categoria: Catering</p>
-                                            <p>Rating: ⭐ 4.9/5</p>
+                <div class="row g-4">
+                    @{
+                        for (int i = 0; i < 4; i++)
+                        {
+                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mb-4">
+                                <a href="@Url.Action("Index", "ServicePage")">
+                                    <div class="card h-100 service-card">
+                                        <div class="position-relative">
+                                            <img src="~/Resources/Services/themotans.jpg" class="card-img-top" alt="Nume Prestator">
+                                            <div class="rating-badge">
+                                                ⭐4.8
+                                            </div>
                                         </div>
-                                        <button class="detail-button">Detalii</button>
+                                        <div class="card-body">
+                                            <h5 class="card-title mb-2">Nume Prestator</h5>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="text-muted">Categorie: DJ</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            }
+                                </a>
+                            </div>
                         }
-
-
-    <div class="row g-4">
-        <div class="col-3">
-            <div class="card">
-                <img src="~/Resources/Home/decor.jpeg" class="card-img-top" alt="Product Image">
-                <div class="card-body">
-                    <h5 class="card-title">Product Name</h5>
-                    <p class="card-text">Short product description goes here.</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="h5 mb-0">$99.99</span>
-                        <div>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-half text-warning"></i>
-                            <small class="text-muted">(4.5)</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer d-flex justify-content-between bg-light">
-                    <button class="btn btn-primary btn-sm">Add to Cart</button>
-                    <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-heart"></i></button>
-                </div>
-            </div>
-        </div>
-                        
-                    </div>
+                    }
                 </div>
             </div>
         </section>
-        </div>
     </div>
 </body>

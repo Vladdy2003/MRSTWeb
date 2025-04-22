@@ -13,10 +13,10 @@ namespace EvenimentMD.App_Start
             //CSS
             bundles.Add(new StyleBundle("~/bundles/bootstrap/css").Include("~/Content/bootstrap.min.css", new CssRewriteUrlTransform()));
             bundles.Add(new StyleBundle("~/bundles/custom_style").Include("~/Content/Styles/style.css"));
+            bundles.Add(new StyleBundle("~/bundles/dashboard_style").Include("~/Content/Styles/dashboard.css"));
 
             //JS
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include("~/Scripts/bootstrap.js", "~/Scripts/respond.js"));
-
             bundles.Add(new ScriptBundle("~/bundles/custom_script").Include("~/Scripts/services.js", "~/Scripts/login.js"));
         }
     }

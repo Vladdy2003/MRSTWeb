@@ -1,0 +1,259 @@
+﻿@{
+    ViewBag.Title = "Agenda";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="container-fluid p-0">
+    <div class="calendar-header mb-4 back">
+        <h1 class="h3 mb-0">Agenda</h1>
+        <div class="d-flex align-items-center gap-3">
+            <div class="calendar-navigation">
+                <button class="btn btn-outline-secondary btn-sm" id="prevWeek">
+                    <i class="align-middle" data-feather="chevron-left"></i>
+                </button>
+                <button class="week-selector" id="weekSelector">
+                    Luni, 14 Apr - Duminică, 20 Apr
+                </button>
+                <button class="btn btn-outline-secondary btn-sm" id="nextWeek">
+                    <i class="align-middle" data-feather="chevron-right"></i>
+                </button>
+            </div>
+            <button class="btn btn-primary" id="addBooking">
+                <i class="align-middle me-1" data-feather="plus"></i>
+                Adaugă rezervare
+            </button>
+        </div>
+    </div>
+
+    <div class="calendar-container">
+        <div class="calendar-body">
+            <!-- Time column -->
+            <div class="time-column">
+                <div style="height: 50px;"></div> <!-- Spacer for header -->
+                @for (int hour = 0; hour <= 24; hour++)
+                {
+                    <div class="time-slot">@hour:00</div>
+                }
+            </div>
+
+            <!-- Monday -->
+            <div class="day-column">
+                <div class="day-header">
+                    <div class="day-name">Luni, 14</div>
+                    <div class="day-number">14 <span class="badge">1</span></div>
+                </div>
+                <div class="hour-grid">
+                    @for (int hour = 0; hour <= 24; hour++)
+                    {
+                        <div class="hour-line"></div>
+                    }
+                    <!-- Sample event -->
+                    <div class="event" style="top: 60px; height: 120px;">
+                        <div class="event-title">Nuntă - Familia Popescu</div>
+                        <div class="event-time">10:00 - 12:00</div>
+                        <div>Locație: Restaurant Central</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tuesday -->
+            <div class="day-column">
+                <div class="day-header">
+                    <div class="day-name">Marți, 15</div>
+                    <div class="day-number">15 <span class="badge">1</span></div>
+                </div>
+                <div class="hour-grid">
+                    @for (int hour = 0; hour <= 24; hour++)
+                    {
+                        <div class="hour-line"></div>
+                    }
+                    <div class="event event-type-1" style="top: 240px; height: 90px;">
+                        <div class="event-title">Ședință foto - Corporate</div>
+                        <div class="event-time">13:00 - 14:30</div>
+                        <div>Client: SC Example SRL</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wednesday -->
+            <div class="day-column">
+                <div class="day-header">
+                    <div class="day-name">Miercuri, 16</div>
+                    <div class="day-number">16 <span class="badge">1</span></div>
+                </div>
+                <div class="hour-grid">
+                    @for (int hour = 0; hour <= 24; hour++)
+                    {
+                        <div class="hour-line"></div>
+                    }
+                    <div class="event event-type-2" style="top: 120px; height: 180px;">
+                        <div class="event-title">Botez - Familia Ionescu</div>
+                        <div class="event-time">11:00 - 14:00</div>
+                        <div>Locație: Biserica Sf. Nicolae</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thursday -->
+            <div class="day-column">
+                <div class="day-header">
+                    <div class="day-name">Joi, 17</div>
+                    <div class="day-number">17 <span class="badge">1</span></div>
+                </div>
+                <div class="hour-grid">
+                    @for (int hour = 0; hour <= 24; hour++)
+                    {
+                        <div class="hour-line"></div>
+                    }
+                    <div class="event event-type-3" style="top: 300px; height: 120px;">
+                        <div class="event-title">Aniversare Copii</div>
+                        <div class="event-time">14:00 - 16:00</div>
+                        <div>Client: Andreea Marin</div>
+                    </div>
+                    <!-- Current time indicator -->
+                    <div class="current-time-indicator" style="top: 450px;"></div>
+                </div>
+            </div>
+
+            <!-- Friday -->
+            <div class="day-column">
+                <div class="day-header">
+                    <div class="day-name">Vineri, 18</div>
+                    <div class="day-number">18 <span class="badge">1</span></div>
+                </div>
+                <div class="hour-grid">
+                    @for (int hour = 0; hour <= 24; hour++)
+                    {
+                        <div class="hour-line"></div>
+                    }
+                    <div class="event" style="top: 480px; height: 180px;">
+                        <div class="event-title">Eveniment Corporate</div>
+                        <div class="event-time">16:00 - 19:00</div>
+                        <div>Locație: Hotel Hilton</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Saturday -->
+            <div class="day-column">
+                <div class="day-header">
+                    <div class="day-name">Sâmbătă, 19</div>
+                    <div class="day-number">19 <span class="badge">1</span></div>
+                </div>
+                <div class="hour-grid">
+                    @for (int hour = 0; hour <= 24; hour++)
+                    {
+                        <div class="hour-line"></div>
+                    }
+                    <div class="event event-type-1" style="top: 180px; height: 300px;">
+                        <div class="event-title">Nuntă - Familia Georgescu</div>
+                        <div class="event-time">12:00 - 17:00</div>
+                        <div>Locație: Ballroom Royal</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sunday -->
+            <div class="day-column">
+                <div class="day-header">
+                    <div class="day-name">Duminică, 20</div>
+                    <div class="day-number">20</div>
+                </div>
+                <div class="hour-grid">
+                    @for (int hour = 0; hour <= 24; hour++)
+                    {
+                        <div class="hour-line"></div>
+                    }
+                    <!-- No events -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer info -->
+    <div class="d-flex justify-content-between align-items-center mt-3">
+        <div class="text-muted small">
+            © 2025 EvenimentMD. Toate drepturile rezervate.
+        </div>
+        <div class="text-muted small">
+            0 din 10 rezervări folosite | <a href="#">Vezi oferte</a>
+        </div>
+    </div>
+</div>
+
+<!-- Event Details Modal -->
+<div class="modal fade" id="eventModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detalii Rezervare</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Event details will be dynamically inserted here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Închide</button>
+                <button type="button" class="btn btn-primary">Editează</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Booking Modal -->
+<div class="modal fade" id="addBookingModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Adaugă Rezervare</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="eventTitle" class="form-label">Titlu Eveniment</label>
+                        <input type="text" class="form-control" id="eventTitle" placeholder="Ex: Nuntă - Familia Ionescu">
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="eventDate" class="form-label">Data</label>
+                            <input type="date" class="form-control" id="eventDate">
+                        </div>
+                        <div class="col">
+                            <label for="eventTime" class="form-label">Ora</label>
+                            <input type="time" class="form-control" id="eventTime">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="eventDuration" class="form-label">Durata (ore)</label>
+                        <input type="number" class="form-control" id="eventDuration" min="1" value="2">
+                    </div>
+                    <div class="mb-3">
+                        <label for="eventLocation" class="form-label">Locație</label>
+                        <input type="text" class="form-control" id="eventLocation" placeholder="Ex: Restaurant Central">
+                    </div>
+                    <div class="mb-3">
+                        <label for="eventType" class="form-label">Tip Eveniment</label>
+                        <select class="form-select" id="eventType">
+                            <option value="1">Nuntă</option>
+                            <option value="2">Botez</option>
+                            <option value="3">Corporate</option>
+                            <option value="4">Aniversare</option>
+                            <option value="5">Altele</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="eventDetails" class="form-label">Detalii suplimentare</label>
+                        <textarea class="form-control" id="eventDetails" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anulează</button>
+                <button type="button" class="btn btn-primary">Salvează</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/Dahboard/Agenda.js"></script>
