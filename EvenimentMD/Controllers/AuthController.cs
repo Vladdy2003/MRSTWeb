@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using EvenimentMD.BusinessLogic;
 using EvenimentMD.BusinessLogic.Interface;
 using EvenimentMD.Domain.Model;
-using EvenimentMD.Web.Models.SignUp;
-using EvenimentMD.Models.LogIn;
 using EvenimentMD.Domain.Models;
+using EvenimentMD.Domain.Models.User.UserActionResp;
+using System.Web;
+using EvenimentMD.Domain.Enums;
+using EvenimentMD.Web.Models.AuthModel;
 
 namespace EvenimentMD.Controllers
 {
@@ -35,19 +34,19 @@ namespace EvenimentMD.Controllers
         //SignUp
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SignUp(UserDataSignUp signUp)
+        public ActionResult SignUp(AuthModel signUpData)
         {
             ViewBag.HideFooter = true;
             if (ModelState.IsValid)
             {
                 var data = new UserSignUpData
                 {
-                    firstName = signUp.firstName,
-                    lastName = signUp.lastName,
-                    email = signUp.email,
-                    phoneNumber = signUp.phoneNumber,
-                    password = signUp.password,
-                    userRole = signUp.userRole,
+                    firstName = signUpData.signUp.firstName,
+                    lastName = signUpData.signUp.lastName,
+                    email = signUpData.signUp.email,
+                    phoneNumber = signUpData.signUp.phoneNumber,
+                    password = signUpData.signUp.password,
+                    userRole = signUpData.signUp.userRole,
                     signUpTime = DateTime.Now
                 };
                 try
@@ -97,15 +96,14 @@ namespace EvenimentMD.Controllers
                 TempData["ErrorMessage"] = "Datele introduse nu sunt valide. " + errorMessage;
             }
             // If something went wrong go back to SignUp page
-            return View("AuthIndex", signUp);
+            return View("AuthIndex", signUpData);
         }
 
 
         //LogIn
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult LogIn(UserDataLogIn login)
+        public ActionResult LogIn(AuthModel logInData)
         {
             ViewBag.HideFooter = true;
             if (ModelState.IsValid)
@@ -114,32 +112,45 @@ namespace EvenimentMD.Controllers
                 {
                     var data = new UserLogInData
                     {
-                        Password = login.Password,
-                        Email = login.Email,
-                        UserIp = Request.UserHostAddress ?? "localhost"
+                        password = logInData.logIn.password,
+                        email = logInData.logIn.email,
+                        lastLogInTime = DateTime.Now,
                     };
 
-                    string token = _logIn.UserLogInLogic(data);
+                    var resp = _logIn.LogInLogic(data);
 
-                    if (!string.IsNullOrEmpty(token))
+                    if (resp.Status)
                     {
                         // Autentificare reușită
-                        // Poți stoca token-ul în sesiune/cookie pentru autentificare persistentă
-                        Session["AuthToken"] = token;
-                        TempData["SuccessMessage"] = "Autentificare reușită!";
+                        UserCookieResp respCookie = _logIn.GenerateCookieByUser(resp.userId);
+
+                        HttpCookie cookie = respCookie.cookie;
+                        ControllerContext.HttpContext.Response.Cookies.Add(cookie);
+
                         return RedirectToAction("Index", "Home");
                     }
                     else
                     {
                         // Autentificare eșuată
-                        TempData["ErrorMessage"] = "Email sau parolă incorecte. Vă rugăm să încercați din nou.";
+                        switch (resp.Result)
+                        {
+                            case LoginResult.EmailNotFound:
+                                TempData["ErrorMessage"] = "Nu există utilizator cu acest email.";
+                                break;
+                            case LoginResult.PasswordIncorrect:
+                                TempData["ErrorMessage"] = "Parola introdusă este incorectă.";
+                                break;
+                            default:
+                                TempData["ErrorMessage"] = "Autentificarea a eșuat. Vă rugăm să încercați din nou.";
+                                break;
+                        }
+                        return View("AuthIndex", logInData);
                     }
                 }
                 catch (Exception ex)
                 {
                     // Eroare la procesarea cererii
                     TempData["ErrorMessage"] = "A apărut o eroare în sistem. Vă rugăm să încercați mai târziu.";
-                    // Loghează excepția pentru depanare
                     System.Diagnostics.Debug.WriteLine($"Error in LogIn: {ex.Message}");
                 }
             }
@@ -153,18 +164,25 @@ namespace EvenimentMD.Controllers
                 TempData["ErrorMessage"] = "Datele introduse nu sunt valide. " + errorMessage;
             }
 
-            // If something went wrong go back to LogIn page
-            return View("AuthIndex", login);
+            // In caz de eroare sau date invalide, revenim la pagina de autentificare
+            return View("AuthIndex", logInData);
         }
 
         public ActionResult LogOut()
         {
-            // Clear the authentication token and any user-related session data
+            // Sterge cookie-ul de autentificare X-KEY
+            if (Request.Cookies["X-KEY"] != null)
+            {
+                var cookie = new HttpCookie("X-KEY");
+                cookie.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(cookie);
+            }
+
+            // Sterge sesiunea
             Session.Clear();
             Session.Abandon();
 
-            // Redirect to the login page
-            return RedirectToAction("AuthIndex");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

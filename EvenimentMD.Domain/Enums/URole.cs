@@ -10,11 +10,9 @@ namespace EvenimentMD.Domain.Enums
     public enum URole
     {
         none = 0,
-        banned = 1,
-        fraudletUser = 2,
+        admin = 1,
         serviceProvider = 100,
+        serviceProviderRecomanded = 101,
         organizer = 200,
-        administrator = 300,
-
     }
 }

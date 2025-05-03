@@ -1,42 +1,118 @@
-﻿<div class="header-wrapper">
+﻿@using EvenimentMD.Domain.Models.User
+@using EvenimentMD.BusinessLogic.DatabaseContext
+
+@{
+    bool isLoggedIn = false;
+    UDbTable currentUser = null;
+
+    // Check if user is logged in by looking for the cookie
+    var cookie = Request.Cookies["X-KEY"];
+    if (cookie != null)
+    {
+        string cookieValue = cookie.Value;
+        if (!string.IsNullOrEmpty(cookieValue))
+        {
+            // Decode the cookie to get user ID
+            try
+            {
+                // Extract user ID from the cookie using the helper
+                string decodedValue = EvenimentMD.Helper.Session.CookieGenerator.Validate(cookieValue);
+                if (!string.IsNullOrEmpty(decodedValue))
+                {
+                    string[] parts = decodedValue.Split(new[] { System.Web.HttpContext.Current?.Request.UserHostAddress }, StringSplitOptions.None);
+                    if (parts.Length > 0)
+                    {
+                        int userId;
+                        if (int.TryParse(parts[0], out userId))
+                        {
+                            // Get user data from database
+                            using (var db = new UserContext())
+                            {
+                                currentUser = db.Users.FirstOrDefault(u => u.Id == userId);
+                                if (currentUser != null)
+                                {
+                                    isLoggedIn = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log error or handle as needed
+                System.Diagnostics.Debug.WriteLine($"Error getting user data: {ex.Message}");
+            }
+        }
+    }
+}
+
+<div class="header-wrapper">
     <div class="container">
         <header>
             <div class="nav-logo">
                 <img src="~/Resources/Home/logo.png" alt="logo_eveniment.md">
             </div>
-            
+
             <!-- Desktop navigation menu -->
             <nav class="desktop-menu d-none d-lg-block">
-                <a href="@Url.Action("Index", "Home")" class="btn-31">
-                    <span class="text-container">
-                        <span class="text">Acasă</span>
-                    </span>
-                </a>
-                <a href="@Url.Action("Index", "Services")" class="btn-31">
-                    <span class="text-container">
-                        <span class="text">Servicii</span>
-                    </span>
-                </a>
-                <a href="@Url.Action("AuthIndex", "Auth")" class="btn-31 login-btn">
-                    <span class="text-container">
-                        <span class="text">Logare</span>
-                    </span>
-                </a>
+                <div class="nav-items">
+                    <a href="@Url.Action("Index", "Home")" class="btn-31">
+                        <span class="text-container">
+                            <span class="text">Acasă</span>
+                        </span>
+                    </a>
+                    <a href="@Url.Action("Index", "Services")" class="btn-31">
+                        <span class="text-container">
+                            <span class="text">Servicii</span>
+                        </span>
+                    </a>
+                    @if (isLoggedIn && currentUser != null)
+                    {
+                        <div class="user-profile-container">
+                            <a href="#" class="user-profile-link" id="userDropdown" onclick="toggleDropdown(event)">
+                                <div class="d-flex align-items-center">
+                                    <div class="user-avatar">
+                                        <img src="~/Resources/Services/themotans.jpg" class="rounded-circle" alt="Profile" width="32" height="32">
+                                    </div>
+                                    <div class="user-name ms-2">
+                                        @currentUser.firstName @currentUser.lastName
+                                    </div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down ms-1" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                    </svg>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu" id="userDropdownMenu">
+                                <li><a class="dropdown-item" href="@Url.Action("Index", "Provider")"><i class="bi bi-person-vcard"></i>  Profil</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("LogOut", "Auth")"><i class="bi bi-box-arrow-left"></i>  Deconectare</a></li>
+                            </ul>
+                        </div>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("AuthIndex", "Auth")" class="btn-31 login-btn">
+                            <span class="text-container">
+                                <span class="text">Logare</span>
+                            </span>
+                        </a>
+                    }
+                </div>
             </nav>
-            
+
             <!-- Mobile menu toggle button -->
             <div class="mobile-menu-toggle d-lg-none">
                 <button class="navbar-toggler" type="button" id="menuToggle">
                     <span class="navbar-toggler-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
                         </svg>
                     </span>
                 </button>
             </div>
         </header>
     </div>
-    
+
     <!-- Mobile navigation menu (hidden by default) -->
     <div class="mobile-menu" id="mobileMenu">
         <div class="container">
@@ -47,22 +123,55 @@
                 <a href="@Url.Action("Index", "Services")" class="mobile-menu-item">
                     <span>Servicii</span>
                 </a>
-                <a href="@Url.Action("AuthIndex", "Auth")" class="mobile-menu-item mobile-login">
-                    <span>Logare</span>
-                </a>
+                @if (isLoggedIn && currentUser != null)
+                {
+                    <div class="mobile-user-profile">
+                        <a href="@Url.Action("Index", "Provider")" class="mobile-menu-item">
+                            <span>Profil</span>
+                        </a>
+                        <a href="@Url.Action("LogOut", "Auth")" class="mobile-menu-item">
+                            <span>Deconectare</span>
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <a href="@Url.Action("AuthIndex", "Auth")" class="mobile-menu-item mobile-login">
+                        <span>Logare</span>
+                    </a>
+                }
             </div>
         </div>
     </div>
 </div>
 
-<!-- JavaScript for mobile menu toggle -->
+<!-- JavaScript for mobile menu toggle and dropdown -->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const menuToggle = document.getElementById('menuToggle');
         const mobileMenu = document.getElementById('mobileMenu');
-        
-        menuToggle.addEventListener('click', function() {
+
+        menuToggle.addEventListener('click', function () {
             mobileMenu.classList.toggle('active');
         });
+    });
+
+    // Custom dropdown functionality
+    function toggleDropdown(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        var dropdownMenu = document.getElementById('userDropdownMenu');
+        dropdownMenu.classList.toggle('show');
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function (event) {
+        var dropdownMenu = document.getElementById('userDropdownMenu');
+        var userDropdown = document.getElementById('userDropdown');
+
+        if (!userDropdown.contains(event.target)) {
+            dropdownMenu.classList.remove('show');
+        }
     });
 </script>

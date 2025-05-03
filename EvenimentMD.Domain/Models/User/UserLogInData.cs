@@ -9,8 +9,9 @@ namespace EvenimentMD.Domain.Models
 {
     public class UserLogInData
     {
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string UserIp { get; set; }
+        public string email { get; set; }
+        public string password { get; set; }
+        public string userIp { get; set; }
+        public DateTime lastLogInTime { get; set; }
     }
 }

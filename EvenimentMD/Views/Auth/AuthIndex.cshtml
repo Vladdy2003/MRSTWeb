@@ -1,10 +1,11 @@
-﻿@model EvenimentMD.Web.Models.SignUp.UserDataSignUp
+﻿@model EvenimentMD.Web.Models.AuthModel.AuthModel
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
 
 <div class="row justify-content-center align-items-center">
     <div class="container d-flex justify-content-center">
-        <form class="login_form" id="loginForm">
+        <form class="login_form" id="loginForm" method="post" action="@Url.Action("LogIn", "Auth")">
+            @Html.AntiForgeryToken()
             <h2 id="formTitle">Autentificare</h2>
             <div class="flex-column">
                 <label>Email </label>
@@ -15,7 +16,7 @@
                         <path d="m30.853 13.87a15 15 0 0 0 -29.729 4.082 15.1 15.1 0 0 0 12.876 12.918 15.6 15.6 0 0 0 2.016.13 14.85 14.85 0 0 0 7.715-2.145 1 1 0 1 0 -1.031-1.711 13.007 13.007 0 1 1 5.458-6.529 2.149 2.149 0 0 1 -4.158-.759v-10.856a1 1 0 0 0 -2 0v1.726a8 8 0 1 0 .2 10.325 4.135 4.135 0 0 0 7.83.274 15.2 15.2 0 0 0 .823-7.455zm-14.853 8.13a6 6 0 1 1 6-6 6.006 6.006 0 0 1 -6 6z"></path>
                     </g>
                 </svg>
-                <input type="text" class="input" placeholder="Introdu Email-ul">
+                <input type="text" class="input" name="logIn.email" placeholder="Introdu Email-ul">
             </div>
 
             <div class="flex-column">
@@ -26,7 +27,7 @@
                     <path d="m336 512h-288c-26.453125 0-48-21.523438-48-48v-224c0-26.476562 21.546875-48 48-48h288c26.453125 0 48 21.523438 48 48v224c0 26.476562-21.546875 48-48 48zm-288-288c-8.8125 0-16 7.167969-16 16v224c0 8.832031 7.1875 16 16 16h288c8.8125 0 16-7.167969 16-16v-224c0-8.832031-7.1875-16-16-16zm0 0"></path>
                     <path d="m304 224c-8.832031 0-16-7.167969-16-16v-80c0-52.929688-43.070312-96-96-96s-96 43.070312-96 96v80c0 8.832031-7.167969 16-16 16s-16-7.167969-16-16v-80c0-70.59375 57.40625-128 128-128s128 57.40625 128 128v80c0 8.832031-7.167969 16-16 16zm0 0"></path>
                 </svg>
-                <input type="password" class="input" id="password" placeholder="Introdu Parola">
+                <input type="password" class="input" name="logIn.password" placeholder="Introdu Parola">
                 <svg id="togglePassword" viewBox="0 0 576 512" height="1em" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer;">
                     <path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"></path>
                 </svg>
@@ -51,33 +52,33 @@
                 <div class="flex-column">
                     <label class="form-label">Nume</label>
                     <div class="inputForm">
-                        <input type="text" class="input" name="firstName" placeholder="Introdu Numele">
+                        <input type="text" class="input" name="signUp.firstName" placeholder="Introdu Numele">
                     </div>
                 </div>
 
                 <div class="flex-column">
                     <label class="form-label">Prenume</label>
                     <div class="inputForm">
-                        <input type="text" class="input" name="lastName" placeholder="Introdu Prenumele">
+                        <input type="text" class="input" name="signUp.lastName" placeholder="Introdu Prenumele">
                     </div>
                 </div>
             </div>
             <div class="flex-column">
                 <label>Email</label>
                 <div class="inputForm">
-                    <input type="text" class="input" name="email" placeholder="Introdu Email-ul">
+                    <input type="text" class="input" name="signUp.email" placeholder="Introdu Email-ul">
                 </div>
             </div>
             <div class="flex-column">
                 <label>Număr de telefon</label>
                 <div class="inputForm">
-                    <input type="tel" id="phone" class="input" name="phoneNumber" placeholder="Introdu Numărul de telefon">
+                    <input type="tel" id="phone" class="input" name="signUp.phoneNumber" placeholder="Introdu Numărul de telefon">
                 </div>
             </div>
             <div class="flex-column">
                 <label>Parola</label>
                 <div class="inputForm">
-                    <input type="password" class="input" name="password" placeholder="Introdu Parola">
+                    <input type="password" class="input" name="signUp.password" placeholder="Introdu Parola">
                 </div>
             </div>
             <div class="flex-column">
@@ -89,7 +90,7 @@
             <div class="flex-column">
                 <label>Rol</label>
                 <div class="inputForm">
-                    <select class="input" name="userRole">
+                    <select class="input" name="signUp.userRole">
                         <option value="100">Prestator de servicii</option>
                         <option value="200">Organizator de evenimente</option>
                     </select>
@@ -134,33 +135,33 @@
         // Validare formular de înregistrare
         $("#registerForm").validate({
             rules: {
-                firstName: {
+                "signUp.firstName": {
                     required: true,
                     minlength: 3
                 },
-                lastName: {
-                    required: true,
-                    minlength: 3
-                },
-                email: {
-                    required: true,
-                    email: true
-                },
-                phoneNumber: {
-                    required: true,
-                    digits: true,
-                    minlength: 7
-                },
-                password: {
-                    required: true,
-                    minlength: 6
-                },
-                confirmPassword: {
-                    required: true,
-                    equalTo: "input[name='password']"
-                },
-                userRole: {
-                    required: true
+                "signUp.lastName": {
+                        required: true,
+                        minlength: 3
+                    },
+                "signUp.email": {
+                        required: true,
+                        email: true
+                    },
+               "signUp.phoneNumber": {
+                        required: true,
+                        digits: true,
+                        minlength: 7
+                    },
+                "signUp.password": {
+                        required: true,
+                        minlength: 6
+                    },
+                "signUp.confirmPassword": {
+                        required: true,
+                        equalTo: "input[name='signUp.password']"
+                    },
+                "signUp.userRole": {
+                        required: true
                 }
             },
             errorPlacement: function (error, element) {
@@ -175,34 +176,57 @@
 </script>
 
 <script>
+    // Validare formular de autentificare
+    $("#loginForm").validate({
+        rules: {
+            "logIn.emai": {
+                required: true,
+                email: true
+            },
+            "logInpassword": {
+                required: true,
+                minlength: 6
+            }
+        },
+        errorPlacement: function (error, element) {
+            $(element)
+                .closest(".inputForm")
+                .append(error);
+        },
+        errorElement: "span",
+        errorClass: "text-danger"
+    });
+</script>
+
+<script>
     // Variabilă globală pentru stocarea datelor formularului
     var formData = {};
 
     // Funcție pentru a salva datele formularului
     function saveFormData() {
         formData = {
-            firstName: document.querySelector('input[name="firstName"]').value,
-            lastName: document.querySelector('input[name="lastName"]').value,
-            email: document.querySelector('input[name="email"]').value,
-            phoneNumber: document.querySelector('input[name="phoneNumber"]').value,
-            password: document.querySelector('input[name="password"]').value,
-            userRole: document.querySelector('select[name="userRole"]').value
+            firstName: document.querySelector('input[name="signUp.firstName"]').value,
+            lastName: document.querySelector('input[name="signUp.lastName"]').value,
+            email: document.querySelector('input[name="signUp.email"]').value,
+            phoneNumber: document.querySelector('input[name="signUp.phoneNumber"]').value,
+            password: document.querySelector('input[name="signUp.password"]').value,
+            userRole: document.querySelector('select[name="signUp.userRole"]').value
         };
     }
 
     // Funcție pentru a restaura datele formularului
     function restoreFormData() {
-        if (formData.firstName) document.querySelector('input[name="firstName"]').value = formData.firstName;
-        if (formData.lastName) document.querySelector('input[name="lastName"]').value = formData.lastName;
-        if (formData.email) document.querySelector('input[name="email"]').value = formData.email;
-        if (formData.phoneNumber) document.querySelector('input[name="phoneNumber"]').value = formData.phoneNumber;
-        if (formData.password) document.querySelector('input[name="password"]').value = formData.password;
-        if (formData.userRole) document.querySelector('select[name="userRole"]').value = formData.userRole;
+        if (formData.firstName) document.querySelector('input[name="signUp.firstName"]').value = formData.firstName;
+        if (formData.lastName) document.querySelector('input[name="signUp.lastName"]').value = formData.lastName;
+        if (formData.email) document.querySelector('input[name="signUp.email"]').value = formData.email;
+        if (formData.phoneNumber) document.querySelector('input[name="signUp.phoneNumber"]').value = formData.phoneNumber;
+        if (formData.password) document.querySelector('input[name="signUp.password"]').value = formData.password;
+        if (formData.userRole) document.querySelector('select[name="signUp.userRole"]').value = formData.userRole;
     }
 
     // Funcție pentru a marca câmpul cu eroare
     function markFieldWithError(fieldName) {
-        var field = document.querySelector(`input[name="${fieldName}"]`);
+        var field = document.querySelector(`input[name="signUp.${fieldName}"]`);
         if (field) {
             field.classList.add('input-error');
             // Focus pe câmpul cu eroare
@@ -263,6 +287,16 @@
             document.getElementById('loginForm').style.display = 'block';
         });
 
+        // Toggle password visibility
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            var passwordInput = document.querySelector('input[name="LogInModel.password"]');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+            } else {
+                passwordInput.type = 'password';
+            }
+        });
+
         // Verifică dacă există mesaje
         @if (TempData["SuccessMessage"] != null)
         {
@@ -284,28 +318,20 @@
         @if (TempData["ErrorMessage"] != null)
         {
             <text>
-            // Salvează datele formularului dacă există model
-            @if (Model != null)
-            {
-                <text>
-                formData = {
-                    firstName: '@Model.firstName',
-                    lastName: '@Model.lastName',
-                    email: '@Model.email',
-                    phoneNumber: '@Model.phoneNumber',
-                    password: '@Model.password',
-                    userRole: '@Model.userRole'
-                };
-                </text>
-            }
-
             showOverlay();
             var errorAlert = document.getElementById('errorAlert');
             var errorTitle = document.getElementById('errorTitle');
             var errorMessage = document.getElementById('errorMessage');
 
-            // Setează titlul standard
-            errorTitle.textContent = 'Înregistrarea a eșuat';
+            // Setează titlul corespunzător
+            @if (ViewContext.RouteData.Values["action"].ToString() == "LogIn")
+            {
+                <text>errorTitle.textContent = 'Autentificarea a eșuat';</text>
+            }
+            else
+            {
+                <text>errorTitle.textContent = 'Înregistrarea a eșuat';</text>
+            }
 
             // Setează mesajul specific
             errorMessage.innerHTML = '@Html.Raw(TempData["ErrorMessage"])';
@@ -316,7 +342,6 @@
 
             errorAlert.style.display = 'block';
             errorAlert.classList.add('show');
-
             </text>
         }
     });

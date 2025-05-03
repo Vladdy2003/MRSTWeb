@@ -40,7 +40,7 @@ namespace EvenimentMD.Domain.Models.User
         public  URole userRole{ get; set; }
 
         [Display(Name ="IP")]
-        public string userIP { get; set; }
+        public string lastUserIP { get; set; }
 
         [Display(Name = "Registration Date")]
         public DateTime signUpTime { get; set; }

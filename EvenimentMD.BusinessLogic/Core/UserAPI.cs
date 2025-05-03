@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Linq;
-using System.Text;
-using System.Security.Cryptography;
 using EvenimentMD.Domain.Model;
 using EvenimentMD.Domain.Enums;
 using EvenimentMD.BusinessLogic.DatabaseContext;
 using EvenimentMD.Domain.Models.User;
 using EvenimentMD.Domain.Models;
+using EvenimentMD.Helper.RegFlow;
+using EvenimentMD.Domain.Models.User.UserActionResp;
+using System.Web;
+using EvenimentMD.Helper.Session;
+using EvenimentMD.Domain.Models.Session;
+using System.Data.Entity;
+using static System.Collections.Specialized.BitVector32;
 
 namespace EvenimentMD.BusinessLogic.Core
 {
@@ -47,7 +52,7 @@ namespace EvenimentMD.BusinessLogic.Core
                     }
 
                     // Hashing pentru parolă
-                    string hashedPassword = HashPassword(data.password);
+                    string hashedPassword = LoginRegHelper.HashPassword(data.password);
 
                     // Parsează rolul utilizatorului
                     URole role;
@@ -66,7 +71,7 @@ namespace EvenimentMD.BusinessLogic.Core
                         password = hashedPassword,
                         userRole = role,
                         signUpTime = DateTime.Now,
-                        userIP = System.Web.HttpContext.Current?.Request.UserHostAddress ?? "Unknown",
+                        lastUserIP = System.Web.HttpContext.Current?.Request.UserHostAddress ?? "Unknown",
                         LastLoginGateTime = DateTime.Now
                     };
 
@@ -75,7 +80,7 @@ namespace EvenimentMD.BusinessLogic.Core
                     dbContext.SaveChanges();
 
                     // Generează un token pentru utilizator
-                    string token = GenerateToken(newUser.Id);
+                    string token = LoginRegHelper.GenerateToken(newUser.Id);
 
                     return token;
                 }
@@ -88,52 +93,113 @@ namespace EvenimentMD.BusinessLogic.Core
             }
         }
 
-        // Metodă pentru hasharea parolei
-        private string HashPassword(string password)
+        internal UserResp UserLogInLogic(UserLogInData credentials)
         {
-            using (var sha256 = SHA256.Create())
+            try
             {
-                // Convertește parola în bytes
-                byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+                string hashedPassword = LoginRegHelper.HashPassword(credentials.password);
+                UDbTable user;
 
-                // Calculează hash-ul
-                byte[] hashBytes = sha256.ComputeHash(passwordBytes);
-
-                // Convertește hash-ul în string hexadecimal
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < hashBytes.Length; i++)
+                using (var dbContext = new UserContext())
                 {
-                    builder.Append(hashBytes[i].ToString("x2"));
+                    // Verifică dacă utilizatorul există în baza de date
+                    user = dbContext.Users.FirstOrDefault(u => u.email == credentials.email);
+
+                    // Daca utilizatorul nu există, se returnează EmailNotFound
+                    if (user == null)
+                    {
+                        return new UserResp 
+                        { 
+                            Status = false, 
+                            Result = LoginResult.EmailNotFound 
+                        };
+                    }
+
+                    // Daca parola nu estec corectă, se returnează PasswordIncorrect
+                    if (user.password != hashedPassword)
+                    {
+                        return new UserResp 
+                        { 
+                            Status = false,
+                            Result = LoginResult.PasswordIncorrect };
+                    }
                 }
 
-                return builder.ToString();
+                // Ambele metode de mai sus sunt corecte, deci utilizatorul este validat
+                // Se actualizează ora ultimei autentificări și IP-ul utilizatorului
+                user.LastLoginGateTime = DateTime.Now;
+                user.lastUserIP = System.Web.HttpContext.Current?.Request.UserHostAddress ?? "Unknown";
+
+                using (var db = new UserContext())
+                {
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+
+                // Generează un cookie pentru utilizator
+                return new UserResp 
+                { 
+                    Status = true,
+                    Result = LoginResult.Success,
+                    userId = user.Id,
+                };
+            }
+            catch (Exception ex)
+            {
+                // Loghează excepția
+                Console.WriteLine($"Error in UserLogInLogic: {ex.Message}");
+                return new UserResp { 
+                    Status = false,
+                    Result = LoginResult.Error };
             }
         }
 
-        // Metodă pentru generarea unui token
-        private string GenerateToken(int userId)
+        internal UserCookieResp GenerateCookieByUserAction(int userId)
         {
-            // Combinație de userId și timestamp pentru a face token-ul unic
-            string tokenData = $"{userId}:{DateTime.UtcNow.Ticks}";
-
-            // Hashează tokenData pentru a crea token-ul
-            using (var sha256 = SHA256.Create())
+            var cookieString = new HttpCookie("X-KEY")
             {
-                byte[] tokenBytes = Encoding.UTF8.GetBytes(tokenData);
-                byte[] hashBytes = sha256.ComputeHash(tokenBytes);
+                Value = CookieGenerator.Create(userId + System.Web.HttpContext.Current?.Request.UserHostAddress)
+            };
 
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < hashBytes.Length; i++)
-                {
-                    builder.Append(hashBytes[i].ToString("x2"));
-                }
+            var dateTime = DateTime.Now;
 
-                return builder.ToString();
+            USessionDbTable session;
+
+            using (var db = new SessionContext())
+            {
+                session = db.Sessions.FirstOrDefault(u => u.userId == userId);
             }
-        }
-        public string UserLogInLogicAction(UserLogInData data)
-        {
-            return "token-key";
+
+            if (session != null)
+            {
+                // Update existing table
+                session.cookie = cookieString.ToString();
+                session.isValidTime = dateTime;
+
+                using (var db = new SessionContext())
+                {
+                    db.Entry(session).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            else
+            {
+                // Insert table
+                session = new USessionDbTable()
+                {
+                    userId = userId,
+                    cookie = cookieString.ToString(),
+                    isValidTime = dateTime
+                };
+
+                using (var db = new SessionContext())
+                {
+                    db.Sessions.Add(session);
+                    db.SaveChanges();
+                }
+            }
+
+            return new UserCookieResp() {userId = userId, cookie = cookieString, validUntil = dateTime };
         }
     }
 }

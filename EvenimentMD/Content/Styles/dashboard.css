@@ -17294,7 +17294,7 @@ a.sidebar-link svg {
 }
 
 /* Responsive */
-@@media (max-width: 768px) {
+@media (max-width: 768px) {
     .conversations-list {
         width: 100%;
         border-right: none;

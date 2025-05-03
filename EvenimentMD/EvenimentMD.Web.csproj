@@ -55,6 +55,12 @@
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Configuration.ConfigurationBuilders.Base, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Configuration.ConfigurationBuilders.Base.3.0.0\lib\Net471\Microsoft.Configuration.ConfigurationBuilders.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Configuration.ConfigurationBuilders.UserSecrets, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Configuration.ConfigurationBuilders.UserSecrets.3.0.0\lib\Net471\Microsoft.Configuration.ConfigurationBuilders.UserSecrets.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -185,19 +191,19 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\Dahboard\Agenda.js" />
-    <Content Include="Scripts\Dahboard\BusinessPrfileReviews.js" />
-    <Content Include="Scripts\Dahboard\BusinessProfile.js" />
-    <Content Include="Scripts\Dahboard\BusinessProfileMembers.js" />
-    <Content Include="Scripts\Dahboard\BusinessProfileServices.js" />
-    <Content Include="Scripts\Dahboard\BussinessProfileGallery.js" />
-    <Content Include="Scripts\Dahboard\Index.js" />
-    <Content Include="Scripts\Dahboard\Messages.js" />
-    <Content Include="Scripts\Dahboard\Profile.js" />
-    <Content Include="Scripts\Dahboard\dashboard.js" />
+    <Content Include="Scripts\ProviderDahboard\Agenda.js" />
+    <Content Include="Scripts\ProviderDahboard\BusinessProfileReviews.js" />
+    <Content Include="Scripts\ProviderDahboard\BusinessProfile.js" />
+    <Content Include="Scripts\ProviderDahboard\BusinessProfileMembers.js" />
+    <Content Include="Scripts\ProviderDahboard\BusinessProfileServices.js" />
+    <Content Include="Scripts\ProviderDahboard\BussinessProfileGallery.js" />
+    <Content Include="Scripts\ProviderDahboard\Index.js" />
+    <Content Include="Scripts\ProviderDahboard\Messages.js" />
+    <Content Include="Scripts\ProviderDahboard\Profile.js" />
+    <Content Include="Scripts\ProviderDahboard\dashboard.js" />
     <Content Include="Scripts\login.js" />
     <Content Include="Scripts\services.js" />
-    <Content Include="Views\Shared\_DashboardSidebar.cshtml" />
+    <Content Include="Views\Shared\_DashboardProviderSidebar.cshtml" />
     <Content Include="Views\Shared\_DashboardHeader.cshtml" />
     <Content Include="Views\ServicePage\Index.cshtml" />
     <Content Include="Views\Provider\BusinessProfile.cshtml" />
@@ -230,6 +236,7 @@
     </Compile>
     <Compile Include="Models\Authentication\UserDataLogIn.cs" />
     <Compile Include="Models\Authentication\UserDataSignUp.cs" />
+    <Compile Include="Models\AuthModel.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.8.1.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -278,6 +285,7 @@
     <Content Include="Scripts\bootstrap.esm.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Views\Shared\_SocialAuthPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

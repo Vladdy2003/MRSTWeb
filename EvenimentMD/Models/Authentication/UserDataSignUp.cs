@@ -12,7 +12,6 @@ namespace EvenimentMD.Web.Models.SignUp
         public string email { get; set; }
         public string phoneNumber { get; set; }
         public string password { get; set; }
-        public string confirmPassword { get; set; }
         public string userRole { get; set; }
 
     }

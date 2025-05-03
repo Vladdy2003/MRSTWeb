@@ -43,6 +43,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,8 +52,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\LoginResult.cs" />
     <Compile Include="Enums\URole.cs" />
+    <Compile Include="Models\Session\USessionDbTable.cs" />
     <Compile Include="Models\User\UDbTable.cs" />
+    <Compile Include="Models\User\UserActionResp\UserCookieResp.cs" />
+    <Compile Include="Models\User\UserActionResp\UserResp.cs" />
     <Compile Include="Models\User\UserSignUpData.cs" />
     <Compile Include="Models\User\UserLogInData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

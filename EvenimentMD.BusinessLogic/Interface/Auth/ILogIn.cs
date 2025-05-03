@@ -1,14 +1,12 @@
 ﻿using EvenimentMD.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using EvenimentMD.Domain.Models.User.UserActionResp;
 
 namespace EvenimentMD.BusinessLogic.Interface
 {
     public interface ILogIn
     {
-        string UserLogInLogic(UserLogInData data);
+        UserResp LogInLogic(UserLogInData data);
+
+        UserCookieResp GenerateCookieByUser(int id);
     }
 }
