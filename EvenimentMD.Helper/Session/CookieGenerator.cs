@@ -40,7 +40,7 @@ namespace EvenimentMD.Helper.Session
                 throw new ArgumentNullException(nameof(sharedSecret));
 
             string outStr;                       // Encrypted string to return
-            RijndaelManaged aesAlg = null;              // RijndaelManaged object used to encrypt the data.
+            RijndaelManaged aesAlg = null;       // RijndaelManaged object used to encrypt the data.
 
             try
             {

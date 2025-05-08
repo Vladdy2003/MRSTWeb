@@ -9,9 +9,10 @@ namespace EvenimentMD.Domain.Models.User.UserActionResp
 {
     public class UserResp
     {
+        public int userId { get; set; }
         public bool Status { get; set; }
         public LoginResult Result { get; set; }
-        public int userId { get; set; }
+        public URole role { get; set; }
 
     }
 }

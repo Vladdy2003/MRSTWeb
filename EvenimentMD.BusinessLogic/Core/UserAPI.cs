@@ -121,7 +121,8 @@ namespace EvenimentMD.BusinessLogic.Core
                         return new UserResp 
                         { 
                             Status = false,
-                            Result = LoginResult.PasswordIncorrect };
+                            Result = LoginResult.PasswordIncorrect 
+                        };
                     }
                 }
 
@@ -150,7 +151,8 @@ namespace EvenimentMD.BusinessLogic.Core
                 Console.WriteLine($"Error in UserLogInLogic: {ex.Message}");
                 return new UserResp { 
                     Status = false,
-                    Result = LoginResult.Error };
+                    Result = LoginResult.Error 
+                };
             }
         }
 
@@ -173,8 +175,8 @@ namespace EvenimentMD.BusinessLogic.Core
             if (session != null)
             {
                 // Update existing table
-                session.cookie = cookieString.ToString();
-                session.isValidTime = dateTime;
+                session.cookie = cookieString.Value;
+                session.isValidTime = dateTime.AddHours(3);
 
                 using (var db = new SessionContext())
                 {
@@ -188,8 +190,8 @@ namespace EvenimentMD.BusinessLogic.Core
                 session = new USessionDbTable()
                 {
                     userId = userId,
-                    cookie = cookieString.ToString(),
-                    isValidTime = dateTime
+                    cookie = cookieString.Value,
+                    isValidTime = dateTime.AddHours(3)
                 };
 
                 using (var db = new SessionContext())
@@ -200,6 +202,40 @@ namespace EvenimentMD.BusinessLogic.Core
             }
 
             return new UserCookieResp() {userId = userId, cookie = cookieString, validUntil = dateTime };
+        }
+
+        internal UserResp GetUserByCookieAction(string cookieKey)
+        {
+            USessionDbTable session;
+            UDbTable user;
+            using (var db = new SessionContext())
+            {
+                session = db.Sessions.FirstOrDefault(s => s.cookie.Contains(cookieKey));
+            }
+
+            if(session != null)
+            {
+                using (var db = new UserContext())
+                {
+                    user = db.Users.FirstOrDefault(u => u.Id == session.userId);
+                }
+
+                if(user != null)
+                {
+                    return new UserResp()
+                    {
+                        Status = true,
+                        userId = user.Id,
+                        role = user.userRole,
+                    };
+                }
+            }
+
+            
+            return new UserResp()
+            {
+                Status = false,
+            };
         }
     }
 }

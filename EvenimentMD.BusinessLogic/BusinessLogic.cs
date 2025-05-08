@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EvenimentMD.BusinessLogic.BLStruct;
 using EvenimentMD.BusinessLogic.Interface;
+using EvenimentMD.BusinessLogic.Interface.Provider;
 
 namespace EvenimentMD.BusinessLogic
 {
@@ -15,9 +16,9 @@ namespace EvenimentMD.BusinessLogic
             return new SignUpBL();
         }
 
-        public ILogIn GetLoginBL()
+        public ISession GetLogInBL()
         {
-            return new LogInBL();
+            return new SessionBL();
         }
     }
 }

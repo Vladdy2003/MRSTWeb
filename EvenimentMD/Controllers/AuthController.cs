@@ -14,13 +14,13 @@ namespace EvenimentMD.Controllers
     public class AuthController : Controller
     {
         private readonly ISignUp _signUp;
-        private readonly ILogIn _logIn;
+        private readonly ISession _session;
 
         public AuthController()
         {
             var bl = new BusinessLogic.BusinessLogic();
             _signUp = bl.GetSignUpBL();
-            _logIn = bl.GetLoginBL();
+            _session = bl.GetLogInBL();
         }
 
         // GET: Auth
@@ -117,12 +117,12 @@ namespace EvenimentMD.Controllers
                         lastLogInTime = DateTime.Now,
                     };
 
-                    var resp = _logIn.LogInLogic(data);
+                    var resp = _session.LogInLogic(data);
 
                     if (resp.Status)
                     {
                         // Autentificare reușită
-                        UserCookieResp respCookie = _logIn.GenerateCookieByUser(resp.userId);
+                        UserCookieResp respCookie = _session.GenerateCookieByUser(resp.userId);
 
                         HttpCookie cookie = respCookie.cookie;
                         ControllerContext.HttpContext.Response.Cookies.Add(cookie);
