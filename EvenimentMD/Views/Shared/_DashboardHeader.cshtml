@@ -1,53 +1,4 @@
-﻿@using EvenimentMD.Domain.Models.User
-@using EvenimentMD.BusinessLogic.DatabaseContext
-
-@{
-    bool isLoggedIn = false;
-    UDbTable currentUser = null;
-
-    // Verifica dace este cookie
-    var cookie = Request.Cookies["X-KEY"];
-    if (cookie != null)
-    {
-        string cookieValue = cookie.Value;
-        if (!string.IsNullOrEmpty(cookieValue))
-        {
-            // Decodarea cookie-ului pentru a obține ID-ul utilizatorului
-            try
-            {
-                // Extragerea informațiilor din cookie
-                string decodedValue = EvenimentMD.Helper.Session.CookieGenerator.Validate(cookieValue);
-                if (!string.IsNullOrEmpty(decodedValue))
-                {
-                    string[] parts = decodedValue.Split(new[] { System.Web.HttpContext.Current?.Request.UserHostAddress }, StringSplitOptions.None);
-                    if (parts.Length > 0)
-                    {
-                        int userId;
-                        if (int.TryParse(parts[0], out userId))
-                        {
-                            // Extragerea informațiilor utilizatorului din baza de date
-                            using (var db = new UserContext())
-                            {
-                                currentUser = db.Users.FirstOrDefault(u => u.Id == userId);
-                                if (currentUser != null)
-                                {
-                                    isLoggedIn = true;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // Log error
-                System.Diagnostics.Debug.WriteLine($"Error getting user data: {ex.Message}");
-            }
-        }
-    }
-}
-
-    <nav class="navbar navbar-expand navbar-light navbar-bg">
+﻿    <nav class="navbar navbar-expand navbar-light navbar-bg">
         <a class="sidebar-toggle js-sidebar-toggle">
             <i class="hamburger align-self-center"></i>
         </a>
@@ -192,7 +143,7 @@
                         </a>
 
                         <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                            <img src="~/Resources/Services/themotans.jpg" class="avatar img-fluid object-fit-coverrounded me-1 rounded-circle" alt="Charles Hall" /> <span class="text-dark">@currentUser.firstName @currentUser.lastName</span>
+                            <img src="~/Resources/Services/themotans.jpg" class="avatar img-fluid object-fit-coverrounded me-1 rounded-circle" alt="Charles Hall" /> <span class="text-dark">@Session["UserFirstName"] @Session["UserLastName"]</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <a class="dropdown-item" href="@Url.Action("UserProfile", "Provider")"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>

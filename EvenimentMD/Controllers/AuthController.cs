@@ -20,7 +20,7 @@ namespace EvenimentMD.Controllers
         {
             var bl = new BusinessLogic.BusinessLogic();
             _signUp = bl.GetSignUpBL();
-            _session = bl.GetLogInBL();
+            _session = bl.GetSessionBL();
         }
 
         // GET: Auth

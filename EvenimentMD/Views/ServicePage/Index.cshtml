@@ -1,10 +1,12 @@
-﻿<div class="container">
+﻿@model EvenimentMD.Domain.Models.Provider.ProviderDbTable
+
+<div class="container">
     <!-- Provider Header Section -->
     <div class="row mb-4">
         <div class="col-12">
             <!-- Provider title and info - desktop -->
             <div class="d-none d-lg-block">
-                <h1 class="provider-title fw-bold">Nume Prestator</h1>
+                <h1 class="provider-title fw-bold">@Model.providerName</h1>
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
                         <div class="rating me-3">
@@ -13,9 +15,24 @@
                         </div>
                     </div>
                     <div class="social-icons">
-                        <a href="#" class="btn btn-sm btn-outline-secondary rounded-circle"><i class="bi bi-instagram"></i></a>
-                        <a href="#" class="btn btn-sm btn-outline-secondary rounded-circle"><i class="bi bi-tiktok"></i></a>
-                        <a href="#" class="btn btn-sm btn-outline-secondary rounded-circle"><i class="bi bi-facebook"></i></a>
+                        @if (!string.IsNullOrEmpty(Model.instagramURL))
+                        {
+                            <a href="@Model.instagramURL" target="_blank" class="btn btn-sm btn-outline-secondary rounded-circle">
+                                <i class="bi bi-instagram"></i>
+                            </a>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.tiktokURL))
+                        {
+                            <a href="@Model.tiktokURL" target="_blank" class="btn btn-sm btn-outline-secondary rounded-circle">
+                                <i class="bi bi-tiktok"></i>
+                            </a>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.facebookURL))
+                        {
+                            <a href="@Model.facebookURL" target="_blank" class="btn btn-sm btn-outline-secondary rounded-circle">
+                                <i class="bi bi-facebook"></i>
+                            </a>
+                        }
                         <a href="#" class="btn btn-sm btn-outline-secondary rounded-circle"><i class="bi bi-share"></i></a>
                     </div>
                 </div>
@@ -66,13 +83,28 @@
     <div class="d-lg-none mb-4 mt-3">
         <div class="d-flex align-items-center mb-4">
             <div class="social-icons">
-                <a href="#" class="btn btn-sm btn-outline-secondary rounded-circle"><i class="bi bi-instagram"></i></a>
-                <a href="#" class="btn btn-sm btn-outline-secondary rounded-circle"><i class="bi bi-tiktok"></i></a>
-                <a href="#" class="btn btn-sm btn-outline-secondary rounded-circle"><i class="bi bi-facebook"></i></a>
+                @if (!string.IsNullOrEmpty(Model.instagramURL))
+                {
+                    <a href="@Model.instagramURL" target="_blank" class="btn btn-sm btn-outline-secondary rounded-circle">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                }
+                @if (!string.IsNullOrEmpty(Model.tiktokURL))
+                {
+                    <a href="@Model.tiktokURL" target="_blank" class="btn btn-sm btn-outline-secondary rounded-circle">
+                        <i class="bi bi-tiktok"></i>
+                    </a>
+                }
+                @if (!string.IsNullOrEmpty(Model.facebookURL))
+                {
+                    <a href="@Model.facebookURL" target="_blank" class="btn btn-sm btn-outline-secondary rounded-circle">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                }
                 <a href="#" class="btn btn-sm btn-outline-secondary rounded-circle"><i class="bi bi-share"></i></a>
             </div>
         </div>
-        <h1 class="provider-title h3 fw-bold">Nume Prestator</h1>
+        <h1 class="provider-title h3 fw-bold">@Model.providerName</h1>
         <div class="rating mb-1">
             <span class="text-warning">★</span>
             <span class="fw-medium">5 · 493 recenzii</span>
@@ -87,7 +119,15 @@
                         <i class="bi bi-telephone"></i>
                     </div>
                     <div>
-                        <span>+373 60241234</span>
+                        <span>+373 @Model.phoneNumber</span>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center mb-3">
+                    <div class="me-3">
+                        <i class="bi bi-envelope"></i>
+                    </div>
+                    <div>
+                        <span>@Model.email</span>
                     </div>
                 </div>
 
@@ -109,9 +149,7 @@
                 <div class="card-body p-4">
                     <h2 class="mb-3 fw-bold">Despre noi</h2>
                     <div class="about-content">
-                        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-
-                        The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
+                        @Html.Raw(Model.description)
                     </div>
 
                     <!-- Mobile-only "Show more" button -->
@@ -235,7 +273,15 @@
                             <i class="bi bi-telephone fs-4"></i>
                         </div>
                         <div>
-                            <span>+373 60241234</span>
+                            <span>+373 @Model.phoneNumber</span>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="me-3">
+                            <i class="bi bi-envelope fs-4"></i>
+                        </div>
+                        <div>
+                            <span>@Model.email</span>
                         </div>
                     </div>
                     <a href="#" class="btn-31 booking-btn mb-2">

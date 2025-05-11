@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EvenimentMD.BusinessLogic.BLStruct;
+﻿using EvenimentMD.BusinessLogic.BLStruct;
 using EvenimentMD.BusinessLogic.Interface;
 using EvenimentMD.BusinessLogic.Interface.Provider;
 
@@ -16,9 +11,13 @@ namespace EvenimentMD.BusinessLogic
             return new SignUpBL();
         }
 
-        public ISession GetLogInBL()
+        public ISession GetSessionBL()
         {
             return new SessionBL();
+        }
+        public IBusinsessProfile GetBusinessProfileBL()
+        {
+            return new BusinessProfileBL();
         }
     }
 }

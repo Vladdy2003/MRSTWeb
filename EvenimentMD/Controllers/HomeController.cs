@@ -6,11 +6,12 @@ using System.Web.Mvc;
 
 namespace EvenimentMD.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         // GET: Home
         public ActionResult Index()
         {
+            SessionStatus();
             return View();
         }
 

@@ -11,7 +11,6 @@ using System.Web;
 using EvenimentMD.Helper.Session;
 using EvenimentMD.Domain.Models.Session;
 using System.Data.Entity;
-using static System.Collections.Specialized.BitVector32;
 
 namespace EvenimentMD.BusinessLogic.Core
 {
@@ -227,6 +226,8 @@ namespace EvenimentMD.BusinessLogic.Core
                         Status = true,
                         userId = user.Id,
                         role = user.userRole,
+                        firstName = user.firstName,
+                        lastName = user.lastName
                     };
                 }
             }

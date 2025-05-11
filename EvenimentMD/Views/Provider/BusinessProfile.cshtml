@@ -1,4 +1,5 @@
 ﻿@using System.Web.Optimization
+@model  EvenimentMD.Models.Provider.BusinessProfileInfo
 
 @{
     ViewBag.Title = "Prestator de servicii";
@@ -17,29 +18,45 @@
                     <h6 class="card-subtitle text-muted">Editați informațiile generale despre prestarea serviciilor oferite de dvs.</h6>
                 </div>
                 <div class="card-body">
-                    <form id="businessProfileForm">
+                    <!-- Afișare mesaje de succes/eroare -->
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success">
+                            @TempData["SuccessMessage"]
+                        </div>
+                    }
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger">
+                            @TempData["ErrorMessage"]
+                        </div>
+                    }
+
+                    <!-- MODIFICARE IMPORTANTĂ: Adaugă enctype pentru upload fișiere -->
+                    <form id="businessProfileForm" method="post" action="@Url.Action("EditBusinessProfileData","Provider")" enctype="multipart/form-data">
+                        @Html.AntiForgeryToken()
                         <div class="row mb-4">
                             <div class="col-12 col-md-3 text-center mb-4 mb-md-0">
                                 <div class="img-border position-relative d-inline-block w-100">
-                                    <label for="companyLogo" class="d-block cursor-pointer">
+                                    <label for="logo" class="d-block cursor-pointer">
                                         <div class="image-placeholder d-flex flex-column align-items-center justify-content-center mx-auto" style="width: 100%; max-width: 200px; height: 200px; background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px;">
                                             <i class="bi bi-image" style="font-size: 3rem; color: #6c757d;"></i>
                                             <span class="mt-2 text-muted">Încarcă Logo</span>
                                         </div>
-                                        <img src="~/Resources/Home/default.png" alt="Logo companie" class="img-fluid rounded mb-2 d-none mx-auto" id="companyLogoPreview" style="width: 100%; max-width: 200px; height: auto; max-height: 200px; object-fit: cover;">
+                                        <img src="~/Resources/Home/default.png" alt="Logo" class="img-fluid rounded mb-2 d-none mx-auto" id="companyLogoPreview" style="width: 100%; max-width: 200px; height: auto; max-height: 200px; object-fit: cover;">
                                     </label>
-                                    <input type="file" id="companyLogo" name="companyLogo" class="d-none" accept="image/*" onchange="previewImage(this)">
+                                    <input type="file" id="logo" name="logo" class="d-none" accept="image/*" onchange="previewImage(this)">
                                 </div>
                             </div>
                             <div class="col-12 col-md-9">
                                 <div class="row mb-3">
                                     <div class="col-12 col-md-6 mb-3 mb-md-0">
                                         <label for="companyName" class="form-label">Nume prestator *</label>
-                                        <input type="text" class="form-control" id="companyName" name="companyName" placeholder="Ex. PhotoEvents" required>
+                                        <input type="text" class="form-control" id="providerName" name="providerName" placeholder="Ex. PhotoEvents" value="@Model.providerName" required>
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <label for="companyEmail" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="companyEmail" name="companyEmail" placeholder="exemplu@domeniu.com">
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="exemplu@domeniu.com" value="@Model.email">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -47,20 +64,41 @@
                                         <label for="companyPhone" class="form-label">Telefon de contact</label>
                                         <div class="input-group">
                                             <span class="input-group-text">+373</span>
-                                            <input type="text" class="form-control" id="companyPhone" name="companyPhone" placeholder="68123456">
+                                            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="68123456" value="@Model.phoneNumber">
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <label for="companyWebsite" class="form-label">Site web</label>
-                                        <input type="url" class="form-control" id="companyWebsite" name="companyWebsite" placeholder="https://exemplu.com">
+                                        <input type="url" class="form-control" id="website" name="website" placeholder="https://exemplu.com" value="@Model.website">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-12 col-md-6">
+                                        <label for="serviceType" class="form-label">Tipul de serviciu</label>
+                                        <select class="form-select" id="serviceType" name="serviceType">
+                                            <option value="" selected disabled>Selectați tipul de serviciu</option>
+                                            <option value="Animatori" @(Model.serviceType == "Animatori" ? "selected" : "")>Animatori</option>
+                                            <option value="Bauturi" @(Model.serviceType == "Bauturi" ? "selected" : "")>Băuturi</option>
+                                            <option value="Dansatori" @(Model.serviceType == "Dansatori" ? "selected" : "")>Dansatori</option>
+                                            <option value="Decor" @(Model.serviceType == "Decor" ? "selected" : "")>Decor</option>
+                                            <option value="Fotograf" @(Model.serviceType == "Fotograf" ? "selected" : "")>Fotograf</option>
+                                            <option value="Lumini" @(Model.serviceType == "Lumini" ? "selected" : "")>Lumini</option>
+                                            <option value="Muzica" @(Model.serviceType == "Muzica" ? "selected" : "")>Muzică</option>
+                                            <option value="Patiserie" @(Model.serviceType == "Patiserie" ? "selected" : "")>Patiserie</option>
+                                            <option value="Poze selfie" @(Model.serviceType == "Poze selfie" ? "selected" : "")>Poze selfie</option>
+                                            <option value="Videograf" @(Model.serviceType == "Videograf" ? "selected" : "")>Videograf</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="mb-4">
-                            <label for="companyDescription" class="form-label">Descriere</label>
-                            <textarea class="form-control" id="companyDescription" name="companyDescription" rows="4" placeholder="Descrieți despre serviciile prestate de dvs."></textarea>
+                            <label for="description" class="form-label">Descriere</label>
+                            <!-- MODIFICARE IMPORTANTĂ: Hidden input pentru a asigura că datele din TinyMCE sunt transmise -->
+                            <input type="hidden" name="hiddenDescription" id="hiddenDescription" />
+                            <!-- Textarea original -->
+                            <textarea class="form-control" id="description" name="description" rows="4" placeholder="Descrieți despre serviciile prestate de dvs.">@Model.description</textarea>
                             <small class="text-muted">Descrieți serviciile oferite, avantajele și orice informație relevantă pentru clienți.</small>
                         </div>
 
@@ -70,21 +108,21 @@
                                 <label for="facebook" class="form-label">Facebook</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i data-feather="facebook"></i></span>
-                                    <input type="text" class="form-control" id="facebook" name="facebook" placeholder=@Html.Raw("\"https://facebook.com/@username\"")>
+                                    <input type="text" class="form-control" id="facebookURL" name="facebookURL" placeholder="Facebook Username" value="@Model.facebookURL">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <label for="instagram" class="form-label">Instagram</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i data-feather="instagram"></i></span>
-                                    <input type="text" class="form-control" id="instagram" name="instagram" placeholder=@Html.Raw("\"https://instagram.com/@username\"")>
+                                    <input type="text" class="form-control" id="instagramURL" name="instagramURL" placeholder="Instagram Username" value="@Model.instagramURL">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <label for="tiktok" class="form-label">TikTok</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i data-feather="video"></i></span>
-                                    <input type="text" class="form-control" id="tiktok" name="tiktok" placeholder=@Html.Raw("\"https://tiktok.com/@username\"")>
+                                    <input type="text" class="form-control" id="tiktokURL" name="tiktokURL" placeholder="TikTok Username" value="@Model.tiktokURL">
                                 </div>
                             </div>
                         </div>
@@ -99,5 +137,55 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+
 <script src="https://cdn.tiny.cloud/1/qywpjceke2tcvijc5frnd1b8xhf14hxo01pn3uwlxjmk6gu9/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
 <script src="~/Scripts/ProviderDahboard/BusinessProfile.js"></script>
+
+<script>
+    // Validare formular de înregistrare
+    $("#businessProfileForm").validate({
+        rules: {
+            logo: {
+                required: true,
+            },
+            providerName: {
+                required: true,
+            },
+            email: {
+                required: true,
+                email: true
+            },
+            phoneNumber: {
+                required: true,
+            },
+            website: {
+                required: false,
+            },
+            serviceType: {
+                required: true,
+            },
+            description: {
+                required: true,
+            },
+            facebookURL: {
+                required: false,
+            },
+            instagramURL: {
+                required: false,
+            },
+            tktokURL: {
+                required: false,
+            }
+        },
+        errorPlacement: function (error, element) {
+            $(element)
+                .closest(".inputForm")
+                .append(error);
+        },
+        errorElement: "span",
+        errorClass: "text-danger"
+    });
+</script>

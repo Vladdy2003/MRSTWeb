@@ -1,53 +1,4 @@
-﻿@using EvenimentMD.Domain.Models.User
-@using EvenimentMD.BusinessLogic.DatabaseContext
-
-@{
-    bool isLoggedIn = false;
-    UDbTable currentUser = null;
-
-    // Check if user is logged in by looking for the cookie
-    var cookie = Request.Cookies["X-KEY"];
-    if (cookie != null)
-    {
-        string cookieValue = cookie.Value;
-        if (!string.IsNullOrEmpty(cookieValue))
-        {
-            // Decode the cookie to get user ID
-            try
-            {
-                // Extract user ID from the cookie using the helper
-                string decodedValue = EvenimentMD.Helper.Session.CookieGenerator.Validate(cookieValue);
-                if (!string.IsNullOrEmpty(decodedValue))
-                {
-                    string[] parts = decodedValue.Split(new[] { System.Web.HttpContext.Current?.Request.UserHostAddress }, StringSplitOptions.None);
-                    if (parts.Length > 0)
-                    {
-                        int userId;
-                        if (int.TryParse(parts[0], out userId))
-                        {
-                            // Get user data from database
-                            using (var db = new UserContext())
-                            {
-                                currentUser = db.Users.FirstOrDefault(u => u.Id == userId);
-                                if (currentUser != null)
-                                {
-                                    isLoggedIn = true;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // Log error or handle as needed
-                System.Diagnostics.Debug.WriteLine($"Error getting user data: {ex.Message}");
-            }
-        }
-    }
-}
-
-<div class="header-wrapper">
+﻿<div class="header-wrapper">
     <div class="container">
         <header>
             <div class="nav-logo">
@@ -67,7 +18,7 @@
                             <span class="text">Servicii</span>
                         </span>
                     </a>
-                    @if (isLoggedIn && currentUser != null)
+                    @if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] == "login")
                     {
                         <div class="user-profile-container">
                             <a href="#" class="user-profile-link" id="userDropdown" onclick="toggleDropdown(event)">
@@ -76,7 +27,7 @@
                                         <img src="~/Resources/Services/themotans.jpg" class="rounded-circle" alt="Profile" width="32" height="32">
                                     </div>
                                     <div class="user-name ms-2">
-                                        @currentUser.firstName @currentUser.lastName
+                                        @Session["UserFirstName"] @Session["UserLastName"]
                                     </div>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down ms-1" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
@@ -123,7 +74,7 @@
                 <a href="@Url.Action("Index", "Services")" class="mobile-menu-item">
                     <span>Servicii</span>
                 </a>
-                @if (isLoggedIn && currentUser != null)
+                @if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] == "login")
                 {
                     <div class="mobile-user-profile">
                         <a href="@Url.Action("Index", "Provider")" class="mobile-menu-item">

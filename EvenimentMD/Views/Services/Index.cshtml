@@ -1,4 +1,6 @@
-﻿<div class="container-fluid">
+﻿@model List<EvenimentMD.Domain.Models.Provider.ProviderDbTable>
+
+<div class="container-fluid">
     <div class="row">
         <!-- Filters section - will collapse to a dropdown on mobile -->
         <div class="col-lg-3 col-md-4 col-12 mb-4">
@@ -6,7 +8,7 @@
                 <button class="d-lg-none d-md-none w-100 toggle-filters-btn mb-3" id="toggleFiltersBtn">
                     <i class="fas fa-filter"></i> Afișează/Ascunde filtre
                 </button>
-                
+
                 <aside class="filters" id="filtersPanel">
                     <h2>Filtre</h2>
                     <section>
@@ -144,7 +146,7 @@
                 <!-- Results header -->
                 <div class="row results-header mb-4">
                     <div class="col-sm-6 mb-2 mb-sm-0">
-                        <p class="results-count">Rezultate căutări: 347</p>
+                        <p class="results-count">Rezultate căutări: @Model.Count</p>
                     </div>
                     <div class="col-sm-6 text-sm-end">
                         <div class="dropdown">
@@ -164,30 +166,46 @@
 
                 <!-- Service provider cards -->
                 <div class="row g-3">
-                    @{
-                        for (int i = 0; i < 40; i++)
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var provider in Model)
                         {
                             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mb-4">
-                                <a href="@Url.Action("Index", "ServicePage")">
+                                <a href="@Url.Action("Index", "ServicePage", new { id = provider.Id })">
                                     <div class="card h-100 service-card">
                                         <div class="position-relative">
-                                            <img src="~/Resources/Services/themotans.jpg" class="card-img-top" alt="Nume Prestator">
+                                            @if (!string.IsNullOrEmpty(provider.logo))
+                                            {
+                                                <img src="@provider.logo" class="card-img-top" alt="@provider.providerName">
+                                            }
+                                            else
+                                            {
+                                                <img src="~/Resources/Home/decor.jpeg" class="card-img-top" alt="@provider.providerName">
+                                            }
                                             <div class="rating-badge">
                                                 ⭐4.8
                                             </div>
                                         </div>
                                         <div class="card-body">
-                                            <h5 class="card-title mb-2">Nume Prestator</h5>
+                                            <h5 class="card-title mb-2">@provider.providerName</h5>
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <span class="text-muted">Categorie: DJ</span>
+                                                <span class="text-muted">Categorie: @provider.serviceType</span>
                                             </div>
                                         </div>
                                     </div>
                                 </a>
-                            </div> 
+                            </div>
                         }
                     }
-</div>
+                    else
+                    {
+                        <div class="col-12">
+                            <div class="alert alert-info">
+                                Nu s-au găsit prestatori de servicii. Încercați să modificați filtrele sau să adăugați un prestator nou.
+                            </div>
+                        </div>
+                    }
+                </div>
 
                 <!-- Pagination -->
                 <nav aria-label="Page navigation" class="mt-4 mb-4">

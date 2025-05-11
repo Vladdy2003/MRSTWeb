@@ -13,7 +13,7 @@ namespace EvenimentMD.LogicHelper.Atributes
         public IsProviderAttribute()
         {
             var bl = new BusinessLogic.BusinessLogic();
-            _session = bl.GetLogInBL();
+            _session = bl.GetSessionBL();
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)

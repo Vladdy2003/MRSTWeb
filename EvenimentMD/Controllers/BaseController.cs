@@ -15,7 +15,7 @@ namespace EvenimentMD.Controllers
         public BaseController()
         {
             var bl = new BusinessLogic.BusinessLogic();
-            _session = bl.GetLogInBL();
+            _session = bl.GetSessionBL();
         }
 
         public void SessionStatus()
@@ -29,6 +29,10 @@ namespace EvenimentMD.Controllers
                 {
                     System.Web.HttpContext.Current.SetUserProfile(profile);
                     System.Web.HttpContext.Current.Session["LoginStatus"] = "login";
+
+                    System.Web.HttpContext.Current.Session["UserFirstName"] = profile.firstName;
+                    System.Web.HttpContext.Current.Session["UserLastName"] = profile.lastName;
+                    System.Web.HttpContext.Current.Session["UserId"] = profile.userId;
 
                 }
                 else

@@ -13,6 +13,8 @@ namespace EvenimentMD.Domain.Models.User.UserActionResp
         public bool Status { get; set; }
         public LoginResult Result { get; set; }
         public URole role { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
 
     }
 }

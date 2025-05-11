@@ -226,6 +226,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
@@ -234,9 +235,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="LogicHelper\Atributes\IsProviderAttribute.cs" />
+    <Compile Include="LogicHelper\HttpContextExtensions.cs" />
     <Compile Include="Models\Authentication\UserDataLogIn.cs" />
     <Compile Include="Models\Authentication\UserDataSignUp.cs" />
     <Compile Include="Models\AuthModel.cs" />
+    <Compile Include="Models\Provider\BusinessProfileInfo.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.8.1.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -52,14 +52,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLStruct\LogInBL.cs" />
+    <Compile Include="BLStruct\BusinessProfileBL.cs" />
+    <Compile Include="BLStruct\SessionBL.cs" />
     <Compile Include="BLStruct\SignUpBL.cs" />
     <Compile Include="BusinessLogic.cs" />
+    <Compile Include="Core\ProviderAPI.cs" />
     <Compile Include="Core\UserAPI.cs" />
+    <Compile Include="DatabaseContext\ProviderProfileContext.cs" />
     <Compile Include="DatabaseContext\SessionContext.cs" />
-    <Compile Include="Interface\Auth\ILogIn.cs" />
+    <Compile Include="Interface\Auth\ISession.cs" />
     <Compile Include="DatabaseContext\UserContext.cs" />
     <Compile Include="Interface\Auth\ISignUp.cs" />
+    <Compile Include="Interface\Provider\IBusinsessProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
