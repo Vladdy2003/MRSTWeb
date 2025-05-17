@@ -1,5 +1,5 @@
 ﻿
-<div class="business-profile-menu">
+@*<div class="business-profile-menu">
     <div class="row mb-2 mt-2 align-items-center">
         <div class="col-md-4">
             <h3 class="mb-0 px-4">Profilul de business</h3>
@@ -31,4 +31,31 @@
     document.addEventListener("DOMContentLoaded", function () {
         feather.replace();
     });
-</script>
+</script>*@
+
+<div class="business-profile-menu bg-light rounded-3 p-3 mb-4">
+    <div class="row mb-2 mt-2 align-items-center">
+        <div class="col-md-4">
+            <h3 class="mb-0 px-4">Profilul de business</h3>
+        </div>
+        <div class="col-md-8">
+            <nav class="nav nav-pills flex-md-row justify-content-md-end">
+                <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "BusinessProfile" ? "active" : "")" href="@Url.Action("BusinessProfile", "Provider")">
+                    <i class="bi bi-briefcase align-middle"></i> <span class="menu-text">Informații generale</span>
+                </a>
+                <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "BusinessProfileGallery" ? "active" : "")" href="@Url.Action("BusinessProfileGallery", "Provider")">
+                    <i class="bi bi-images align-middle"></i> <span class="menu-text">Galerie</span>
+                </a>
+                <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "BusinessProfileServices" ? "active" : "")" href="@Url.Action("BusinessProfileServices", "Provider")">
+                    <i class="bi bi-list-ul align-middle"></i> <span class="menu-text">Servicii</span>
+                </a>
+                <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "BusinessProfileReview" ? "active" : "")" href="@Url.Action("BusinessProfileReview", "Provider")">
+                    <i class="bi bi-star align-middle"></i> <span class="menu-text">Recenzii</span>
+                </a>
+                <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "BusinessProfileMembers" ? "active" : "")" href="@Url.Action("BusinessProfileMembers", "Provider")">
+                    <i class="bi bi-people align-middle"></i> <span class="menu-text">Membri</span>
+                </a>
+            </nav>
+        </div>
+    </div>
+</div>

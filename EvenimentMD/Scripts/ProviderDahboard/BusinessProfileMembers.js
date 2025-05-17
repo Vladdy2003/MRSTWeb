@@ -43,6 +43,7 @@
             // Check if team is empty
             if (document.querySelectorAll('.team-member').length === 0) {
                 document.querySelector('.empty-state').style.display = 'block';
+                document.querySelector('.search-filter').style.display = 'none';
             }
         }
     });

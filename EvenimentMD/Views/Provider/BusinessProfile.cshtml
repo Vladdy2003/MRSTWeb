@@ -31,8 +31,6 @@
                             @TempData["ErrorMessage"]
                         </div>
                     }
-
-                    <!-- MODIFICARE IMPORTANTĂ: Adaugă enctype pentru upload fișiere -->
                     <form id="businessProfileForm" method="post" action="@Url.Action("EditBusinessProfileData","Provider")" enctype="multipart/form-data">
                         @Html.AntiForgeryToken()
                         <div class="row mb-4">
@@ -107,28 +105,28 @@
                             <div class="col-md-4">
                                 <label for="facebook" class="form-label">Facebook</label>
                                 <div class="input-group">
-                                    <span class="input-group-text"><i data-feather="facebook"></i></span>
+                                    <span class="input-group-text"><i class="bi bi-facebook"></i></span>
                                     <input type="text" class="form-control" id="facebookURL" name="facebookURL" placeholder="Facebook Username" value="@Model.facebookURL">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <label for="instagram" class="form-label">Instagram</label>
                                 <div class="input-group">
-                                    <span class="input-group-text"><i data-feather="instagram"></i></span>
+                                    <span class="input-group-text"><i class="bi bi-instagram"></i></span>
                                     <input type="text" class="form-control" id="instagramURL" name="instagramURL" placeholder="Instagram Username" value="@Model.instagramURL">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <label for="tiktok" class="form-label">TikTok</label>
                                 <div class="input-group">
-                                    <span class="input-group-text"><i data-feather="video"></i></span>
+                                    <span class="input-group-text"><i class="bi bi-tiktok"></i></span>
                                     <input type="text" class="form-control" id="tiktokURL" name="tiktokURL" placeholder="TikTok Username" value="@Model.tiktokURL">
                                 </div>
                             </div>
                         </div>
 
                         <div class="text-end">
-                            <button type="submit" class="btn btn-primary">Salvează</button>
+                            <button type="submit" class="btn btn-primary btn-sm">Salvează</button>
                         </div>
                     </form>
                 </div>

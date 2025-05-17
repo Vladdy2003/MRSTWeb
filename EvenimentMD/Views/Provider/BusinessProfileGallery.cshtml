@@ -1,7 +1,17 @@
-﻿@{
+﻿@using EvenimentMD.Domain.Models.Provider
+@using EvenimentMD.Domain.Enums
+
+@using EvenimentMD.Domain.Models.Provider
+@using EvenimentMD.Domain.Enums
+
+@{
     ViewBag.Title = "Prestator de servicii";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    var existingMedia = ViewBag.ExistingMedia as List<ProviderMediaModel> ?? new List<ProviderMediaModel>();
+    var existingImages = existingMedia.Where(m => m.mediaType == MediaType.Image).ToList();
+    var existingVideos = existingMedia.Where(m => m.mediaType == MediaType.Video).ToList();
 }
+
 <div class="container-fluid p-0">
     @Html.Partial("_BusinessProfileMenu")
     <div class="row">
@@ -12,44 +22,152 @@
                     <h6 class="card-subtitle text-muted">Adăugați sau eliminați fotografii din galerie.</h6>
                 </div>
                 <div class="card-body">
+                    <!-- Success/Error Messages-->
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            @TempData["SuccessMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            @TempData["ErrorMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+                    <!-- Anti-forgery token for AJAX -->
+                    @Html.AntiForgeryToken()
                     <!-- Upload Section -->
-                    <h5 class="card-title mb-3">Poze</h5>
+                    <h5 class="card-title mb-3">Poze (@existingImages.Count/10, până la 5MB/imagine)</h5>
                     <div class="mb-4">
                         <div class="d-flex align-items-center">
-                            <label for="galleryUpload" class="btn btn-primary">
+                            <label for="galleryUpload" class="btn btn-primary btn-sm">
                                 <i class="bi bi-cloud-upload me-2"></i>Încarcă fotografii
                             </label>
-                            <input type="file" id="galleryUpload" class="d-none" accept="image/*" multiple onchange="handleFileSelect(this)">
+                            <input type="file" id="galleryUpload" class="d-none" accept="image/*" multiple onchange="handleFileSelect(this, 'images')">
                             <span class="ms-3 text-muted">Pot fi selectate mai multe fotografii simultan</span>
+                        </div>
+                        <div class="mt-2">
+                            <small class="text-info">Imagini noi pentru încărcare: <span id="imageCount">0</span></small>
                         </div>
                     </div>
 
-                    <!-- Gallery Grid -->
-                    <div id="galleryGrid" class="row g-3">
-                        <!-- Uploaded images will appear here -->
+                    <!-- Existing Images -->
+                    @if (existingImages.Any())
+                    {
+                        <h6 class="mb-3">Imagini existente:</h6>
+                        <div class="row g-3 mb-4" id="existingImagesGrid">
+                            @foreach (var image in existingImages)
+                            {
+                                <div class="col-12 col-sm-6 col-md-4 col-lg-3" id="existing-image-@image.Id">
+                                    <div class="gallery-item position-relative">
+                                        <img src="@Url.Content(image.filePath)" alt="Gallery image" class="img-fluid rounded" style="height: 200px; object-fit: cover; width: 100%;">
+                                        <button class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2" onclick="deleteExistingMedia(@image.Id, 'image')">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                        <div class="position-absolute bottom-0 start-0 m-2">
+                                            <small class="badge bg-dark">@image.addedAt</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+
+                    <!-- New Images Grid -->
+                    <div id="galleryGrid" class="row g-3 mb-4">
+                        <!-- New uploaded images will appear here -->
                     </div>
 
                     <!-- Video Section -->
                     <hr class="my-4">
-                    <h5 class="card-title mb-3">Videoclipuri</h5>
+                    <h5 class="card-title mb-3">Videoclipuri (@existingVideos.Count/3, până la 100MB/video)</h5>
                     <div class="mb-4">
                         <div class="d-flex align-items-center">
-                            <label for="videoUpload" class="btn btn-primary">
+                            <label for="videoUpload" class="btn btn-primary btn-sm">
                                 <i class="bi bi-camera-video me-2"></i>Încarcă videoclipuri
                             </label>
-                            <input type="file" id="videoUpload" class="d-none" accept="video/*" multiple onchange="handleVideoSelect(this)">
+                            <input type="file" id="videoUpload" class="d-none" accept="video/mp4,video/avi,video/mov,video/wmv,video/webm,video/quicktime,.mp4,.avi,.mov,.wmv,.webm" multiple onchange="handleVideoSelect(this, 'videos')">
                             <span class="ms-3 text-muted">Formate acceptate: MP4, WebM, MOV</span>
+                        </div>
+                        <div class="mt-2">
+                            <small class="text-info">Videouri noi pentru încărcare: <span id="videoCount">0</span></small>
                         </div>
                     </div>
 
-                    <!-- Video Grid -->
-                    <div id="videoGrid" class="row g-3">
-                        <!-- Uploaded videos will appear here -->
+                    <!-- Existing Videos -->
+                    @if (existingVideos.Any())
+                    {
+                        <h6 class="mb-3">Videouri existente:</h6>
+                        <div class="row g-3 mb-4" id="existingVideosGrid">
+                            @foreach (var video in existingVideos)
+                            {
+                                <div class="col-12 col-sm-6 col-md-4 col-lg-3" id="existing-video-@video.Id">
+                                    <div class="video-item position-relative">
+                                        <video src="@Url.Content(video.filePath)" controls preload="metadata" class="w-100 rounded" style="height: 200px; object-fit: cover;"></video>
+                                        <button class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2" onclick="deleteExistingMedia(@video.Id, 'video')">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                        <div class="position-absolute bottom-0 start-0 m-2">
+                                            <small class="badge bg-dark">@video.addedAt</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+
+                    <!-- New Videos Grid -->
+                    <div id="videoGrid" class="row g-3 mb-4">
+                        <!-- New uploaded videos will appear here -->
+                    </div>
+
+                    <!-- Save Button -->
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-success btn-sm p-2" id="saveMediaBtn" onclick="uploadMedia()">
+                            <i class="bi bi-save me-2"></i>Salvează Media Nouă
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Modal Delete Confirmation -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0 p-3">
+                <h5 class="modal-title fw-bold" id="deleteConfirmModalLabel">
+                    <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>
+                    Confirmare Ștergere
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-3">Sunteți sigur că doriți să ștergeți acest fișier media?</p>
+                <div class="alert alert-danger d-flex align-items-center mb-0" role="alert">
+                    <i class="bi bi-exclamation-circle-fill me-2"></i>
+                    <div>
+                        <strong>Această acțiune este ireversibilă!</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Anulează</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Șterge</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hidden script variables -->
+<script>
+    window.existingImagesCount = @existingImages.Count;
+    window.existingVideosCount = @existingVideos.Count;
+</script>
 
 <script src="~/Scripts/ProviderDahboard/BussinessProfileGallery.js"></script>

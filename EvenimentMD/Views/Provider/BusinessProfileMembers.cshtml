@@ -3,10 +3,6 @@
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
 
-<style>
-    
-</style>
-
 @Html.Partial("_BusinessProfileMenu")
 
 <div class="container-fluid p-0">
@@ -14,10 +10,10 @@
         <div class="team-header">
             <h1 class="h3">Membri</h1>
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMemberModal">
-                <i class="align-middle me-2" data-feather="user-plus"></i>Adaugă Membru
+                <i class="bi bi-person-plus align-middle me-2"></i>Adaugă Membru
             </button>
         </div>
-        <div class="search-filter">
+        <div class="search-filter" style="display: block;">
             <div class="search-input">
                 <input type="text" class="form-control" placeholder="Caută membri...">
             </div>
@@ -28,16 +24,16 @@
             <div class="member-info">
                 <div class="member-name">Maria Popescu</div>
                 <div class="member-details">
-                    <i class="align-middle me-1" data-feather="mail"></i>maria.popescu@example.com •
-                    <i class="align-middle me-1 ms-2" data-feather="phone"></i>+373 69 123 456
+                    <i class="bi bi-envelope align-middle me-1"></i>maria.popescu@example.com •
+                    <i class="bi bi-telephone align-middle me-1 ms-2"></i>+373 69 123 456
                 </div>
             </div>
             <div class="member-actions">
                 <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editMemberModal">
-                    <i class="align-middle" data-feather="edit-2"></i>
+                    <i class="bi bi-pencil align-middle"></i>
                 </button>
                 <button class="btn btn-outline-danger btn-sm">
-                    <i class="align-middle" data-feather="trash-2"></i>
+                    <i class="bi bi-trash align-middle"></i>
                 </button>
             </div>
         </div>
@@ -48,16 +44,16 @@
             <div class="member-info">
                 <div class="member-name">Andrei Ionescu</div>
                 <div class="member-details">
-                    <i class="align-middle me-1" data-feather="mail"></i>andrei.ionescu@example.com •
-                    <i class="align-middle me-1 ms-2" data-feather="phone"></i>+373 69 234 567
+                    <i class="bi bi-envelope align-middle me-1"></i>andrei.ionescu@example.com •
+                    <i class="bi bi-telephone align-middle me-1 ms-2"></i>+373 69 234 567
                 </div>
             </div>
             <div class="member-actions">
                 <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editMemberModal">
-                    <i class="align-middle" data-feather="edit-2"></i>
+                    <i class="bi bi-pencil align-middle"></i>
                 </button>
                 <button class="btn btn-outline-danger btn-sm">
-                    <i class="align-middle" data-feather="trash-2"></i>
+                    <i class="bi bi-trash align-middle"></i>
                 </button>
             </div>
         </div>
@@ -66,30 +62,27 @@
         <div class="team-member">
             <div class="member-avatar" style="background: #fcb92c;">EC</div>
             <div class="member-info">
-                <div class="member-name">Elena Constantin <span class="badge bg-warning text-dark ms-2">Invitație pendintă</span></div>
+                <div class="member-name">Elena Constantin <span class="badge bg-warning text-dark ms-2">Invitație în așteptare</span></div>
                 <div class="member-details">
-                    <i class="align-middle me-1" data-feather="mail"></i>elena.constantin@example.com •
-                    <i class="align-middle me-1 ms-2" data-feather="phone"></i>+373 69 345 678
+                    <i class="bi bi-envelope align-middle me-1"></i>elena.constantin@example.com •
+                    <i class="bi bi-telephone align-middle me-1 ms-2"></i>+373 69 345 678
                 </div>
             </div>
             <div class="member-actions">
                 <button class="btn btn-outline-primary btn-sm">
-                    <i class="align-middle me-1" data-feather="refresh-cw"></i>Retrimite
+                    <i class="bi bi-arrow-clockwise align-middle me-1"></i>Retrimite
                 </button>
                 <button class="btn btn-outline-danger btn-sm">
-                    <i class="align-middle" data-feather="x"></i>
+                    <i class="bi bi-x lign-middle"></i>
                 </button>
             </div>
         </div>
 
         <!-- Empty State (shown when no members) -->
         <div class="empty-state" style="display: none;">
-            <i data-feather="users"></i>
+            <i dclass="bi bi-people"></i>
             <h4>Nu există membri în echipă</h4>
             <p>Adaugă primul membru al echipei pentru a începe</p>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMemberModal">
-                <i class="align-middle me-2" data-feather="user-plus"></i>Adaugă Membru
-            </button>
         </div>
     </div>
 </div>
