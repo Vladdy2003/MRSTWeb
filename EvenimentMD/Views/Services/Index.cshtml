@@ -168,20 +168,31 @@
                 <div class="row g-3">
                     @if (Model != null && Model.Any())
                     {
+                        var providerFirstImages = ViewBag.ProviderFirstImages as Dictionary<int, string>;
+
                         foreach (var provider in Model)
                         {
                             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mb-4">
                                 <a href="@Url.Action("Index", "ServicePage", new { id = provider.Id })">
                                     <div class="card h-100 service-card">
                                         <div class="position-relative">
-                                            @if (!string.IsNullOrEmpty(provider.logo))
-                                            {
-                                                <img src="@provider.logo" class="card-img-top" alt="@provider.providerName">
-                                            }
-                                            else
-                                            {
-                                                <img src="~/Resources/Home/decor.jpeg" class="card-img-top" alt="@provider.providerName">
-                                            }
+                                            <div class="provider-card-image-container">
+                                                @{
+                                                    string imageUrl = "~/Resources/Home/decor.jpeg"; // Imagine default
+
+                                                    // Verifică dacă există o imagine pentru acest prestator
+                                                    if (providerFirstImages != null && providerFirstImages.ContainsKey(provider.Id))
+                                                    {
+                                                        imageUrl = providerFirstImages[provider.Id];
+                                                    }
+                                                    // Folosește logo-ul dacă există și nu avem imagini în galerie
+                                                    else if (!string.IsNullOrEmpty(provider.logo))
+                                                    {
+                                                        imageUrl = provider.logo;
+                                                    }
+                                                }
+                                                <img src="@Url.Content(imageUrl)" class="card-img-top" alt="@provider.providerName">
+                                            </div>
                                             <div class="rating-badge">
                                                 ⭐4.8
                                             </div>
@@ -233,5 +244,27 @@
         </div>
     </div>
 </div>
+
+<style>
+    /* Stiluri pentru containerul de imagine al cardului prestatorului */
+    .provider-card-image-container {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+        position: relative;
+    }
+
+        .provider-card-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.3s ease;
+        }
+
+    .service-card:hover .provider-card-image-container img {
+        transform: scale(1.05);
+    }
+</style>
 
 <script src="~/Scripts/services.js"></script>

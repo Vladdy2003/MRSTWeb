@@ -44,9 +44,16 @@
     <div class="row">
         <div class="col-lg-8 col-12 mb-3 mb-lg-0">
             <div class="position-relative">
-                <img src="~/Resources/Home/decor.jpeg" class="img-fluid w-100 rounded" alt="Nume Prestator" width="1300" height="1625" style="object-fit: cover;">
-                <!-- Button removed from here for desktop, but kept for mobile with d-lg-none -->
-                <a href="#" class="btn-31 position-absolute bottom-0 end-0 m-3 d-lg-none">
+                @{
+                    var providerImages = ViewBag.ProviderImages as List<EvenimentMD.Domain.Models.Provider.ProviderMediaModel>;
+                    var mainImage = providerImages != null && providerImages.Any() ? providerImages[0].filePath : "~/Resources/Home/decor.jpeg";
+                }
+
+                <div class="main-image-container">
+                    <img src="@Url.Content(mainImage)" class="img-fluid w-100 rounded" alt="@Model.providerName">
+                </div>
+                <!-- Button for mobile view -->
+                <a href="#" class="btn-31 position-absolute bottom-0 end-0 m-3 d-lg-none" id="openGalleryBtnMobile">
                     <span class="text-container">
                         <span class="text">
                             <i class="bi bi-images"></i> Vezi toate pozele
@@ -57,24 +64,55 @@
         </div>
         <div class="col-lg-4 d-none d-lg-block">
             <div class="row g-3">
-                <div class="col-12">
-                    <div class="position-relative">
-                        <img src="~/Resources/Home/decor.jpeg" class="img-fluid w-100 rounded" alt="Nume Prestator" width="480" height="600" style="object-fit: cover;">
+                @if (providerImages != null && providerImages.Count > 1)
+                {
+                    <div class="col-12">
+                        <div class="position-relative secondary-image-container">
+                            <img src="@Url.Content(providerImages[1].filePath)" class="img-fluid w-100 rounded" alt="@Model.providerName">
+                        </div>
                     </div>
-                </div>
-                <div class="col-12">
-                    <div class="position-relative">
-                        <img src="~/Resources/Home/decor.jpeg" class="img-fluid w-100 rounded" alt="Nume Prestator" width="480" height="600" style="object-fit: cover;">
-                        <!-- Added button here for desktop view -->
-                        <a href="#" class="btn-31 position-absolute bottom-0 end-0 m-3">
-                            <span class="text-container">
-                                <span class="text">
-                                    <i class="bi bi-images"></i> Vezi toate pozele
+                }
+                else
+                {
+                    <div class="col-12">
+                        <div class="position-relative secondary-image-container">
+                            <img src="~/Resources/Home/decor.jpeg" class="img-fluid w-100 rounded" alt="@Model.providerName">
+                        </div>
+                    </div>
+                }
+
+                @if (providerImages != null && providerImages.Count > 2)
+                {
+                    <div class="col-12">
+                        <div class="position-relative secondary-image-container">
+                            <img src="@Url.Content(providerImages[2].filePath)" class="img-fluid w-100 rounded" alt="@Model.providerName">
+                            <!-- Button for desktop view -->
+                            <a href="#" class="btn-31 position-absolute bottom-0 end-0 m-3" id="openGalleryBtnDesktop">
+                                <span class="text-container">
+                                    <span class="text">
+                                        <i class="bi bi-images"></i> Vezi toate pozele
+                                    </span>
                                 </span>
-                            </span>
-                        </a>
+                            </a>
+                        </div>
                     </div>
-                </div>
+                }
+                else
+                {
+                    <div class="col-12">
+                        <div class="position-relative secondary-image-container">
+                            <img src="~/Resources/Home/decor.jpeg" class="img-fluid w-100 rounded" alt="@Model.providerName">
+                            <!-- Button for desktop view -->
+                            <a href="#" class="btn-31 position-absolute bottom-0 end-0 m-3" id="openGalleryBtnDesktop">
+                                <span class="text-container">
+                                    <span class="text">
+                                        <i class="bi bi-images"></i> Vezi toate pozele
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
@@ -295,3 +333,44 @@
     </div>
 </div>
 
+<!-- Custom Full Screen Gallery Overlay -->
+<div id="galleryOverlay" class="custom-gallery-overlay">
+    <div class="custom-gallery-container">
+        <div class="gallery-header">
+            <h4>Galerie @Model.providerName</h4>
+            <button class="close-gallery-btn" id="closeGalleryBtn">&times;</button>
+        </div>
+
+        <div class="gallery-content">
+            <div class="main-gallery-image">
+                <button class="nav-btn prev-btn" id="prevImageBtn"><i class="bi bi-chevron-left"></i></button>
+                <div class="main-gallery-img-container">
+                    <img id="mainGalleryImage" src="" alt="Imagine principală">
+                </div>
+                <button class="nav-btn next-btn" id="nextImageBtn"><i class="bi bi-chevron-right"></i></button>
+            </div>
+
+            <div class="thumbnail-container">
+                <div class="thumbnails-inner">
+                    @if (providerImages != null && providerImages.Any())
+                    {
+                        for (int i = 0; i < providerImages.Count; i++)
+                        {
+                            <div class="thumbnail @(i == 0 ? "active" : "")" data-index="@i">
+                                <img src="@Url.Content(providerImages[i].filePath)" alt="Thumbnail">
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="thumbnail active" data-index="0">
+                            <img src="~/Resources/Home/decor.jpeg" alt="Thumbnail">
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/ServicePage.js"></script>

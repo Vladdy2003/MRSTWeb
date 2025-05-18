@@ -52,14 +52,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\MediaType.cs" />
     <Compile Include="Enums\ServiceType.cs" />
     <Compile Include="Enums\LoginResult.cs" />
     <Compile Include="Enums\URole.cs" />
     <Compile Include="Models\Provider\BusinessProfileData.cs" />
+    <Compile Include="Models\Provider\MediaUploadResult.cs" />
     <Compile Include="Models\Provider\ProviderDbTable.cs" />
+    <Compile Include="Models\Provider\ProviderMediaDb.cs" />
+    <Compile Include="Models\Provider\ProviderMediaModel.cs" />
     <Compile Include="Models\Session\USessionDbTable.cs" />
     <Compile Include="Models\User\UDbTable.cs" />
-    <Compile Include="Models\User\UserActionResp\UserId.cs" />
     <Compile Include="Models\User\UserActionResp\UserCookieResp.cs" />
     <Compile Include="Models\User\UserActionResp\UserResp.cs" />
     <Compile Include="Models\User\UserSignUpData.cs" />

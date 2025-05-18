@@ -15,7 +15,7 @@ namespace EvenimentMD.LogicHelper
 
         public static void SetUserProfile(this HttpContext context, UserResp data)
         {
-            context.Session.Add("__SesionObject", data);
+            context.Session.Add("__SessionObject", data);
         }
     }
 }

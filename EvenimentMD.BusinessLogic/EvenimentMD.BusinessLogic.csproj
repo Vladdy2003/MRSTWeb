@@ -44,6 +44,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\EvenimentMD\bin\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -58,6 +61,7 @@
     <Compile Include="BusinessLogic.cs" />
     <Compile Include="Core\ProviderAPI.cs" />
     <Compile Include="Core\UserAPI.cs" />
+    <Compile Include="DatabaseContext\ProviderProfileMediaContext.cs" />
     <Compile Include="DatabaseContext\ProviderProfileContext.cs" />
     <Compile Include="DatabaseContext\SessionContext.cs" />
     <Compile Include="Interface\Auth\ISession.cs" />

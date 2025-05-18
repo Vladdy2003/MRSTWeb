@@ -185,6 +185,7 @@
     <Content Include="Resources\Home\music.jpeg" />
     <Content Include="Resources\Home\photograph.jpg" />
     <Content Include="Resources\Services\themotans.jpg" />
+    <Content Include="Resources\user-default-image.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -202,6 +203,7 @@
     <Content Include="Scripts\ProviderDahboard\Profile.js" />
     <Content Include="Scripts\ProviderDahboard\dashboard.js" />
     <Content Include="Scripts\login.js" />
+    <Content Include="Scripts\ServicePage.js" />
     <Content Include="Scripts\services.js" />
     <Content Include="Views\Shared\_DashboardProviderSidebar.cshtml" />
     <Content Include="Views\Shared\_DashboardHeader.cshtml" />
@@ -215,6 +217,7 @@
     <Content Include="Views\Provider\Messages.cshtml" />
     <Content Include="Views\Provider\UserProfile.cshtml" />
     <Content Include="Views\Provider\BusinessProfileMembers.cshtml" />
+    <Content Include="obj\EvenimentMD.Web.csproj.EntityFrameworkCore.targets" />
     <None Include="Views\Shared\_DashboardLayout.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Auth\AuthIndex.cshtml" />

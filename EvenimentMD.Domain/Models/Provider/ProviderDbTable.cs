@@ -10,6 +10,7 @@ namespace EvenimentMD.Domain.Models.Provider
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        [Display(Name = "User Id")]
         public int userId { get; set; }
 
         [Required]

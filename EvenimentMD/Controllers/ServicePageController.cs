@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using EvenimentMD.Domain.Models.Provider;
 using EvenimentMD.BusinessLogic.DatabaseContext;
+using EvenimentMD.Domain.Enums;
 
 namespace EvenimentMD.Controllers
 {
@@ -27,6 +28,27 @@ namespace EvenimentMD.Controllers
                         return RedirectToAction("Index", "Services");
                     }
                 }
+
+                // Get provider images
+                List<ProviderMediaModel> providerImages = new List<ProviderMediaModel>();
+                using (var db = new ProviderProfileMediaContext())
+                {
+                    providerImages = db.Media
+                        .Where(m => m.providerId == id && m.mediaType == MediaType.Image)
+                        .Select(m => new ProviderMediaModel
+                        {
+                            Id = m.Id,
+                            providerId = m.providerId,
+                            mediaType = m.mediaType,
+                            filePath = m.filePath,
+                            addedAt = m.addedAt
+                        })
+                        .ToList();
+                }
+
+                // Store provider images in ViewBag to access in the view
+                ViewBag.ProviderImages = providerImages;
+
             }
             catch (Exception ex)
             {

@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EvenimentMD.Domain.Models.User.UserActionResp
+namespace EvenimentMD.Domain.Enums
 {
-    public class UserId
+    public enum MediaType
     {
-        public int userId { get; set; }
+        Video,
+        Image,
     }
 }
