@@ -12,8 +12,10 @@ using static System.Net.WebRequestMethods;
 using System.Linq;
 using System.Web;
 
+
 namespace EvenimentMD.Controllers
 {
+    [IsProvider]
     public class ProviderController : BaseController
     {
         private readonly IBusinsessProfile _businessProfile;
@@ -25,7 +27,6 @@ namespace EvenimentMD.Controllers
         }
         // GET: Provider
 
-        [IsProvider]
         public ActionResult Index()
         {
             SessionStatus();
@@ -36,7 +37,6 @@ namespace EvenimentMD.Controllers
             return View();
         }
 
-        [IsProvider]
         public ActionResult BusinessProfile()
         {
             SessionStatus();
@@ -74,7 +74,6 @@ namespace EvenimentMD.Controllers
             return View(model);
         }
 
-        [IsProvider]
         public ActionResult BusinessProfileGallery()
         {
             SessionStatus();
@@ -120,7 +119,6 @@ namespace EvenimentMD.Controllers
             return View();
         }
 
-        [IsProvider]
         public ActionResult BusinessProfileReview()
         {
             SessionStatus();
@@ -131,7 +129,6 @@ namespace EvenimentMD.Controllers
             return View();
         }
 
-        [IsProvider]
         public ActionResult BusinessProfileServices()
         {
             SessionStatus();
@@ -142,7 +139,6 @@ namespace EvenimentMD.Controllers
             return View();
         }
 
-        [IsProvider]
         public ActionResult BusinessProfileMembers()
         {
             SessionStatus();
@@ -153,7 +149,6 @@ namespace EvenimentMD.Controllers
             return View();
         }
 
-        [IsProvider]
         public ActionResult Agenda()
         {
             SessionStatus();
@@ -164,7 +159,6 @@ namespace EvenimentMD.Controllers
             return View();
         }
 
-        [IsProvider]
         public ActionResult Messages()
         {
             SessionStatus();
@@ -175,7 +169,6 @@ namespace EvenimentMD.Controllers
             return View();
         }
 
-        [IsProvider]
         public ActionResult UserProfile()
         {
             SessionStatus();
@@ -186,7 +179,6 @@ namespace EvenimentMD.Controllers
             return View();
         }
 
-        [IsProvider]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditBusinessProfileData(BusinessProfileInfo info)
@@ -233,7 +225,6 @@ namespace EvenimentMD.Controllers
             return View("BusinessProfile", info);
         }
 
-        [IsProvider]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<JsonResult> UploadMedia()
@@ -333,53 +324,23 @@ namespace EvenimentMD.Controllers
             }
         }
 
-        [IsProvider]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public JsonResult DeleteMedia(int mediaId)
         {
             try
             {
                 int userId = (int)System.Web.HttpContext.Current.Session["UserId"];
-                int profileId = _businessProfile.GetBusinessProfileId(userId);
 
-                if (profileId == 0)
+                // Call the business logic method
+                bool result = _businessProfile.DeleteMedia(mediaId, userId);
+
+                if (result)
                 {
-                    return Json(new { success = false, message = "Profilul de business nu a fost găsit." });
+                    return Json(new { success = true, message = "Media a fost ștearsă cu succes." });
                 }
-
-                ProviderMediaDb mediaToDelete = null;
-
-                // Get media from database
-                using (var db = new BusinessLogic.DatabaseContext.ProviderProfileMediaContext())
+                else
                 {
-                    mediaToDelete = db.Media.FirstOrDefault(m => m.Id == mediaId && m.providerId == profileId);
+                    return Json(new { success = false, message = "Media nu a fost găsită sau nu aveți permisiunea să o ștergeți." });
                 }
-
-                if (mediaToDelete == null)
-                {
-                    return Json(new { success = false, message = "Media nu a fost găsită." });
-                }
-
-                // Delete physical file
-                string physicalPath = Server.MapPath(mediaToDelete.filePath);
-                if (System.IO.File.Exists(physicalPath))
-                {
-                    System.IO.File.Delete(physicalPath);
-                }
-
-                // Delete from database
-                using (var db = new BusinessLogic.DatabaseContext.ProviderProfileMediaContext())
-                {
-                    var media = db.Media.FirstOrDefault(m => m.Id == mediaId);
-                    if (media != null)
-                    {
-                        db.Media.Remove(media);
-                        db.SaveChanges();
-                    }
-                }
-
-                return Json(new { success = true, message = "Media a fost ștearsă cu succes." });
             }
             catch (Exception ex)
             {

@@ -7,7 +7,7 @@
         <!-- User profile for desktop - will hide on small screens -->
         <div class="dropdown d-none d-sm-inline-block">
             <a class="nav-link dropdown-toggle" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="~/Resources/user-default-image.jpg" class="avatar img-fluid rounded-circle me-1" alt="User" width="40" height="40" /> <span class="text-dark">User Name</span>
+                <img src="~/Resources/user-default-image.jpg" class="avatar img-fluid rounded-circle me-1" alt="User" width="40" height="40" /> <span class="text-dark">@Session["UserFirstName"] @Session["UserLastName"]</span>
             </a>
             <div class="dropdown-menu user-dropdown-menu" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="@Url.Action("UserProfile", "Provider")"><i class="bi bi-gear" style="font-size: 16px;"></i>&nbsp;&nbsp;Settings & Privacy</a>

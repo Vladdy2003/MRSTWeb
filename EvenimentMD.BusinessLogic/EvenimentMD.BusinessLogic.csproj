@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLStruct\BusinessProfileBL.cs" />
+    <Compile Include="BLStruct\ServicesBL.cs" />
     <Compile Include="BLStruct\SessionBL.cs" />
     <Compile Include="BLStruct\SignUpBL.cs" />
     <Compile Include="BusinessLogic.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="DatabaseContext\UserContext.cs" />
     <Compile Include="Interface\Auth\ISignUp.cs" />
     <Compile Include="Interface\Provider\IBusinsessProfile.cs" />
+    <Compile Include="Interface\Services\IServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

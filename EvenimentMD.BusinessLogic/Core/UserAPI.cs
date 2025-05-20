@@ -11,6 +11,8 @@ using System.Web;
 using EvenimentMD.Helper.Session;
 using EvenimentMD.Domain.Models.Session;
 using System.Data.Entity;
+using EvenimentMD.Domain.Models.Provider;
+using System.Collections.Generic;
 
 namespace EvenimentMD.BusinessLogic.Core
 {
@@ -237,6 +239,78 @@ namespace EvenimentMD.BusinessLogic.Core
             {
                 Status = false,
             };
+        }
+
+        public List<ProviderDbTable> GetAllProvidersLogic()
+        {
+            List<ProviderDbTable> providers = new List<ProviderDbTable>();
+
+            using (var db = new ProviderProfileContext())
+            {
+                providers = db.Providers.ToList();
+            }
+
+            return providers;
+        }
+
+        public Dictionary<int, string> GetProviderFirstImagesLogic(List<ProviderDbTable> providers)
+        {
+            var providerFirstImages = new Dictionary<int, string>();
+
+            using (var db = new ProviderProfileMediaContext())
+            {
+                foreach (var provider in providers)
+                {
+                    // Caută prima imagine a prestatorului în baza de date
+                    var firstImage = db.Media
+                        .Where(m => m.providerId == provider.Id && m.mediaType == MediaType.Image)
+                        .OrderBy(m => m.Id) // Asigură că selectăm prima imagine încărcată
+                        .Select(m => new { m.providerId, m.filePath })
+                        .FirstOrDefault();
+
+                    // Dacă prestator are o imagine, o adăugăm în dicționar
+                    if (firstImage != null)
+                    {
+                        providerFirstImages.Add(provider.Id, firstImage.filePath);
+                    }
+                }
+            }
+
+            return providerFirstImages;
+        }
+
+        public ProviderDbTable GetProviderByIdLogic(int id)
+        {
+            ProviderDbTable provider = null;
+
+            using (var db = new ProviderProfileContext())
+            {
+                provider = db.Providers.FirstOrDefault(p => p.Id == id);
+            }
+
+            return provider;
+        }
+
+        public List<ProviderMediaModel> GetProviderImagesLogic(int providerId)
+        {
+            List<ProviderMediaModel> providerImages = new List<ProviderMediaModel>();
+
+            using (var db = new ProviderProfileMediaContext())
+            {
+                providerImages = db.Media
+                    .Where(m => m.providerId == providerId && m.mediaType == MediaType.Image)
+                    .Select(m => new ProviderMediaModel
+                    {
+                        Id = m.Id,
+                        providerId = m.providerId,
+                        mediaType = m.mediaType,
+                        filePath = m.filePath,
+                        addedAt = m.addedAt
+                    })
+                    .ToList();
+            }
+
+            return providerImages;
         }
     }
 }

@@ -17,5 +17,7 @@ namespace EvenimentMD.BusinessLogic.Interface.Provider
         int BusinessProfileMediaCount(int profileId, MediaType mediaType);
 
         Task<MediaUploadResult> ProcessAndSaveMedia(List<HttpPostedFileBase> images, List<HttpPostedFileBase> videos, int userId);
+
+        bool DeleteMedia(int mediaId, int userId);
     }
 }

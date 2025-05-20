@@ -34,5 +34,10 @@ namespace EvenimentMD.BusinessLogic.BLStruct
         {
             return ProcessAndSaveMediaLogic(images, videos, userId);
         }
+
+        public bool DeleteMedia(int mediaId, int userId)
+        {
+            return DeleteMediaLogic(mediaId, userId);
+        }
     }
 }

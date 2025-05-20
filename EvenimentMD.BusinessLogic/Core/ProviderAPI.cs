@@ -448,5 +448,59 @@ namespace EvenimentMD.BusinessLogic.Core
 
             return result;
         }
+
+        internal bool DeleteMediaLogic(int mediaId, int userId)
+        {
+            try
+            {
+                // Get provider profile ID for this user
+                int profileId = GetBusinessProfileIdLogic(userId);
+
+                if (profileId == 0)
+                {
+                    return false; // Profile not found
+                }
+
+                ProviderMediaDb mediaToDelete = null;
+
+                // Get media from database
+                using (var db = new ProviderProfileMediaContext())
+                {
+                    mediaToDelete = db.Media.FirstOrDefault(m => m.Id == mediaId && m.providerId == profileId);
+                }
+
+                if (mediaToDelete == null)
+                {
+                    return false; // Media not found or doesn't belong to this provider
+                }
+
+                // Get physical path for the file
+                string physicalPath = HttpContext.Current.Server.MapPath(mediaToDelete.filePath);
+
+                // Delete physical file if it exists
+                if (System.IO.File.Exists(physicalPath))
+                {
+                    System.IO.File.Delete(physicalPath);
+                }
+
+                // Delete from database
+                using (var db = new ProviderProfileMediaContext())
+                {
+                    var media = db.Media.FirstOrDefault(m => m.Id == mediaId);
+                    if (media != null)
+                    {
+                        db.Media.Remove(media);
+                        db.SaveChanges();
+                    }
+                }
+
+                return true; // Successfully deleted
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error deleting media: {ex.Message}");
+                return false;
+            }
+        }
     }
 }
