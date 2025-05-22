@@ -24,6 +24,7 @@ namespace EvenimentMD.Controllers
         {
             var bl = new BusinessLogic.BusinessLogic();
             _businessProfile = bl.GetBusinessProfileBL();
+
         }
         // GET: Provider
 
@@ -90,29 +91,7 @@ namespace EvenimentMD.Controllers
 
             if (profileId > 0)
             {
-                try
-                {
-                    using (var db = new BusinessLogic.DatabaseContext.ProviderProfileMediaContext())
-                    {
-                        var mediaList = db.Media.Where(m => m.providerId == profileId).ToList();
-
-                        foreach (var media in mediaList)
-                        {
-                            existingMedia.Add(new ProviderMediaModel
-                            {
-                                Id = media.Id,
-                                providerId = media.providerId,
-                                mediaType = media.mediaType,
-                                filePath = media.filePath,
-                                addedAt = media.addedAt
-                            });
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine($"Error loading existing media: {ex.Message}");
-                }
+                existingMedia = _businessProfile.GetProviderMediaList(profileId);
             }
 
             ViewBag.ExistingMedia = existingMedia;
@@ -136,6 +115,18 @@ namespace EvenimentMD.Controllers
             {
                 return RedirectToAction("AuthIndex", "Auth");
             }
+
+            int userId = (int)System.Web.HttpContext.Current.Session["UserId"];
+            int profileId = _businessProfile.GetBusinessProfileId(userId);
+
+            var existingServices = new List<ProviderServicesData>();
+
+            if (profileId > 0)
+            {
+                existingServices = _businessProfile.GetProviderServices(profileId);
+            }
+
+            ViewBag.ExistingServices = existingServices;
             return View();
         }
 
@@ -346,6 +337,108 @@ namespace EvenimentMD.Controllers
             {
                 System.Diagnostics.Debug.WriteLine($"Error deleting media: {ex.Message}");
                 return Json(new { success = false, message = $"Eroare la ștergerea media: {ex.Message}" });
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddService(ProviderServicesViewModel data)
+        {
+            int userId = (int)System.Web.HttpContext.Current.Session["UserId"];
+
+            if (ModelState.IsValid)
+            {
+                var serviceData = new ProviderServicesData
+                {
+                    serviceName = data.serviceName,
+                    servicePrice = data.servicePrice,
+                    serviceDescription = data.serviceDescription,
+                    currency = data.currency
+                };
+                try
+                {
+                    bool isSaved = _businessProfile.AddService(serviceData, userId);
+                    if (isSaved)
+                    {
+                        TempData["SuccessMessage"] = "Serviciul a fost adăugat cu succes.";
+                        return RedirectToAction("BusinessProfileServices");
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = "Vă rugăm să completați câmpurile obligatorii";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    TempData["ErrorMessage"] = "A apărut o eroare în sistem. Vă rugăm să încercați mai târziu.";
+                    System.Diagnostics.Debug.WriteLine($"Error in AddService: {ex.Message}");
+                }
+            }
+            return RedirectToAction("BusinessProfileServices");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateService(ProviderServicesViewModel data, int serviceId)
+        {
+            int userId = (int)System.Web.HttpContext.Current.Session["UserId"];
+
+            if (ModelState.IsValid)
+            {
+                var serviceData = new ProviderServicesData
+                {
+                    Id = serviceId,
+                    serviceName = data.serviceName,
+                    servicePrice = data.servicePrice,
+                    serviceDescription = data.serviceDescription,
+                    currency = data.currency
+                };
+
+                try
+                {
+                    bool isUpdated = _businessProfile.UpdateService(serviceData, userId);
+                    if (isUpdated)
+                    {
+                        TempData["SuccessMessage"] = "Serviciul a fost actualizat cu succes.";
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = "Nu s-a putut actualiza serviciul.";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    TempData["ErrorMessage"] = "A apărut o eroare în sistem. Vă rugăm să încercați mai târziu.";
+                    System.Diagnostics.Debug.WriteLine($"Error in UpdateService: {ex.Message}");
+                }
+            }
+
+            return RedirectToAction("BusinessProfileServices");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult DeleteService(int serviceId)
+        {
+            try
+            {
+                int userId = (int)System.Web.HttpContext.Current.Session["UserId"];
+
+                bool isDeleted = _businessProfile.DeleteService(serviceId, userId);
+
+                if (isDeleted)
+                {
+                    return Json(new { success = true, message = "Serviciul a fost șters cu succes." });
+                }
+                else
+                {
+                    return Json(new { success = false, message = "Nu s-a putut șterge serviciul." });
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error deleting service: {ex.Message}");
+                return Json(new { success = false, message = $"Eroare la ștergerea serviciului: {ex.Message}" });
             }
         }
     }

@@ -14,5 +14,7 @@ namespace EvenimentMD.BusinessLogic.Interface.Services
 
         List<ProviderDbTable> GetAllProviders();
         Dictionary<int, string> GetProviderFirstImages(List<ProviderDbTable> providers);
+
+        List<ProviderServicesData> GetProviderServices(int providerId);
     }
 }

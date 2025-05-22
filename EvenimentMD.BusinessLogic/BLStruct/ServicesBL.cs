@@ -26,5 +26,10 @@ namespace EvenimentMD.BusinessLogic.BLStruct
         {
             return GetProviderImagesLogic(providerId);
         }
+
+        public List<ProviderServicesData> GetProviderServices(int providerId)
+        {
+            return GetProviderServicesForServicePageLogic(providerId);
+        }
     }
 }

@@ -201,7 +201,6 @@
     <Content Include="Scripts\ProviderDahboard\Index.js" />
     <Content Include="Scripts\ProviderDahboard\Messages.js" />
     <Content Include="Scripts\ProviderDahboard\Profile.js" />
-    <Content Include="Scripts\ProviderDahboard\dashboard.js" />
     <Content Include="Scripts\login.js" />
     <Content Include="Scripts\ServicePage.js" />
     <Content Include="Scripts\services.js" />
@@ -244,6 +243,7 @@
     <Compile Include="Models\Authentication\UserDataSignUp.cs" />
     <Compile Include="Models\AuthModel.cs" />
     <Compile Include="Models\Provider\BusinessProfileInfo.cs" />
+    <Compile Include="Models\Provider\ProviderServicesViewModel.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.8.1.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

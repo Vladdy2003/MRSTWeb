@@ -64,6 +64,7 @@
     <Compile Include="Core\UserAPI.cs" />
     <Compile Include="DatabaseContext\ProviderProfileMediaContext.cs" />
     <Compile Include="DatabaseContext\ProviderProfileContext.cs" />
+    <Compile Include="DatabaseContext\ProviderProfileServicesContext.cs" />
     <Compile Include="DatabaseContext\SessionContext.cs" />
     <Compile Include="Interface\Auth\ISession.cs" />
     <Compile Include="DatabaseContext\UserContext.cs" />

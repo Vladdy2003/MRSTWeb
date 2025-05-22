@@ -502,5 +502,185 @@ namespace EvenimentMD.BusinessLogic.Core
                 return false;
             }
         }
+
+        internal List<ProviderMediaModel> GetProviderMediaListLogic(int profileId)
+        {
+            var existingMedia = new List<ProviderMediaModel>();
+
+            try
+            {
+                using (var db = new ProviderProfileMediaContext())
+                {
+                    var mediaList = db.Media.Where(m => m.providerId == profileId).ToList();
+
+                    foreach (var media in mediaList)
+                    {
+                        existingMedia.Add(new ProviderMediaModel
+                        {
+                            Id = media.Id,
+                            providerId = media.providerId,
+                            mediaType = media.mediaType,
+                            filePath = media.filePath,
+                            addedAt = media.addedAt
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error loading existing media: {ex.Message}");
+            }
+
+            return existingMedia;
+        }
+
+        internal bool AddServiceLogic(ProviderServicesData data, int userId)
+        {
+            if (data == null ||
+                string.IsNullOrEmpty(data.serviceName) ||
+                data.servicePrice <= 0 ||
+                string.IsNullOrEmpty(data.serviceDescription))
+            {
+                return false;
+            }
+
+            try
+            {
+                var businessProfileId = GetBusinessProfileIdLogic(userId);
+
+                if (businessProfileId == 0)
+                {
+                    return false; // Nu există profil de business
+                }
+
+                var service = new ProviderServicesDbTable()
+                {
+                    providerId = businessProfileId,
+                    serviceName = data.serviceName,
+                    serviceDescription = data.serviceDescription,
+                    servicePrice = data.servicePrice,
+                    currency = data.currency,
+                };
+
+                using (var db = new ProviderProfileServicesContext())
+                {
+                    db.Services.Add(service);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in AddServiceLogic {ex.Message}");
+                return false;
+            }
+            return true;
+        }
+
+        internal List<ProviderServicesData> GetProviderServicesLogic(int profileId)
+        {
+            var existingServices = new List<ProviderServicesData>();
+
+            try
+            {
+                using (var db = new ProviderProfileServicesContext())
+                {
+                    var servicesList = db.Services.Where(s => s.providerId == profileId).ToList();
+                    foreach (var service in servicesList)
+                    {
+                        existingServices.Add(new ProviderServicesData
+                        {
+                            Id = service.Id,
+                            providerId = service.providerId,
+                            serviceName = service.serviceName,
+                            serviceDescription = service.serviceDescription,
+                            servicePrice = service.servicePrice,
+                            currency = service.currency
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error loading existing services: {ex.Message}");
+            }
+
+            return existingServices;
+        }
+
+        internal bool UpdateServiceLogic(ProviderServicesData data, int userId)
+        {
+            if (data == null ||
+                data.Id <= 0 ||
+                string.IsNullOrEmpty(data.serviceName) ||
+                data.servicePrice <= 0 ||
+                string.IsNullOrEmpty(data.serviceDescription))
+            {
+                return false;
+            }
+
+            try
+            {
+                var businessProfileId = GetBusinessProfileIdLogic(userId);
+
+                if (businessProfileId == 0)
+                {
+                    return false;
+                }
+
+                using (var db = new ProviderProfileServicesContext())
+                {
+                    var service = db.Services.FirstOrDefault(s => s.Id == data.Id && s.providerId == businessProfileId);
+
+                    if (service != null)
+                    {
+                        service.serviceName = data.serviceName;
+                        service.serviceDescription = data.serviceDescription;
+                        service.servicePrice = data.servicePrice;
+                        service.currency = data.currency;
+
+                        db.Entry(service).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in UpdateServiceLogic {ex.Message}");
+                return false;
+            }
+            return false;
+        }
+
+        internal bool DeleteServiceLogic(int serviceId, int userId)
+        {
+            try
+            {
+                var businessProfileId = GetBusinessProfileIdLogic(userId);
+
+                if (businessProfileId == 0)
+                {
+                    return false;
+                }
+
+                using (var db = new ProviderProfileServicesContext())
+                {
+                    var service = db.Services.FirstOrDefault(s => s.Id == serviceId && s.providerId == businessProfileId);
+
+                    if (service != null)
+                    {
+                        db.Services.Remove(service);
+                        db.SaveChanges();
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in DeleteServiceLogic {ex.Message}");
+                return false;
+            }
+            return false;
+        }
     }
 }

@@ -312,5 +312,37 @@ namespace EvenimentMD.BusinessLogic.Core
 
             return providerImages;
         }
+
+        public List<ProviderServicesData> GetProviderServicesForServicePageLogic(int providerId)
+        {
+            List<ProviderServicesData> providerServices = new List<ProviderServicesData>();
+
+            try
+            {
+                using (var db = new ProviderProfileServicesContext())
+                {
+                    var services = db.Services.Where(s => s.providerId == providerId).ToList();
+
+                    foreach (var service in services)
+                    {
+                        providerServices.Add(new ProviderServicesData
+                        {
+                            Id = service.Id,
+                            providerId = service.providerId,
+                            serviceName = service.serviceName,
+                            serviceDescription = service.serviceDescription,
+                            servicePrice = service.servicePrice,
+                            currency = service.currency
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error loading provider services: {ex.Message}");
+            }
+
+            return providerServices;
+        }
     }
 }

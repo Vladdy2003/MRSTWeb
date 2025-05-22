@@ -32,8 +32,14 @@ namespace EvenimentMD.Controllers
                 // Get provider images
                 List<ProviderMediaModel> providerImages = _serviceOperations.GetProviderImages(id);
 
+                // Get provider services
+                List<ProviderServicesData> providerServices = _serviceOperations.GetProviderServices(id);
+
                 // Store provider images in ViewBag to access in the view
                 ViewBag.ProviderImages = providerImages;
+
+                // Store provider services in ViewBag to access in the view
+                ViewBag.ProviderServices = providerServices;
             }
             catch (Exception ex)
             {

@@ -46,19 +46,34 @@ function convertCurrency(amount, fromCurrency, toCurrency) {
 
 function showServiceForm() {
     document.getElementById('serviceForm').classList.remove('d-none');
-    document.getElementById('emptyState').classList.add('d-none');
+
+    // Ascunde empty state dacă există
+    const emptyState = document.getElementById('emptyState');
+    if (emptyState) {
+        emptyState.style.display = 'none';
+    }
+
     document.getElementById('serviceName').focus();
 }
 
 function hideServiceForm() {
     document.getElementById('serviceForm').classList.add('d-none');
     clearForm();
-    editingServiceCard = null;
 
-    // Show empty state if no services
+    // Resetează formularul la modul de adăugare
+    document.getElementById('serviceForm').action = '/Provider/AddService';
+    document.getElementById('submitBtn').textContent = 'Salvează';
+    document.getElementById('isEditing').value = 'false';
+    document.getElementById('serviceId').value = '0';
+
+    // Verifică dacă trebuie să afișeze empty state
     const serviceList = document.getElementById('serviceList');
-    if (serviceList.children.length === 0) {
-        document.getElementById('emptyState').classList.remove('d-none');
+    const services = serviceList.querySelectorAll('[data-service-id]');
+    if (services.length === 0) {
+        const emptyState = document.getElementById('emptyState');
+        if (emptyState) {
+            emptyState.style.display = 'block';
+        }
     }
 }
 
@@ -66,129 +81,102 @@ function clearForm() {
     document.getElementById('serviceName').value = '';
     document.getElementById('servicePrice').value = '';
     document.getElementById('serviceCurrency').value = 'MDL';
-    tinymce.get('serviceDescription').setContent('');
+
+    // Clear TinyMCE content
+    if (tinymce.get('serviceDescription')) {
+        tinymce.get('serviceDescription').setContent('');
+    }
 }
 
-function addService() {
-    const serviceName = document.getElementById('serviceName').value;
-    const servicePrice = document.getElementById('servicePrice').value;
-    const serviceCurrency = document.getElementById('serviceCurrency').value;
-    const serviceDescription = tinymce.get('serviceDescription').getContent();
+function editService(serviceId, serviceName, servicePrice, currency, description) {
+    // Populează formularul cu datele existente
+    document.getElementById('serviceId').value = serviceId;
+    document.getElementById('serviceName').value = serviceName;
+    document.getElementById('servicePrice').value = servicePrice;
+    document.getElementById('serviceCurrency').value = currency;
 
-    if (!serviceName || !servicePrice) {
-        alert('Vă rugăm să completați câmpurile obligatorii');
-        return;
+    // Set content for TinyMCE
+    if (tinymce.get('serviceDescription')) {
+        tinymce.get('serviceDescription').setContent(description || '');
     }
 
-    if (editingServiceCard) {
-        // Update existing service
-        updateServiceCard(editingServiceCard, serviceName, servicePrice, serviceCurrency, serviceDescription);
-    } else {
-        // Create new service
-        createServiceCard(serviceName, servicePrice, serviceCurrency, serviceDescription);
-    }
+    // Marchează că suntem în modul de editare
+    document.getElementById('isEditing').value = 'true';
 
-    // Clear form and hide it
-    clearForm();
-    hideServiceForm();
+    // Schimbă acțiunea formularului pentru editare
+    document.getElementById('serviceForm').action = '/Provider/UpdateService?serviceId=' + serviceId;
+
+    // Schimbă textul butonului
+    document.getElementById('submitBtn').textContent = 'Actualizează';
+
+    // Afișează formularul
+    showServiceForm();
 }
 
-function createServiceCard(name, price, currency, description) {
-    const serviceList = document.getElementById('serviceList');
-    const emptyState = document.getElementById('emptyState');
+function deleteService(serviceId) {
+    if (confirm('Sigur doriți să ștergeți acest serviciu?')) {
+        // Obține tokenul anti-forgery
+        var token = document.querySelector('input[name="__RequestVerificationToken"]').value;
 
-    // Hide empty state
-    emptyState.classList.add('d-none');
+        // Trimite cererea AJAX pentru ștergere
+        fetch('/Provider/DeleteService', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: '__RequestVerificationToken=' + encodeURIComponent(token) + '&serviceId=' + serviceId
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Elimină elementul din DOM
+                    var serviceElement = document.querySelector('[data-service-id="' + serviceId + '"]');
+                    if (serviceElement) {
+                        serviceElement.remove();
+                    }
 
-    // Get conversions
-    let conversions = '';
-    if (currency === 'MDL') {
-        conversions = `≈ ${convertCurrency(price, 'MDL', 'EUR')} EUR | ${convertCurrency(price, 'MDL', 'USD')} USD`;
-    } else if (currency === 'EUR') {
-        conversions = `≈ ${convertCurrency(price, 'EUR', 'MDL')} MDL | ${convertCurrency(price, 'EUR', 'USD')} USD`;
-    } else if (currency === 'USD') {
-        conversions = `≈ ${convertCurrency(price, 'USD', 'MDL')} MDL | ${convertCurrency(price, 'USD', 'EUR')} EUR`;
+                    // Verifică dacă mai sunt servicii
+                    var remainingServices = document.querySelectorAll('[data-service-id]');
+                    if (remainingServices.length === 0) {
+                        // Afișează starea goală
+                        var serviceList = document.getElementById('serviceList');
+                        var emptyState = '<div id="emptyState" class="text-center py-5">' +
+                            '<i class="bi bi-box-seam" style="font-size: 3rem; color: #6c757d;"></i>' +
+                            '<p class="mt-3 text-muted">Nu există servicii adăugate momentan.</p>' +
+                            '</div>';
+                        serviceList.innerHTML = emptyState;
+                    }
+
+                    // Afișează mesaj de succes
+                    showMessage('Serviciul a fost șters cu succes!', 'success');
+                } else {
+                    showMessage('Eroare la ștergerea serviciului: ' + data.message, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showMessage('A apărut o eroare la ștergerea serviciului.', 'error');
+            });
     }
-
-    // Create service card
-    const col = document.createElement('div');
-    col.className = 'col-12 mb-3';
-
-    const serviceCard = document.createElement('div');
-    serviceCard.className = 'service-card p-3';
-
-    const descriptionDiv = document.createElement('div');
-    descriptionDiv.innerHTML = description || 'Fără descriere';
-
-    // Check if description is longer than 4 lines
-    const needsExpansion = checkIfDescriptionNeedsExpansion(descriptionDiv);
-
-    serviceCard.innerHTML = `
-        <div class="content-wrapper">
-            <div class="description-section">
-                <h5 class="mb-1">${name}</h5>
-                <div class="service-description text-muted mb-2">${description || 'Fără descriere'}</div>
-                ${needsExpansion ? '<div class="show-more-btn" onclick="toggleDescription(this)">Vezi mai mult...</div>' : ''}
-            </div>
-            <div class="price-section text-end">
-                <p class="service-price mb-1">${price} ${currency}</p>
-                <p class="service-price-conversions mb-2">${conversions}</p>
-                <div class="service-actions">
-                    <button class="btn btn-sm btn-outline-primary me-1" onclick="editService(this)">
-                        <i class="bi bi-pencil"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-danger" onclick="deleteService(this)">
-                        <i class="bi bi-trash"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    `;
-
-    col.appendChild(serviceCard);
-    serviceList.appendChild(col);
 }
 
-function updateServiceCard(col, name, price, currency, description) {
-    const serviceCard = col.querySelector('.service-card');
+// Păstrează doar deleteServiceLocal pentru serviciile care nu sunt încă salvate
+function deleteServiceLocal(button) {
+    if (confirm('Sigur doriți să ștergeți acest serviciu?')) {
+        const serviceCard = button.closest('.col-12');
+        serviceCard.remove();
 
-    // Get conversions
-    let conversions = '';
-    if (currency === 'MDL') {
-        conversions = `≈ ${convertCurrency(price, 'MDL', 'EUR')} EUR | ${convertCurrency(price, 'MDL', 'USD')} USD`;
-    } else if (currency === 'EUR') {
-        conversions = `≈ ${convertCurrency(price, 'EUR', 'MDL')} MDL | ${convertCurrency(price, 'EUR', 'USD')} USD`;
-    } else if (currency === 'USD') {
-        conversions = `≈ ${convertCurrency(price, 'USD', 'MDL')} MDL | ${convertCurrency(price, 'USD', 'EUR')} EUR`;
+        // Show empty state if no services left
+        const serviceList = document.getElementById('serviceList');
+        const remainingServices = serviceList.querySelectorAll('[data-service-id]');
+        if (remainingServices.length === 0) {
+            const emptyState = '<div id="emptyState" class="text-center py-5">' +
+                '<i class="bi bi-box-seam" style="font-size: 3rem; color: #6c757d;"></i>' +
+                '<p class="mt-3 text-muted">Nu există servicii adăugate momentan.</p>' +
+                '</div>';
+            serviceList.innerHTML = emptyState;
+        }
     }
-
-    const descriptionDiv = document.createElement('div');
-    descriptionDiv.innerHTML = description || 'Fără descriere';
-
-    // Check if description is longer than 4 lines
-    const needsExpansion = checkIfDescriptionNeedsExpansion(descriptionDiv);
-
-    serviceCard.innerHTML = `
-        <div class="content-wrapper">
-            <div class="description-section">
-                <h5 class="mb-1">${name}</h5>
-                <div class="service-description text-muted mb-2">${description || 'Fără descriere'}</div>
-                ${needsExpansion ? '<div class="show-more-btn" onclick="toggleDescription(this)">Vezi mai mult...</div>' : ''}
-            </div>
-            <div class="price-section text-end">
-                <p class="service-price mb-1">${price} ${currency}</p>
-                <p class="service-price-conversions mb-2">${conversions}</p>
-                <div class="service-actions">
-                    <button class="btn btn-sm btn-outline-primary me-1" onclick="editService(this)">
-                        <i class="bi bi-pencil"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-danger" onclick="deleteService(this)">
-                        <i class="bi bi-trash"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    `;
 }
 
 function checkIfDescriptionNeedsExpansion(descriptionElement) {
@@ -223,41 +211,70 @@ function toggleDescription(button) {
     }
 }
 
-function editService(button) {
-    const serviceCard = button.closest('.col-12');
-    const nameElement = serviceCard.querySelector('h5');
-    const priceElement = serviceCard.querySelector('.service-price');
-    const descriptionElement = serviceCard.querySelector('.service-description');
-
-    // Extract data
-    const name = nameElement.textContent;
-    const priceText = priceElement.textContent.split(' ');
-    const price = parseInt(priceText[0]);
-    const currency = priceText[1];
-    const description = descriptionElement.innerHTML;
-
-    // Fill the form
-    document.getElementById('serviceName').value = name;
-    document.getElementById('servicePrice').value = price;
-    document.getElementById('serviceCurrency').value = currency;
-    tinymce.get('serviceDescription').setContent(description === 'Fără descriere' ? '' : description);
-
-    // Set editing state
-    editingServiceCard = serviceCard;
-
-    // Show form
-    showServiceForm();
+function escapeHtml(text) {
+    if (!text) return '';
+    const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    return text.replace(/[&<>"']/g, function (m) { return map[m]; });
 }
 
-function deleteService(button) {
-    if (confirm('Sigur doriți să ștergeți acest serviciu?')) {
-        const serviceCard = button.closest('.col-12');
-        serviceCard.remove();
+function showMessage(message, type) {
+    // Create alert element
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type === 'success' ? 'success' : 'danger'} alert-dismissible fade show`;
+    alertDiv.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
 
-        // Show empty state if no services left
-        const serviceList = document.getElementById('serviceList');
-        if (serviceList.children.length === 0) {
-            document.getElementById('emptyState').classList.remove('d-none');
+    // Insert at the beginning of card body
+    const cardBody = document.querySelector('.card-body');
+    cardBody.insertBefore(alertDiv, cardBody.firstChild);
+
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+        if (alertDiv.parentNode) {
+            alertDiv.remove();
         }
-    }
+    }, 5000);
 }
+
+// Initialize on document ready
+document.addEventListener('DOMContentLoaded', function () {
+    // Initialize form validation if needed
+    const serviceForm = document.getElementById('serviceForm');
+    if (serviceForm) {
+        serviceForm.addEventListener('submit', function (e) {
+            const serviceName = document.getElementById('serviceName').value.trim();
+            const servicePrice = document.getElementById('servicePrice').value.trim();
+
+            if (!serviceName || !servicePrice) {
+                e.preventDefault();
+                showMessage('Vă rugăm să completați câmpurile obligatorii', 'error');
+                return false;
+            }
+
+            if (parseFloat(servicePrice) <= 0) {
+                e.preventDefault();
+                showMessage('Prețul trebuie să fie mai mare decât 0', 'error');
+                return false;
+            }
+        });
+    }
+
+    // Auto-hide alerts after page load
+    setTimeout(() => {
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(alert => {
+            if (alert.classList.contains('alert-success')) {
+                const bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            }
+        });
+    }, 5000);
+});

@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\Currency.cs" />
     <Compile Include="Enums\MediaType.cs" />
     <Compile Include="Enums\ServiceType.cs" />
     <Compile Include="Enums\LoginResult.cs" />
@@ -61,6 +62,8 @@
     <Compile Include="Models\Provider\ProviderDbTable.cs" />
     <Compile Include="Models\Provider\ProviderMediaDb.cs" />
     <Compile Include="Models\Provider\ProviderMediaModel.cs" />
+    <Compile Include="Models\Provider\ProviderServicesData.cs" />
+    <Compile Include="Models\Provider\ProviderServicesDbTable.cs" />
     <Compile Include="Models\Session\USessionDbTable.cs" />
     <Compile Include="Models\User\UDbTable.cs" />
     <Compile Include="Models\User\UserActionResp\UserCookieResp.cs" />

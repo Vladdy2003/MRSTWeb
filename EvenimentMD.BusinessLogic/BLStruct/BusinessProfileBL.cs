@@ -39,5 +39,31 @@ namespace EvenimentMD.BusinessLogic.BLStruct
         {
             return DeleteMediaLogic(mediaId, userId);
         }
+
+        public List<ProviderMediaModel> GetProviderMediaList(int profileId)
+        {
+            return GetProviderMediaListLogic(profileId);
+        }
+
+        public bool AddService(ProviderServicesData data, int userId)
+        {
+            return AddServiceLogic(data, userId);
+        }
+
+        public List<ProviderServicesData> GetProviderServices(int profileId)
+        {
+            return GetProviderServicesLogic(profileId);
+        }
+
+        public bool UpdateService(ProviderServicesData serviceData, int userId)
+        {
+            return UpdateServiceLogic(serviceData, userId);
+        }
+
+        public bool DeleteService(int serviceId, int userId)
+        {
+            return DeleteServiceLogic(serviceId, userId);
+        }
+
     }
 }
