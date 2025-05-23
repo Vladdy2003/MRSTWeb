@@ -19,18 +19,12 @@ namespace EvenimentMD.BusinessLogic.BLStruct
 
         public bool EmailExists(string email)
         {
-            using (var db = new UserContext())
-            {
-                return db.Users.Any(u => u.email == email);
-            }
+            return EmailExistsLogic(email);
         }
 
         public bool PhoneNumberExists(string phoneNumber)
         {
-            using (var db = new UserContext())
-            {
-                return db.Users.Any(u => u.phoneNumber == phoneNumber);
-            }
+            return PhoneNumberExistsLogic(phoneNumber);
         }
     }
 }

@@ -13,6 +13,7 @@ using EvenimentMD.Domain.Models.Session;
 using System.Data.Entity;
 using EvenimentMD.Domain.Models.Provider;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 
 namespace EvenimentMD.BusinessLogic.Core
 {
@@ -91,6 +92,22 @@ namespace EvenimentMD.BusinessLogic.Core
                 // Loghează excepția
                 Console.WriteLine($"Error in UserSignUpLogic: {ex.Message}");
                 return null;
+            }
+        }
+
+        public bool EmailExistsLogic(string email)
+        {
+            using (var db = new UserContext())
+            {
+                return db.Users.Any(u => u.email == email);
+            }
+        }
+
+        public bool PhoneNumberExistsLogic(string phoneNumber)
+        {
+            using (var db = new UserContext())
+            {
+                return db.Users.Any(u => u.phoneNumber == phoneNumber);
             }
         }
 
